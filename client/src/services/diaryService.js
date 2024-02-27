@@ -1,6 +1,6 @@
-const getDiaryEntries = async () => {
+const getDiaryEntries = async function() {
     const token = localStorage.getItem('token');
-    console.log(token);
+    //console.log(token);
     const response = await fetch('http://localhost:3000/api/entries', {
       headers: {
         'Authorization': 'Bearer ' + token
@@ -13,3 +13,5 @@ const getDiaryEntries = async () => {
       return response.json();
     };
 export { getDiaryEntries };
+
+//todo: const postNewEntry = async function() {....}

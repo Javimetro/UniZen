@@ -1,6 +1,6 @@
 import { getDiaryEntries } from '../services/diaryService.js';
 
-async function createDiaryCards() {
+const createDiaryCards = async function(parentId) { // parentId as parametrer, so function can be reused
   try {
     const diaryData = await getDiaryEntries();
 
@@ -34,13 +34,17 @@ async function createDiaryCards() {
 
       section.appendChild(card);
     });
-    const h3Element = document.querySelector('h3');
-    h3Element.parentNode.insertBefore(section, h3Element.nextSibling);
+
+    const parent = document.getElementById(parentId);
+    const h3Element = document.createElement('h3');
+    parent.appendChild(h3Element);
+    parent.insertBefore(section, h3Element.nextSibling);
 
   } catch (error) {
     console.error('Error creating diary cards with fetch:', error);
   }
 }
 
+//todo: const createEntryForm = async function(parentId) {
 
-export {createDiaryCards}
+export { createDiaryCards }
