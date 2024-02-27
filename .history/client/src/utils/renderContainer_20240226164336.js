@@ -1,21 +1,8 @@
-import '/styles/style.css';
+import { getDiaryEntries } from '/services/DiaryService.js';
 
-// for adding the token to the storage of the browser: open devtools, console and add: localStorage.setItem('token', 'yourToken');  now browser nows the token and front end can get it from there. This is temporal. I should implement post form from frontend to back like: user.. password..
-//////////////////////////////////
-
-async function createDiaryCardsWithFetch() {
+async function createDiaryCards() {
   try {
-    const token = localStorage.getItem('token');
-    console.log(token);
-    const response = await fetch('http://localhost:3000/api/entries', {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    })
-    if (!response.ok) {
-      throw new Error('Failed to fetch diary entries');
-    }
-    const diaryData = await response.json();
+    const diaryData = await getDiaryEntries();
 
     const section = document.createElement('section');
     section.classList.add('card-area');
@@ -47,16 +34,13 @@ async function createDiaryCardsWithFetch() {
 
       section.appendChild(card);
     });
-
     const h3Element = document.querySelector('h3');
     h3Element.parentNode.insertBefore(section, h3Element.nextSibling);
+
   } catch (error) {
     console.error('Error creating diary cards with fetch:', error);
   }
 }
 
-document.getElementById('fetch-diary').addEventListener('click', createDiaryCardsWithFetch);
 
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM fully loaded');
-});
+export {createDiaryCards}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lepo</title>
+    <link rel="stylesheet" href="/styles/style.css"> <!-- Link to CSS file -->
+</head>
+<body>
+    <h3 id="kortti">4. Flexboxilla tehty kortti + Fetch </h3>
+    <button id="fetch-diary">Hae päiväkirjat</button>
+
+
+
+    <!-- this script tag to link your JavaScript file -->
+    <script type="module" src="/src/main.js"></script>
+
+    <button id="logout-button">Logout</button>
+
+    <script>
+    document.getElementById('logout-button').addEventListener('click', function() {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    });
+    </script>
+</body>
+</html>

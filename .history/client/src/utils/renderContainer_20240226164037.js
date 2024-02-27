@@ -1,4 +1,4 @@
-import { getDiaryEntries } from '../services/diaryService.js';
+import { getDiaryEntries } from '/src/services/DiaryService.js';
 
 async function createDiaryCards() {
   try {

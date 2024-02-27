@@ -19,7 +19,7 @@ const postLogin = async (req, res) => {
   //console.log(match)
   if (match) {
     delete user.password; // If the passwords match, the function deletes the password from the user object (to avoid sending it in the response),
-    const token = jwt.sign(user, process.env.JWT_SECRET, {expiresIn: '24h'}); // A token is created after inputting the password as part of the process of user authentication. This token, a JSON Web Token (JWT), is used to maintain a session for the user without needing to re-enter the password for each request.
+    const token = jwt.sign(user, process.env.JWT_SECRET, {expiresIn: '24h'}); // A token is created after inputting the password as part of the process of user authentication. This token, often a JSON Web Token (JWT), is used to maintain a session for the user without needing to re-enter the password for each request.
     return res.json({message: 'logged in successfully', user, token});
   } else {
     return res
