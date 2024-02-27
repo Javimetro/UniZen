@@ -16,7 +16,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
     const data = await response.json();
     localStorage.setItem('token', data.token);
     alert(data.message);
-    window.location.href = 'menu.html';// Redirect to another page (public folder goes by default, not need to specify)
+    window.location.href = 'index.html';// Redirect to another page or update the UI
 
   } else {
     const errorData = await response.json();
