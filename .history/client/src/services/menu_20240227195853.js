@@ -64,7 +64,7 @@ document.getElementById('oldEntries').addEventListener('click', function() {
   var h2 = document.createElement('h2');
   h2.textContent = 'Old diary entries';
   var div = document.createElement('div');
-  createDiaryCards('content'); //imported from other file. same should be done with form above
+  createDiaryCards('content');
   contentDiv.appendChild(h2);
   contentDiv.appendChild(div);
 });

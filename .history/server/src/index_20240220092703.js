@@ -11,7 +11,6 @@ import authRouter from './routes/auth-router.mjs';
 const hostname = '127.0.0.1';
 const port = 3000;
 const app = express();
-import {errorHandler, notFoundHandler} from './middlewares/error-handler.mjs';
 
 // middleware, joka lisää CORS-otsakkeen jokaiseen lähtevään vastaukseen.
 // Eli kerrotaan selaimelle, että tämä palvelin sallii AJAX-pyynnöt
@@ -47,20 +46,6 @@ app.use('/api/users', userRouter);
 
 // User authentication
 app.use('/api/auth', authRouter);
-
-/*Route for testing "all errors" errorHandler function: (it worked)
-make get request to "http://localhost:3000/error" for testing it. It should give error 500.
-app.get('/error', (req, res, next) => {
-  const error = new Error('Test Error');
-  error.status = 0;
-  next(error);
-});
-*/
-
-// Default 404 not found
-app.use(notFoundHandler);
-// Error handler for sending response all error cases
-app.use(errorHandler);
 
 // Start the server
 app.listen(port, hostname, () => {

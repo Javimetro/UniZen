@@ -8,7 +8,7 @@ window.onload = function() {
 };
 
 
-// this function should be move to other file and import it from there to here
+
 document.getElementById('newEntry').addEventListener('click', function() {
   var contentDiv = document.getElementById('content');
   contentDiv.innerHTML = ''; // Clear the content div
@@ -64,7 +64,7 @@ document.getElementById('oldEntries').addEventListener('click', function() {
   var h2 = document.createElement('h2');
   h2.textContent = 'Old diary entries';
   var div = document.createElement('div');
-  createDiaryCards('content'); //imported from other file. same should be done with form above
+  createDiaryCards();
   contentDiv.appendChild(h2);
   contentDiv.appendChild(div);
 });

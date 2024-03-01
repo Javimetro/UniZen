@@ -8,32 +8,28 @@ import {
 } from '../models/entry-model.mjs';
 import {avgHoursSleptCalculator} from '../services/entry-services.mjs';
 
-const getEntries = async (req, res, next) => {
+const getEntries = async (req, res) => {
   // return only logged in user's own entries
   // - get user's id from token (req.user.user_id)
   const result = await listAllEntriesByUserId(req.user.user_id);
-  if (result.error) {
-    const error = new Error(result.message || 'An error occurred');
-    error.status = result.error;
-    return next(error);
+  if (!result.error) {
+    res.json(result);
+  } else {
+    res.status(500);
+    res.json(result);
   }
-  res.json(result);
 };
 
 // now only admins can check other users entries
-const getEntryById = async (req, res, next) => {
+const getEntryById = async (req, res) => {
   // Check if the user is authenticated (has a valid JWT token)
   if (!req.user) {
-    const error = new Error('Unauthorized: User not authenticated');
-    error.status = 401;
-    return next(error);
+    return res.status(401).json({ error: 401, message: 'Unauthorized: User not authenticated' });
   }
 
   // Check if the authenticated user is an admin
   if (req.user.user_level !== '1') {
-    const error = new Error('Forbidden: Insufficient permissions');
-    error.status = 403;
-    return next(error);
+    return res.status(403).json({ error: 403, message: 'Forbidden: Insufficient permissions' });
   }
 
   // Proceed with retrieving the entry if the user is authenticated and is an admin
@@ -41,9 +37,7 @@ const getEntryById = async (req, res, next) => {
   if (entry) {
     res.json(entry);
   } else {
-    const error = new Error('Not Found: Entry does not exist');
-    error.status = 404;
-    return next(error);
+    res.sendStatus(404);
   }
 };
 
@@ -111,26 +105,22 @@ const putEntry = async (req, res, next) => {
   }
 };
 
-const deleteEntry = async (req, res, next) => {
+const deleteEntry = async (req, res) => {
   const result = await deleteEntryById(req.params.id);
   if (result.error) {
-    const error = new Error(result.message || 'An error occurred');
-    error.status = result.error;
-    return next(error);
+    return res.status(result.error).json(result);
   }
   return res.json(result);
 };
 
-const getAvgHoursSleptByUserId = async (req, res, next) => {
+const getAvgHoursSleptByUserId = async (req, res) => {
   try {
     const userId = req.params.id; // Get user ID from route parameter
     const loggedInUserId = req.user.user_id; // Get ID of the logged-in user
 
     // Check if the logged-in user matches the requested user ID
     if (parseInt(userId, 10) !== loggedInUserId) {
-      const error = new Error('You are not authorized to view this user\'s stats.');
-      error.status = 403;
-      return next(error);
+      return res.status(403).json({ error: 'Forbidden', message: 'You are not authorized to view this user\'s stats.' });
     }
 
     // Calculate and return the average hours slept by the logged-in user
@@ -138,8 +128,7 @@ const getAvgHoursSleptByUserId = async (req, res, next) => {
     res.json({ userId, averageHoursSlept });
   } catch (error) {
     console.error('Error fetching average hours slept:', error);
-    error.status = 500;
-    next(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 

@@ -48,14 +48,12 @@ app.use('/api/users', userRouter);
 // User authentication
 app.use('/api/auth', authRouter);
 
-/*Route for testing "all errors" errorHandler function: (it worked)
-make get request to "http://localhost:3000/error" for testing it. It should give error 500.
+//Route for testing errorHandler function:
 app.get('/error', (req, res, next) => {
   const error = new Error('Test Error');
-  error.status = 0;
+  error.status = 400;
   next(error);
 });
-*/
 
 // Default 404 not found
 app.use(notFoundHandler);

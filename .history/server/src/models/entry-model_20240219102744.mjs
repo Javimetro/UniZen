@@ -2,7 +2,6 @@
 // called with await from the controller
 import promisePool from '../utils/database.mjs';
 
-
 const listAllEntries = async () => {
   try {
     const [rows] = await promisePool.query('SELECT * FROM DiaryEntries');

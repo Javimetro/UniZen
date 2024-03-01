@@ -16,7 +16,7 @@ const userRouter = express.Router();
 
 // Validation rules for request body fields
 const userValidationRules = [
-  body('username').trim().notEmpty().withMessage('Name is required'),
+  body('name').trim().notEmpty().withMessage('Name is required'),
   body('email').trim().isEmail().withMessage('Invalid email'),
   body('password')
     .trim() // used to remove white spaces that user could imput. whitespaces can bring errors

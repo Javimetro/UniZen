@@ -1,4 +1,31 @@
 import promisePool from '../utils/database.mjs';
+import bcrypt from 'bcryptjs';
+
+
+// created to hash all password that were in db alrady.
+const updatePasswords = async () => {
+  try {
+    // Retrieve all users from the database
+    const sql = 'SELECT user_id, password FROM Users';
+    const [result] = await promisePool.query(sql);
+
+    // Iterate over the users and update their passwords
+    for (const row of result) {
+      const hashedPassword = await bcrypt.hash(row.password, 10);
+
+      // Update the user's password in the database
+      const updateQuery = 'UPDATE Users SET password = ? WHERE user_id = ?';
+      await promisePool.query(updateQuery, [hashedPassword, row.user_id]);
+    }
+
+    console.log('All passwords updated successfully');
+  } catch (error) {
+    console.error('Error updating passwords:', error);
+  }
+};
+
+// Call the function to update passwords for all users
+// updatePasswords();
 
 
 const listAllUsers = async () => {
@@ -34,21 +61,16 @@ const selectUserById = async (id) => {
 
 const insertUser = async (user) => {
   try {
-    // Validate user input. if not name or ("||") password or mail then sends error 400
-    if (!user.username || !user.password || !user.email) {
-      return { error: 400, message: 'Missing required fields' };
-    }
-
     const sql =
-      'INSERT INTO Users (username, password, email, user_level) VALUES (?, ?, ?, ?)';
-    const params = [user.username, user.password, user.email, 2]; // Set user_level to 2 by default
+      'INSERT INTO Users (username, password, email) VALUES (?, ?, ?)';
+    const params = [user.username, user.password, user.email];
     const [result] = await promisePool.query(sql, params);
     // console.log(result);
-    return { message: 'new user created', user_id: result.insertId };
+    return {message: 'new user created', user_id: result.insertId};
   } catch (error) {
-    // now duplicate entry error is generic 500 error
+    // now duplicate entry error is generic 500 error, should be fixed to 400 ?
     console.error('insertUser', error);
-    return { error: 500, message: 'db error' };
+    return {error: 500, message: 'db error'};
   }
 };
 
