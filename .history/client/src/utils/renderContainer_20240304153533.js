@@ -1,9 +1,9 @@
-import * as diaryService from '../services/diaryService.js';
+import { getDiaryEntries } from '../services/diaryService.js';
 
-//creates cards for displaying the data from user's old
+//creates cards for displaying the data from user's old entries
 const createDiaryCards = async function(parentId) { // parentId as parametrer, so function can be reused
   try {
-    const diaryData = await diaryService.getEntries();
+    const diaryData = await getDiaryEntries();
 
     const section = document.createElement('section');
     section.classList.add('card-area');
@@ -92,35 +92,6 @@ const createEntryForm = function(parentId) {
   form.appendChild(sleepHours);
   form.appendChild(notes);
 
-  // Add a submit button to the form
-  var submitButton = document.createElement('button');
-  submitButton.setAttribute('type', 'submit');
-  submitButton.textContent = 'Submit';
-  form.appendChild(submitButton);
-
-  // Add an event listener to the form
-  form.addEventListener('submit', async function(event) {
-    event.preventDefault(); // Prevent the form from being submitted in the traditional way
-
-    // Gather the data from the form fields
-    var entryData = {
-      user_id: userId.value,
-      entry_date: entryDate.value,
-      mood: mood.value,
-      weight: Number(weight.value),
-      sleep_hours: Number(sleepHours.value),
-      notes: notes.value
-    };
-
-    // Call the postEntry function to send the data to the server
-    try {
-      var newEntry = await diaryService.postEntry(entryData);
-      console.log('New entry created:', newEntry);
-    } catch (error) {
-      console.error('Failed to create new entry:', error);
-    }
-  });
-
   // Add form to content div
   contentDiv.appendChild(h2);
   contentDiv.appendChild(form);
@@ -132,11 +103,11 @@ const createEntryForm = function(parentId) {
   parent.insertBefore(section, h3Element.nextSibling);
 }
 
-//cleans the div and add new data
-const renderFunction = function(subFunction) {
+//creates new div for adding inside it the content of other subfunctions
+const createNewDiv = function(subFunction) {
   var contentDiv = document.getElementById('content');
   contentDiv.innerHTML = ''; // Clear the content div
   subFunction(); // Call the passed function
 }
 
-export { createDiaryCards, createEntryForm, renderFunction }
+export { createDiaryCards, createEntryForm, createNewDiv }

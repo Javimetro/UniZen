@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Lepo</title>
     <link rel="stylesheet" href="/styles/style.css"> <!-- Link to CSS file -->
     <link rel="icon" href="/public/assets/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <form id="login-form">
+  <form id="register-form">
     <label for="username">Username:</label><br>
     <input type="text" id="username" name="username"><br>
     <label for="password">Password:</label><br>
     <input type="password" id="password" name="password"><br>
-    <input type="submit" value="Login">
+    <label for="email">Email</label><br>
+    <input type="email" id="email" name="email"><br>
+    <input type="submit" value="Register">
   </form>
 
-  <script src="/src/login.js"></script>
+  <script src="/src/services/register.js"></script>
 </body>
 </html>
