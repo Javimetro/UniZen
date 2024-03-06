@@ -41,17 +41,26 @@ const findEntryById = async (id) => {
   }
 };
 
-const addEntry = async (entry) => {
-  const {user_id, entry_date, mood, weight, sleep_hours, notes} = entry;
+const addEntry = async (newEntry) => {
+  // Destructure the newEntry object to get the individual properties
+  const {user_id, entry_date, mood, weight, sleep_hours, notes} = newEntry;
+  //console.log(newEntry)
+
+  // Construct a SQL query to insert a new entry into the DiaryEntries table
   const sql = `INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes)
   VALUES (?, ?, ?, ?, ?, ?)`;
+
+  // Construct a parameters array to use with the SQL query
   const params = [user_id, entry_date, mood, weight, sleep_hours, notes];
+
   try {
-    // change query method?
+    // Execute the SQL query with the parameters
     const rows = await promisePool.query(sql, params);
-    // console.log('rows', rows);
+
+    // Return an object with the ID of the inserted entry
     return {entry_id: rows[0].insertId};
   } catch (e) {
+    // If an error occurs, log it and return an object with the error message
     console.error('error', e.message);
     return {error: e.message};
   }

@@ -1,4 +1,6 @@
 import { validationResult } from 'express-validator';
+import jwt from 'jsonwebtoken';
+import 'dotenv/config';
 import {
   listAllEntries,
   findEntryById,
@@ -57,11 +59,24 @@ const postEntry = async (req, res, next) => {
     return next(error);
   }
 
-  const {user_id, entry_date, mood, weight, sleep_hours, notes} = req.body;
-  if (entry_date && (weight || mood || sleep_hours || notes) && user_id) {
+  // Extract the JWT from the Authorization header
+  const token = req.headers.authorization.split(' ')[1];
+  // Verify the JWT and extract the user's ID
+  const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+  // console.log(decodedToken);
+  const user_id = decodedToken.user_id;
+
+  // Extract the other properties from the request body
+  const { entry_date, mood, weight, sleep_hours, notes } = req.body;
+
+  if (entry_date && (weight || mood || sleep_hours || notes)) {
     try {
-      const result = await addEntry(req.body);
+      const newEntry = { user_id, entry_date, mood, weight, sleep_hours, notes };
+      // Include the user's ID when calling addEntry
+      const result = await addEntry(newEntry);
+      console.log(result);
       if (result.entry_id) {
+        res.setHeader('Content-Type', 'application/json');
         res.status(201);
         res.json({message: 'New entry added.', ...result});
       } else {
@@ -106,7 +121,7 @@ const putEntry = async (req, res, next) => {
       return next(error);
     }
   } else {
-    const error = new Error('Bad request');
+    const error = new Error('Bad request at postEntry');
     error.status = 400;
     return next(error);
   }

@@ -8,7 +8,7 @@ import {selectUserByUsername} from '../models/user-model.mjs';
 const postLogin = async (req, res, next) => {
   try {
     const {username, password} = req.body;
-    const user = await selectUserByUsername(username);
+    const user = await selectUserByUsername(username); // here all users info is selected from db
 
     if (user.error) {
       const error = new Error(user.message || 'An error occurred');
@@ -20,7 +20,7 @@ const postLogin = async (req, res, next) => {
 
     if (match) {
       delete user.password;
-      const token = jwt.sign(user, process.env.JWT_SECRET, {expiresIn: '24h'});
+      const token = jwt.sign(user, process.env.JWT_SECRET, {expiresIn: '24h'}); //and here all that user info (like the id) are added to the jwt(json web token)
       return res.json({message: 'logged in successfully', user, token});
     } else {
       const error = new Error('Invalid username or password');
