@@ -57,10 +57,6 @@ const createEntryForm = function(parentId) {
   var form = document.createElement('form');
 
   // Create form fields
-  var userId = document.createElement('input');
-  userId.setAttribute('type', 'text');
-  userId.setAttribute('name', 'user_id');
-  userId.setAttribute('placeholder', 'User ID');
 
   var entryDate = document.createElement('input');
   entryDate.setAttribute('type', 'date');
@@ -85,7 +81,6 @@ const createEntryForm = function(parentId) {
   notes.setAttribute('name', 'notes');
 
   // Add form fields to form
-  form.appendChild(userId);
   form.appendChild(entryDate);
   form.appendChild(mood);
   form.appendChild(weight);
@@ -104,7 +99,6 @@ const createEntryForm = function(parentId) {
 
     // Gather the data from the form fields
     var entryData = {
-      user_id: userId.value,
       entry_date: entryDate.value,
       mood: mood.value,
       weight: Number(weight.value),
