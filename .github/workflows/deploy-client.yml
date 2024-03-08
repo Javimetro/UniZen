@@ -13,20 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set GITHUB_WORKSPACE
+        run: echo "GITHUB_WORKSPACE=$PWD" >> $GITHUB_ENV
+
       - name: Install dependencies and build
         run: |
           cd client
           npm install
           npm run build
 
-      - name: Verify dist directory
-        run: |
-          ls -lah client/dist
-
-      - name: Echo dist path and workspace
-        run: |
-          echo "Workspace: $GITHUB_WORKSPACE"
-          echo "Dist path: $GITHUB_WORKSPACE/client/dist/"
+      - name: Echo GITHUB_WORKSPACE
+        run: echo "GITHUB_WORKSPACE is set to $GITHUB_WORKSPACE"
 
       - name: Deploy to Apache
         uses: appleboy/ssh-action@master
@@ -35,8 +32,7 @@ jobs:
           username: ${{ secrets.APACHE_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.APACHE_SSH_PORT }}
-          script:  |
-              echo "GITHUB_WORKSPACE is set to $GITHUB_WORKSPACE"
-              echo "Attempting to rsync $GITHUB_WORKSPACE/client/dist/ to /var/www/html/"
-              rsync -av --delete $GITHUB_WORKSPACE/client/dist/ /var/www/html/
+          script: |
+            echo "Attempting to rsync $GITHUB_WORKSPACE/client/dist/ to /var/www/html/"
+            rsync -av --delete $GITHUB_WORKSPACE/client/dist/ /var/www/html/
 
