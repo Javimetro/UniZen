@@ -35,7 +35,8 @@ jobs:
           username: ${{ secrets.APACHE_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.APACHE_SSH_PORT }}
-          script: |
-            echo "Attempting to rsync $GITHUB_WORKSPACE/client/dist/ to /var/www/html/"
-            rsync -av --delete $GITHUB_WORKSPACE/client/dist/ /var/www/html/
+          script:  |
+              echo "GITHUB_WORKSPACE is set to $GITHUB_WORKSPACE"
+              echo "Attempting to rsync $GITHUB_WORKSPACE/client/dist/ to /var/www/html/"
+              rsync -av --delete $GITHUB_WORKSPACE/client/dist/ /var/www/html/
 
