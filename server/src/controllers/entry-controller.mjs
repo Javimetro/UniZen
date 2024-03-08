@@ -74,9 +74,7 @@ const postEntry = async (req, res, next) => {
       const newEntry = { user_id, entry_date, mood, weight, sleep_hours, notes };
       // Include the user's ID when calling addEntry
       const result = await addEntry(newEntry);
-      console.log(result);
       if (result.entry_id) {
-        res.setHeader('Content-Type', 'application/json');
         res.status(201);
         res.json({message: 'New entry added.', ...result});
       } else {
