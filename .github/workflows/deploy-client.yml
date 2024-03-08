@@ -22,9 +22,9 @@ jobs:
           npm install
           npm run build
 
-      - name: Echo GITHUB_WORKSPACE
-        run: echo "GITHUB_WORKSPACE is set to $GITHUB_WORKSPACE"
-
+      - name: Save GITHUB_WORKSPACE path
+        run: echo $GITHUB_WORKSPACE > workspace_path.txt
+      
       - name: Deploy to Apache
         uses: appleboy/ssh-action@master
         with:
@@ -33,6 +33,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.APACHE_SSH_PORT }}
           script: |
-            echo "Attempting to rsync $GITHUB_WORKSPACE/client/dist/ to /var/www/html/"
-            rsync -av --delete $GITHUB_WORKSPACE/client/dist/ /var/www/html/
+            WORKSPACE_PATH=$(<workspace_path.txt)
+            echo "Attempting to rsync $WORKSPACE_PATH/client/dist/ to /var/www/html/"
+            rsync -av --delete $WORKSPACE_PATH/client/dist/ /var/www/html/
+
 
