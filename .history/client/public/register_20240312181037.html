@@ -21,5 +21,40 @@
   </form>
 
   <script src="../src/register.js"></script>
+  <script>
+    function validateForm() {
+      var password = document.getElementById("password").value;
+
+      if (password.length < 8) {
+        alert("8 characters in that password...");
+        return false;
+      }
+
+      return true;
+    }
+
+    window.onload = function() {
+      var email = document.getElementById("email");
+      var emailInfoBox = document.getElementById("emailInfoBox");
+      var password = document.getElementById("password");
+      var passwordInfoBox = document.getElementById("passwordInfoBox");
+
+      email.addEventListener("focus", function() {
+        emailInfoBox.style.display = "inline";
+      });
+
+      email.addEventListener("blur", function() {
+        emailInfoBox.style.display = "none";
+      });
+
+      password.addEventListener("focus", function() {
+        passwordInfoBox.style.display = "inline";
+      });
+
+      password.addEventListener("blur", function() {
+        passwordInfoBox.style.display = "none";
+      });
+    }
+  </script>
 </body>
 </html>

@@ -47,7 +47,7 @@ const createDiaryCards = async function(parentId) { // parentId as parametrer, s
 }
 
 //function to create the form for input data to "new entry". Is used when user clicks "add a new diary entry"
-// it uses "parentId" as parametrer so it can be reused inside any element.
+
 const createEntryForm = function(parentId) {
 
   var contentDiv = document.getElementById(parentId);
