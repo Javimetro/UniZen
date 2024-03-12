@@ -1,7 +1,7 @@
 // menu.js
 import { createDiaryCards, createEntryForm, renderFunction } from '/src/utils/renderContainer.js';
 
-//check at the beginning to redirect the user to the login page if she is not logged in
+//check at the beginning to redirect the user to the login page if they're not logged in
 if (!localStorage.getItem('token')) {
   window.location.href = "login.html";
 }

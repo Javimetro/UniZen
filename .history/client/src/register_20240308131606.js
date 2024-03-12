@@ -24,26 +24,3 @@ document.getElementById('register-form').addEventListener('submit', async functi
     alert(errorData.message);
   }
 });
-
-window.onload = function() {
-  var email = document.getElementById("email");
-  var emailInfoBox = document.getElementById("emailInfoBox");
-  var password = document.getElementById("password");
-  var passwordInfoBox = document.getElementById("passwordInfoBox");
-
-  email.addEventListener("focus", function() {
-    emailInfoBox.style.display = "inline";
-  });
-
-  email.addEventListener("blur", function() {
-    emailInfoBox.style.display = "none";
-  });
-
-  password.addEventListener("focus", function() {
-    passwordInfoBox.style.display = "inline";
-  });
-
-  password.addEventListener("blur", function() {
-    passwordInfoBox.style.display = "none";
-  });
-}
