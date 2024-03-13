@@ -10,4 +10,4 @@ This is a HyTe project where I aim to build an app that works as a diary where u
   4. NLP Service: Performs sentiment analysis and keyword extraction, returns results.
   5. Controller: Generates recommendations based on the analysis, combines this with the original entry, and stores everything in the database.
   6. Response: The controller sends the recommendations back to the frontend to be displayed to the user.
-- Render "Change user info" in the front-end.
+
