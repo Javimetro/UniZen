@@ -27,6 +27,11 @@ document.getElementById('oldEntries').addEventListener('click', function() {
   });
 });
 
+//brings user to modifyCredentials.html
+document.getElementById('modifyCredentials').addEventListener('click', function() {
+  window.location.href = 'modifyCredentials.html';
+});
+
 // logout that redirects to login and remove token so user can no go back without new login
 document.getElementById("logout").addEventListener("click", function() {
   localStorage.removeItem('token'); // remove the token
