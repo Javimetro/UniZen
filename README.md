@@ -1,6 +1,8 @@
 # Project - "Lepo"
 
 This is a HyTe project where I aim to build an app that works as a diary where users can input about their mental state. The idea is that the app recommends mind training techniques to the users based on their inputs.
+## Database Schema
+![Lepo Database Schema](./documentation/database/Lepo-database-diagram.jpg)
 
 ## TO DO:
 - Implement NPL (Natural Language Processing) in the back end and render it in the front-end.
