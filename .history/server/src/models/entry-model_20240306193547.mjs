@@ -5,7 +5,7 @@ import promisePool from '../utils/database.mjs';
 
 const listAllEntries = async () => {
   try {
-    const [rows] = await promisePool.query('SELECT * FROM DiaryEntries');
+    const [rows] = await promisePool.query('SELECT * FROMentries');
     // console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -16,7 +16,7 @@ const listAllEntries = async () => {
 
 const listAllEntriesByUserId = async (id) => {
   try {
-    const sql = 'SELECT * FROM DiaryEntries WHERE user_id=?';
+    const sql = 'SELECT * FROMentries WHERE user_id=?';
     const params = [id];
     const [rows] = await promisePool.query(sql, params);
     // console.log('rows', rows);
@@ -30,7 +30,7 @@ const listAllEntriesByUserId = async (id) => {
 const findEntryById = async (id) => {
   try {
     const [rows] = await promisePool.query(
-        'SELECT * FROM DiaryEntries WHERE entry_id = ?',
+        'SELECT * FROMentries WHERE entry_id = ?',
         [id],
     );
     // console.log('rows', rows);
@@ -46,8 +46,8 @@ const addEntry = async (newEntry) => {
   const {user_id, entry_date, mood, weight, sleep_hours, notes} = newEntry;
   //console.log(newEntry)
 
-  // Construct a SQL query to insert a new entry into the DiaryEntries table
-  const sql = `INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes)
+  // Construct a SQL query to insert a new entry into theentries table
+  const sql = `INSERT INTOentries (user_id, entry_date, mood, weight, sleep_hours, notes)
   VALUES (?, ?, ?, ?, ?, ?)`;
 
   // Construct a parameters array to use with the SQL query
@@ -70,7 +70,7 @@ const updateEntryById = async (entry) => {
   const {entry_id, entry_date, mood, weight, sleep_hours, notes} = entry;
   try {
     const sql =
-      'UPDATE DiaryEntries SET entry_date=?, mood=?, weight=?, sleep_hours=?, notes=? WHERE entry_id=?';
+      'UPDATEentries SET entry_date=?, mood=?, weight=?, sleep_hours=?, notes=? WHERE entry_id=?';
     const params = [entry_date, mood, weight, sleep_hours, notes, entry_id];
     const [result] = await promisePool.query(sql, params);
     // console.log(result);
@@ -88,7 +88,7 @@ const updateEntryById = async (entry) => {
 
 const deleteEntryById = async (id) => {
   try {
-    const sql = 'DELETE FROM DiaryEntries WHERE entry_id=?';
+    const sql = 'DELETE FROMentries WHERE entry_id=?';
     const params = [id];
     const [result] = await promisePool.query(sql, params);
     // console.log(result);

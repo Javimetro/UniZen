@@ -12,40 +12,40 @@
 #
 # The workflow uses secrets to securely store sensitive information like the Apache server's host and username.
 # Test this workflow by pushing changes to your main branch. If everything is configured properly, you should see the deployment process being triggered and the client files being deployed to your Apache server.
-name: Deploy Client
+# name: Deploy Client
 
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
 
-      - name: Install dependencies and build
-        run: |
-          cd client
-          npm install
-          npm run build
+#       - name: Install dependencies and build
+#         run: |
+#           cd client
+#           npm install
+#           npm run build
 
-      - name: Echo GITHUB_WORKSPACE
-        run: echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+#       - name: Echo GITHUB_WORKSPACE
+#         run: echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
 
-      - name: List build output
-        run: |
-          ls -lah $GITHUB_WORKSPACE/client/dist
+#       - name: List build output
+#         run: |
+#           ls -lah $GITHUB_WORKSPACE/client/dist
 
-      - name: Deploy to Apache
-        uses: appleboy/ssh-action@master
-        with: # secrets added to my repos configuration.
-          host: ${{ secrets.APACHE_HOST }}
-          username: ${{ secrets.APACHE_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.APACHE_SSH_PORT }}
-          script: |
-            rsync -av --delete $GITHUB_WORKSPACE/client/dist/ /var/www/html/
+#       - name: Deploy to Apache
+#         uses: appleboy/ssh-action@master
+#         with: # secrets added to my repos configuration.
+#           host: ${{ secrets.APACHE_HOST }}
+#           username: ${{ secrets.APACHE_USERNAME }}
+#           key: ${{ secrets.SSH_PRIVATE_KEY }}
+#           port: ${{ secrets.APACHE_SSH_PORT }}
+#           script: |
+#             rsync -av --delete $GITHUB_WORKSPACE/client/dist/ /var/www/html/

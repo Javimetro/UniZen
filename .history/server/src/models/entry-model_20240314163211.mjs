@@ -5,7 +5,7 @@ import promisePool from '../utils/database.mjs';
 
 const listAllEntries = async () => {
   try {
-    const [rows] = await promisePool.query('SELECT * FROMentries');
+    const [rows] = await promisePool.query('SELECT * FROM entries');
     // console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -44,7 +44,7 @@ const findEntryById = async (id) => {
 const addEntry = async (newEntry) => {
   // Destructure the newEntry object to get the individual properties
   const {user_id, entry_date, mood, weight, sleep_hours, notes} = newEntry;
-  console.log(newEntry)
+  //console.log(newEntry)
 
   // Construct a SQL query to insert a new entry into theentries table
   const sql = `INSERT INTOentries (user_id, entry_date, mood, weight, sleep_hours, notes)
