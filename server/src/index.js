@@ -2,7 +2,7 @@
 import express from 'express';
 import path from 'path';
 import {fileURLToPath} from 'url';
-import itemRouter from './routes/item-router.mjs';
+import tipRouter from './routes/tip-router.mjs';
 import userRouter from './routes/user-router.mjs';
 import entryRouter from './routes/entry-router.mjs';
 import cors from 'cors';
@@ -36,8 +36,8 @@ app.use('/sivusto', express.static(path.join(__dirname, '../public')));
 
 
 
-// Test RESOURCE /items endpoints (just mock data for testing, not connected to any database)
-app.use('/items', itemRouter);
+// Test RESOURCE /tips endpoints (just mock data for testing, not connected to any database)
+app.use('/api/tips', tipRouter);
 
 // bind base url (/api/entries resource) for all entry routes to entryRouter
 app.use('/api/entries', entryRouter);

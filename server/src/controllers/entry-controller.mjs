@@ -1,5 +1,4 @@
 import { validationResult } from 'express-validator';
-import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import {
   listAllEntries,
@@ -10,6 +9,12 @@ import {
   listAllEntriesByUserId,
 } from '../models/entry-model.mjs';
 import {avgHoursSleptCalculator} from '../services/entry-services.mjs';
+
+// Extracts the entry text from the request body
+export const extractEntryText = (req) => {
+  const { text } = req.body;
+  return text;
+};
 
 const getEntries = async (req, res, next) => {
   // return only logged in user's own entries
@@ -59,12 +64,8 @@ const postEntry = async (req, res, next) => {
     return next(error);
   }
 
-  // Extract the JWT from the Authorization header
-  const token = req.headers.authorization.split(' ')[1];
-  // Verify the JWT and extract the user's ID
-  const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-  // console.log(decodedToken);
-  const user_id = decodedToken.user_id;
+  // Extract the user's ID from req.user
+  const user_id = req.user.user_id;
 
   // Extract the other properties from the request body
   const { entry_date, mood, weight, sleep_hours, notes } = req.body;
@@ -92,6 +93,7 @@ const postEntry = async (req, res, next) => {
     return next(error);
   }
 };
+
 
 const putEntry = async (req, res, next) => {
   const errors = validationResult(req);
@@ -157,4 +159,4 @@ const getAvgHoursSleptByUserId = async (req, res, next) => {
   }
 };
 
-export {getEntries, getEntryById, postEntry, putEntry, deleteEntry, getAvgHoursSleptByUserId};
+export { extractEntryText, getEntries, getEntryById, postEntry, putEntry, deleteEntry, getAvgHoursSleptByUserId};
