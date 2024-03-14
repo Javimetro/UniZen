@@ -3,7 +3,7 @@
 This is a HyTe project where I aim to build an app that works as a diary where users can input about their mental state. The idea is that the app recommend mind training techniques to the users based on their inputs.
 
 ## Database Schema 
-![Alt text](/documentation/database/Lepo-database-diagram.jpg)
+![Alt text](https://raw.githubusercontent.com/Javimetro/Lepo/new_database/documentation/database/Lepo-database-diagram.jpg)
 
 
 ## TO DO:
