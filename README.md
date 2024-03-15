@@ -2,8 +2,12 @@
 
 This is a HyTe project where I aim to build an app that works as a diary where users can input about their mental state. The idea is that the app recommend mind training techniques to the users based on their inputs.
 
-## Database Schema 
+## Database Schema
 ![Alt text](https://raw.githubusercontent.com/Javimetro/Lepo/new_database/documentation/database/Lepo-database-diagram.jpg)
+
+## Data Flow
+
+User input text -> Using "Natural" NLP library the app gives a sentiment score to the user's entry -> Score is converted to a category in range (1-5) because that way tips are categoriced in the db -> Depending on the category of the text, a tip is randomly selected inside that category in the db -> Tip is finally returned to user.
 
 
 ## TO DO:

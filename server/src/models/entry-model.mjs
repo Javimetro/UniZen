@@ -41,7 +41,7 @@ const findEntryById = async (id) => {
   }
 };
 
-const addEntry = async (newEntry) => {
+const insertEntry = async (newEntry) => {
   // Destructure the newEntry object to get the individual properties
   const {user_id, entry_date, text, energy_level, sleep_hours, sentiment_score} = newEntry;
   //console.log(newEntry)
@@ -106,7 +106,7 @@ export {
   listAllEntries,
   listAllEntriesByUserId,
   findEntryById,
-  addEntry,
+  insertEntry,
   updateEntryById,
   deleteEntryById,
 };
