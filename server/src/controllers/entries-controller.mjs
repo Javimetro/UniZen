@@ -1,14 +1,14 @@
 import {
     deleteEntryById,
     insertEntry,
-    listAllDiaryEntries,
-    selectEntryById,
+    listAllEntries,
+    listAllEntriesByUserId,
     updateEntryById,
-  } from '../models/entries-model.mjs';
+  } from '../models/entry-model.mjs';
 
 
 const getEntries = async (res) => {
-  const result = await listAllDiaryEntries();
+  const result = await listAllEntries();
   if (result.error) {
     return res.status(result.error).json(result);
   }
@@ -16,7 +16,7 @@ const getEntries = async (res) => {
 };
 
 const getEntryById = async (req, res) => {
-  const result = await selectEntryById(req.params.id);
+  const result = await listAllEntriesByUserId(req.params.id);
   if (result.error) {
     return res.status(result.error).json(result);
   }

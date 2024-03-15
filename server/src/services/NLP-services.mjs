@@ -1,12 +1,14 @@
 import natural from 'natural';
 
+
+
 // This function analyzes the sentiment score of a given text
 const analyzeTextAndGetScore = (text) => {
     // Create a tokenizer to split the text into individual words
     const tokenizer = new natural.WordTokenizer();
     const tokens = tokenizer.tokenize(text); // Tokenize the text
 
-    // Create a sentiment analyzer using the 'afinn' sentiment lexicon
+    // Create a sentiment analyzer using the 'afinn' sentiment lexicon.
     const analyzer = new natural.SentimentAnalyzer('English', natural.PorterStemmer, 'afinn');
 
     let totalScore = 0; // Variable to store the sum of sentiment scores
@@ -21,10 +23,10 @@ const analyzeTextAndGetScore = (text) => {
         }
     });
 
-    // Normalize the score by dividing the total score by the number of sentiment-bearing words -> average score per sentiment-bearing word
+    // Normalize the score by dividing the total score by the number of sentiment-bearing words -> average score per sentiment-bearing word (other whise a single word like "sad" can have higher negative value than a long text with many negative words)
     const normalizedScore = sentimentWordCount > 0 ? totalScore / sentimentWordCount : 0;
 
-    return normalizedScore;
+    return Math.round(normalizedScore);
 };
 
 export { analyzeTextAndGetScore }

@@ -1,12 +1,8 @@
-import { getSentimentScore } from '../services/nlp-service.mjs';
-import { getRandomTipByScore } from '../models/tip-model.mjs';
 
 const getTipByScore = async (req, res, next) => {
-  const { text } = req.body; // Assuming you're passing the text in the request body
-
   try {
-    const score = await getSentimentScore(text);
-    const tip = await getRandomTipByScore(score);
+    const sentimentScore = req.session.sentimentScore;
+    const tip = await getRandomTipBySentimentScore(sentimentScore);
     if (!tip) {
       return res.status(404).json({ message: 'Tip not found' });
     }

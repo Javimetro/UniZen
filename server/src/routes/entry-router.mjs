@@ -7,7 +7,7 @@ import {
   getEntryById,
   putEntry,
   deleteEntry,
-} from '../controllers/entry-controller.mjs';
+} from '../controllers/entries-controller.mjs';
 import { addSentimentScoreToEntry } from '../middlewares/addSentimentScore.mjs'
 
 const entryRouter = express.Router();
@@ -28,6 +28,6 @@ entryRouter.route('/:id')
   .put(entryValidations, putEntry)
   .delete(deleteEntry);
 
-entryRouter.route('/stats/:id').get(authenticateToken, getAvgHoursSleptByUserId);
+// entryRouter.route('/stats/:id').get(authenticateToken);
 
 export default entryRouter;

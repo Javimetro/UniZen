@@ -1,5 +1,6 @@
 // Main JS file
 import express from 'express';
+import session from 'express-session';
 import path from 'path';
 import {fileURLToPath} from 'url';
 import tipRouter from './routes/tip-router.mjs';
@@ -18,8 +19,17 @@ import {errorHandler, notFoundHandler} from './middlewares/error-handler.mjs';
 // myös muista kuin samasta alkuperästä (url-osoitteesta, palvelimelta) ladatuilta sivuilta.
 app.use(cors());
 
+app.use(session({
+  secret: 'SESSION_SECRET',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: process.env.NODE_ENV == 'production' }
+}));
+
+
 // logger middleware
 app.use(logger);
+
 
 // middleware, joka parsii pyynnössä olevan JSON-datan ja lisää sen request-objektiin (req.body)
 app.use(express.json());
@@ -33,7 +43,6 @@ app.use(express.static('public'));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/sivusto', express.static(path.join(__dirname, '../public')));
-
 
 
 // Test RESOURCE /tips endpoints (just mock data for testing, not connected to any database)
@@ -61,6 +70,7 @@ app.get('/error', (req, res, next) => {
 app.use(notFoundHandler);
 // Error handler for sending response all error cases
 app.use(errorHandler);
+
 
 // Start the server
 app.listen(port, hostname, () => {

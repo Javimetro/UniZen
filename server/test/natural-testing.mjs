@@ -1,6 +1,6 @@
 import natural from 'natural';
 
-const text1 = 'This is horrible. Never felt this bad.';
+const text1 = 'they are bastards';
 const text2 = 'Feeling stressed about the upcoming exams. This is horrible. Never felt this bad. Not feeling well, stayed in bed most of the day.';
 const text3 = 'Not feeling well, stayed in bed most of the day.';
 const text4 = 'sad';
@@ -30,7 +30,7 @@ const analyzeTextAndGetScore = (text) => {
     // Normalize the score by dividing the total score by the number of sentiment-bearing words -> average score per sentiment-bearing word
     const normalizedScore = sentimentWordCount > 0 ? totalScore / sentimentWordCount : 0;
 
-    return normalizedScore;
+    return Math.round(normalizedScore);
 };
 
-console.log("The sentiment score is: " + analyzeTextAndGetScore(text1));
+console.log("The sentiment score is: " + analyzeTextAndGetScore(text5));

@@ -56,35 +56,62 @@ CREATE TABLE tips (
 --     category INT
 -- );
 
--- Tips for very low sentiment (category 1)
-INSERT INTO tips (content, category) VALUES
-('It’s okay to feel down. Consider talking to a friend or loved one about your feelings.', 1),
-('Taking a moment for some deep breaths can be surprisingly refreshing.', 1),
-('Remember, it’s okay to seek professional help. You’re not alone.', 1);
+-- INSERT INTO tips (content, category) VALUES
+-- ('It sounds like you’re going through a very tough time. It’s important to know it’s okay to ask for help. Consider reaching out to a trusted friend, family member, or professional.', -5),
+-- ('During moments that feel overwhelming, remember that you’re not alone. Support is available to you, and it’s okay to seek it out.', -5),
+-- ('Extreme distress can be alarming. If you’re feeling utterly hopeless, please consider contacting a crisis hotline or a healthcare provider who can offer immediate support.', -5);
 
--- Tips for low sentiment (category 2)
-INSERT INTO tips (content, category) VALUES
-('Everyone has tough days. How about a short walk to clear your mind?', 2),
-('Writing down three things you’re grateful for might shift your perspective.', 2),
-('Try to focus on small wins or positive aspects of your day.', 2);
+-- INSERT INTO tips (content, category) VALUES
+-- ('When everything feels negative, try to take a moment to breathe deeply and ground yourself in the present. It can sometimes help to manage overwhelming feelings.', -4),
+-- ('Acknowledging your feelings is a strength, not a weakness. It’s okay to not be okay, and taking small steps towards self-care is important.', -4),
+-- ('Writing down what you’re feeling can be a cathartic way to deal with heavy emotions. Consider journaling as a way to express what’s on your mind.', -4);
 
--- Tips for neutral sentiment (category 3)
-INSERT INTO tips (content, category) VALUES
-('Maintaining balance is key. Keep doing what works for you.', 3),
-('Reflecting on your day can provide insights into what brings you balance.', 3),
-('How about trying something new today? It could be a new hobby or a simple change in routine.', 3);
+-- INSERT INTO tips (content, category) VALUES
+-- ('Sometimes, engaging in a small activity that you enjoy, like listening to your favorite music or taking a walk, can offer a brief respite from negative feelings.', -3),
+-- ('Connecting with nature, even if it’s just spending a few minutes outside, can sometimes help improve your mood when you’re feeling down.', -3),
+-- ('Doing something kind for someone else, even something small, can sometimes help you feel a little better when you’re struggling with negative emotions.', -3);
 
--- Tips for slightly positive sentiment (category 4)
-INSERT INTO tips (content, category) VALUES
-('Your positivity is inspiring! How about sharing your positive energy with others?', 4),
-('A positive mindset can be contagious. Keep spreading the good vibes!', 4),
-('You seem to be on a good track. Remember to cherish these moments of positivity.', 4);
+-- INSERT INTO tips (content, category) VALUES
+-- ('When faced with challenges, try to find one small thing that you’re grateful for. Gratitude can sometimes help shift your perspective.', -2),
+-- ('Exercise, even a short walk, can sometimes help lift your mood. Consider moving your body in a way that feels good to you.', -2),
+-- ('Connecting with friends or loved ones, even if it’s just a quick message or call, can often provide comfort and improve your mood.', -2);
 
--- Tips for positive sentiment (category 5)
-INSERT INTO tips (content, category) VALUES
-('Great job on maintaining a positive outlook! Consider setting a new goal to keep the momentum.', 5),
-('Your positive energy is a powerful asset. Use it to tackle new challenges.', 5),
-('Why not pay it forward? Your positivity could help lift someone else’s spirits today.', 5);
+-- INSERT INTO tips (content, category) VALUES
+-- ('Reflect on your achievements, no matter how small they may seem. Recognizing your own successes can help combat feelings of negativity.', -1),
+-- ('Consider setting a small, achievable goal for the day. Accomplishing it can provide a sense of satisfaction and improve your mood.', -1),
+-- ('Finding humor in everyday situations can sometimes lighten your mood. Look for moments or things that make you smile or laugh.', -1);
+
+-- INSERT INTO tips (content, category) VALUES
+-- ('Neutral days can be a canvas for something new. Is there something different you’d like to try today?', 0),
+-- ('Finding balance is an art. Reflect on what balance means to you and how you might achieve or maintain it in your daily life.', 0),
+-- ('A neutral state is a great time for self-reflection. Consider spending a few moments contemplating your recent experiences and future goals.', 0),
+-- ('Sometimes, being neutral is just what we need. Consider taking this time to relax, recharge, and enjoy the moment of calm.', 0),
+-- ('Neutral feelings can provide a clear perspective. It might be a good time to organize your thoughts or plan for the upcoming days.', 0);
+
+-- INSERT INTO tips (content, category) VALUES
+-- ('Taking a moment to savor the small pleasures in life can enhance your sense of well-being. What’s something small that made you smile today?', 1),
+-- ('Practicing mindfulness can deepen your positive experiences. Try focusing fully on one enjoyable activity today without distractions.', 1),
+-- ('A moment of gratitude can turn a good day into a great one. Consider jotting down one thing you’re grateful for today.', 1);
+
+-- INSERT INTO tips (content, category) VALUES
+-- ('Positive vibes are contagious. Share your good mood with others through a kind word or deed.', 2),
+-- ('Building on your positive mood can lead to new opportunities. Consider trying something new today that you’ve been curious about.', 2),
+-- ('Positive moments are worth celebrating, no matter how small. Treat yourself to something you enjoy as a way to acknowledge your good day.', 2);
+
+-- INSERT INTO tips (content, category) VALUES
+-- ('Your positive energy has the power to brighten not just your day but also others’. Consider how you might spread this positivity around.', 3),
+-- ('Feeling good is a great opportunity to set new goals or revisit old ones. What’s something positive you’d like to work towards?', 3),
+-- ('Maintaining a positive outlook can be reinforced by positive actions. Think of a good habit you might start or continue to build on this positive momentum.', 3);
+
+-- INSERT INTO tips (content, category) VALUES
+-- ('When you’re feeling great, your potential to make a positive impact is immense. Consider how you might use your energy to help others today.', 4),
+-- ('Your joy can be a beacon of hope and inspiration. Think of a way to share your story or positive outlook with someone who might need it.', 4),
+-- ('Feeling fantastic is a wonderful state to be in. Capture this feeling by journaling or engaging in creative expression to remember and revisit later.', 4);
+
+-- INSERT INTO tips (content, category) VALUES
+-- ('Extraordinary days are rare and special. Consider commemorating today in a way that feels meaningful to you.', 5),
+-- ('Your highest levels of positivity can be transformative. Think big—what’s a dream or aspiration you can take a step towards today?', 5),
+-- ('On top of the world? It’s a great time to give back and uplift others. Look for opportunities to make a positive difference in your community.', 5);
 
 
 

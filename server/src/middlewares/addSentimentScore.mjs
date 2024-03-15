@@ -11,6 +11,9 @@ const addSentimentScoreToEntry = async (req, res, next) => {
         entryData.sentimentScore = sentimentScore;
         console.log('SentimenScore added to entryDara: ', entryData)
 
+        // Store sentimentScore in the session
+        req.session.sentimentScore = sentimentScore;
+
         // Call next to pass control to the next middleware
         next();
 
