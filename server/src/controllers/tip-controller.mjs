@@ -1,3 +1,4 @@
+import {getRandomTipBySentimentScore} from '../models/tip-model.mjs';
 
 const getTipByScore = async (req, res, next) => {
   try {

@@ -1,6 +1,7 @@
 import promisePool from '../utils/database.mjs';
 
 const getRandomTipBySentimentScore = async (sentimentScore) => {
+  console.log(sentimentScore)
   try {
     const [rows] = await promisePool.query(
       'SELECT * FROM tips WHERE category = ? ORDER BY RAND() LIMIT 1',
