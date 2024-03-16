@@ -15,7 +15,9 @@ const authenticateToken = (req, res, next) => {
   }
   try {
     req.user = jwt.verify(token, process.env.JWT_SECRET); //If a token is found, the function attempts to verify it using jwt.verify(). This method decodes the token and checks its signature to ensure it hasn't been tampered with. The process.env.JWT_SECRET is the secret key used to verify the token's signature. If the token is valid, jwt.verify() returns the payload of the token, which is then attached to the req.user property. This allows subsequent middleware functions and route handlers to access the authenticated user's data.
-    next(); //The next() function is called to pass control to the next middleware function in the stack.
+    console.log('req.user in authenticateToken:', req.user);
+    next();
+    //The next() function is called to pass control to the next middleware function in the stack.
   } catch (err) {
     res.status(401).send({message: 'invalid token'});
   }

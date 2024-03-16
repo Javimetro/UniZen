@@ -20,8 +20,9 @@ const entryValidations = [
 ];
 
 entryRouter.route('/')
+
   .get(authenticateToken, getEntries)
-  .post(entryValidations, addSentimentScoreToEntry, postEntry);
+  .post(authenticateToken, entryValidations, addSentimentScoreToEntry, postEntry);
 
 entryRouter.route('/:id')
   .get(authenticateToken, getEntryById)

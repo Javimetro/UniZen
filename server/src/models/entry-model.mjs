@@ -42,16 +42,17 @@ const findEntryById = async (id) => {
 };
 
 const insertEntry = async (newEntry) => {
+  console.log('newEntry at start of insertEntry:', newEntry);
   // Destructure the newEntry object to get the individual properties
-  const {user_id, entry_date, text, energy_level, sleep_hours, sentiment_score} = newEntry;
+  const {user_id, entry_date, text, energy_level, sleep_hours, sentimentScore} = newEntry;
   //console.log(newEntry)
 
   // Construct a SQL query to insert a new entry into theentries table
-  const sql = `INSERT INTO entries (user_id, entry_date, text, energy_level, sleep_hours, sentimen_score)
+  const sql = `INSERT INTO entries (user_id, entry_date, text, energy_level, sleep_hours, sentiment_score)
   VALUES (?, ?, ?, ?, ?, ?)`;
 
   // Construct a parameters array to use with the SQL query
-  const params = [user_id, entry_date, text, energy_level, sleep_hours, sentiment_score];
+  const params = [user_id, entry_date, text, energy_level, sleep_hours, sentimentScore];
 
   try {
     // Execute the SQL query with the parameters
