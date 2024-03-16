@@ -4,6 +4,7 @@ import * as diaryService from '../services/diaryService.js';
 const createDiaryCards = async function(parentId) { // parentId as parametrer, so function can be reused
   try {
     const diaryData = await diaryService.getEntries();
+    console.log('render')
 
     const section = document.createElement('section');
     section.classList.add('card-area');
@@ -24,7 +25,6 @@ const createDiaryCards = async function(parentId) { // parentId as parametrer, s
       sleep.textContent = `Sleep hours: ${entry.sleep_hours}`;
 
       diaryContainer.appendChild(title);
-      diaryContainer.appendChild(description);
       diaryContainer.appendChild(entryText);
       diaryContainer.appendChild(energy_level);
       diaryContainer.appendChild(sleep);
@@ -62,8 +62,8 @@ const createEntryForm = function(parentId) {
 
   var entryText = document.createElement('input');
   entryText.setAttribute('type', 'text');
-  entryText.setAttribute('name', 'entryText');
-  entryText.setAttribute('placeholder', 'Mood');
+  entryText.setAttribute('name', 'text');
+  entryText.setAttribute('placeholder', 'How do you feel today?');
 
   var energy_level = document.createElement('input');
   energy_level.setAttribute('type', 'number');
@@ -94,15 +94,17 @@ const createEntryForm = function(parentId) {
     // Gather the data from the form fields
     var entryData = {
       entry_date: entryDate.value,
-      entryText: entryText.value,
+      text: entryText.value,
       energy_level: Number(energy_level.value),
       sleep_hours: Number(sleepHours.value),
     };
+
 
     // Call the postEntry function to send the data to the server
     try {
       var newEntry = await diaryService.postEntry(entryData);
       console.log('New entry created:', newEntry);
+
     } catch (error) {
       console.error('Failed to create new entry:', error);
     }

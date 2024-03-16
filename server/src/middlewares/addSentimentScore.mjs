@@ -13,12 +13,17 @@ const addSentimentScoreToEntry = async (req, res, next) => {
         console.log('SentimenScore added to entryDara: ', entryData)
 
         // Store sentimentScore in the session
-        // console.log('Sentiment Score before session:', sentimentScore);
+        console.log('Sentiment Score before session:', sentimentScore);
         req.session.sentimentScore = sentimentScore;
-        // console.log('Sentiment Score(added to session):', sentimentScore);
-
-        // Call next to pass control to the next middleware
-        next();
+        req.session.save(err => {
+            if(err) {
+                console.error(err);
+                res.status(500).send('Server error when saving session');
+            } else {
+                console.log('Sentiment Score(added to session):', sentimentScore);
+                next();
+            }
+        });
 
     } catch (error) {
         // Handle the error

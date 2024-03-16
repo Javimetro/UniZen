@@ -52,9 +52,29 @@ const postEntry = async function(entryData) {
     body: JSON.stringify(entryData)
   })
   if (!response.ok) {
+    console.error('Response status:', response.status);
+    console.error('Response text:', await response.text());
     throw new Error('Failed to post entry');
   }
   return response.json();
+};
+
+
+
+const getTip = async function(score) {
+    await setSentimentScore(score);
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:3000/api/tips', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    });
+    if (!response.ok) {
+        console.error('Response status:', response.status);
+        console.error('Response text:', await response.text());
+        throw new Error('Failed to fetch tip');
+    }
+    return response.json();
 };
 
 // Delete an entry
@@ -89,4 +109,15 @@ const putEntry = async function(id, entryData) {
   return response.json();
 };
 
-export { getEntries, getEntryById, getAvgHoursSleptByUserId, postEntry, deleteEntry, putEntry };
+function validateSessionAndNavigate() {
+  if (window.location.href.includes('menu.html')) {
+    window.onunload = function() {};
+  }
+
+  if (!localStorage.getItem('token')) {
+    window.location.href = "login.html";
+  }
+}
+
+
+export { getEntries, getEntryById, setSentimentScore, getTip, getAvgHoursSleptByUserId, postEntry, deleteEntry, putEntry, validateSessionAndNavigate };

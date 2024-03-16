@@ -1,3 +1,8 @@
+import { validateSessionAndNavigate } from './services/diaryService';
+
+//check at the beginning to redirect the user to the login page if she is not logged in
+validateSessionAndNavigate();
+
 document.getElementById('modify-credentials-form').addEventListener('submit', async function(event) {
   event.preventDefault();
 
@@ -23,4 +28,9 @@ document.getElementById('modify-credentials-form').addEventListener('submit', as
     const errorData = await response.json();
     alert(errorData.message);
   }
+});
+
+
+document.getElementById('back-to-menu').addEventListener('click', () => {
+  window.location.href = 'menu.html'; // Redirect to menu
 });

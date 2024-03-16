@@ -20,10 +20,13 @@ import {errorHandler, notFoundHandler} from './middlewares/error-handler.mjs';
 app.use(cors());
 
 app.use(session({
-  secret: 'SESSION_SECRET',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: process.env.NODE_ENV == 'production' }
+    secret: 'SESSION_SECRET',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: false,
+        httpOnly: false
+    }
 }));
 
 

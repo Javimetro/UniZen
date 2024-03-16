@@ -7,7 +7,7 @@ import {
   } from '../models/entry-model.mjs';
 
 
-const getEntries = async (res) => {
+const getEntries = async (req, res) => {
   const result = await listAllEntries();
   if (result.error) {
     return res.status(result.error).json(result);
