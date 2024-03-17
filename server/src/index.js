@@ -17,18 +17,27 @@ import {errorHandler, notFoundHandler} from './middlewares/error-handler.mjs';
 // middleware, joka lisää CORS-otsakkeen jokaiseen lähtevään vastaukseen.
 // Eli kerrotaan selaimelle, että tämä palvelin sallii AJAX-pyynnöt
 // myös muista kuin samasta alkuperästä (url-osoitteesta, palvelimelta) ladatuilta sivuilta.
-app.use(cors());
-
-app.use(session({
-    secret: 'SESSION_SECRET',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        secure: false,
-        httpOnly: false
-    }
+app.use(cors({
+  credentials: true,
+  origin: (origin, callback) => callback(null, true),
 }));
 
+app.use(session({
+  secret: 'SESSION_SECRET', // replace with your own secret
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false, // set to true if your site is served over HTTPS
+    httpOnly: true,
+    sameSite: 'lax' // set to 'none' if your client is on a different domain THIS WAS THE KEY!! BEFORE THIS THE ID SESSION WAS CHANGIN ALL TIME.
+  }
+}));
+
+app.use((req, res, next) => {
+  console.log('Session ID MID:', req.sessionID);
+  console.log('Sentiment Score MID:', req.session.sentimentScore);
+  next();
+});
 
 // logger middleware
 app.use(logger);

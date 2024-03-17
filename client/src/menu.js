@@ -1,6 +1,6 @@
 // menu.js
 import { createDiaryCards, createEntryForm, renderFunction } from '/src/utils/renderContainer.js';
-import { validateSessionAndNavigate, getTip, setSentimentScore } from './services/diaryService'
+import { validateSessionAndNavigate, getTip } from './services/diaryService'
 
 //check at the beginning to redirect the user to the login page if she is not logged in
 validateSessionAndNavigate();

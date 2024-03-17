@@ -49,7 +49,8 @@ const postEntry = async function(entryData) {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(entryData)
+    body: JSON.stringify(entryData),
+    credentials: 'include' // include credentials
   })
   if (!response.ok) {
     console.error('Response status:', response.status);
@@ -59,22 +60,20 @@ const postEntry = async function(entryData) {
   return response.json();
 };
 
-
-
-const getTip = async function(score) {
-    await setSentimentScore(score);
-    const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:3000/api/tips', {
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
-    });
-    if (!response.ok) {
-        console.error('Response status:', response.status);
-        console.error('Response text:', await response.text());
-        throw new Error('Failed to fetch tip');
-    }
-    return response.json();
+const getTip = async function() {
+  const token = localStorage.getItem('token');
+  const response = await fetch('http://localhost:3000/api/tips', {
+    headers: {
+      'Authorization': 'Bearer ' + token
+    },
+    credentials: 'include' // include credentials
+  });
+  if (!response.ok) {
+    console.error('Response status:', response.status);
+    console.error('Response text:', await response.text());
+    throw new Error('Failed to fetch tip');
+  }
+  return response.json();
 };
 
 // Delete an entry
@@ -120,4 +119,4 @@ function validateSessionAndNavigate() {
 }
 
 
-export { getEntries, getEntryById, setSentimentScore, getTip, getAvgHoursSleptByUserId, postEntry, deleteEntry, putEntry, validateSessionAndNavigate };
+export { getEntries, getEntryById, getTip, getAvgHoursSleptByUserId, postEntry, deleteEntry, putEntry, validateSessionAndNavigate };
