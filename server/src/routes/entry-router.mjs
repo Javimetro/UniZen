@@ -3,34 +3,32 @@ import { body } from 'express-validator';
 import { authenticateToken } from '../middlewares/authentication.mjs';
 import {
   getEntries,
-  getEntryById,
   postEntry,
+  getEntryById,
   putEntry,
   deleteEntry,
-  getAvgHoursSleptByUserId,
-} from '../controllers/entry-controller.mjs';
-
+} from '../controllers/entries-controller.mjs';
+import { addSentimentScoreToEntry } from '../middlewares/addSentimentScore.mjs'
 
 const entryRouter = express.Router();
 
 const entryValidations = [
   body('entry_date').notEmpty().isDate(),
-  body('mood').optional().isLength({ max: 2000 }),
-  body('weight').optional().isFloat({ min: 1, max: 500 }),
+  body('text').optional().isLength({ max: 2000 }),
+  body('energy_level').optional().isInt({ min: 0, max: 10 }),
   body('sleep_hours').optional().isInt({ min: 0, max: 24 }),
-  body('notes').optional().isLength({ max: 300 }),
 ];
 
 entryRouter.route('/')
-  .get(authenticateToken, getEntries)
-  .post(entryValidations, postEntry);
 
+  .get(authenticateToken, getEntries)
+  .post(authenticateToken, entryValidations, addSentimentScoreToEntry, postEntry);
 
 entryRouter.route('/:id')
   .get(authenticateToken, getEntryById)
   .put(entryValidations, putEntry)
   .delete(deleteEntry);
 
-entryRouter.route('/stats/:id').get(authenticateToken, getAvgHoursSleptByUserId);
+// entryRouter.route('/stats/:id').get(authenticateToken);
 
 export default entryRouter;

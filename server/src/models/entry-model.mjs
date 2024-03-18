@@ -5,7 +5,7 @@ import promisePool from '../utils/database.mjs';
 
 const listAllEntries = async () => {
   try {
-    const [rows] = await promisePool.query('SELECT * FROM DiaryEntries');
+    const [rows] = await promisePool.query('SELECT * FROM entries');
     // console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -16,7 +16,7 @@ const listAllEntries = async () => {
 
 const listAllEntriesByUserId = async (id) => {
   try {
-    const sql = 'SELECT * FROM DiaryEntries WHERE user_id=?';
+    const sql = 'SELECT * FROM entries WHERE user_id=?';
     const params = [id];
     const [rows] = await promisePool.query(sql, params);
     // console.log('rows', rows);
@@ -30,7 +30,7 @@ const listAllEntriesByUserId = async (id) => {
 const findEntryById = async (id) => {
   try {
     const [rows] = await promisePool.query(
-        'SELECT * FROM DiaryEntries WHERE entry_id = ?',
+        'SELECT * FROM entries WHERE entry_id = ?',
         [id],
     );
     // console.log('rows', rows);
@@ -41,17 +41,18 @@ const findEntryById = async (id) => {
   }
 };
 
-const addEntry = async (newEntry) => {
+const insertEntry = async (newEntry) => {
+  console.log('newEntry at start of insertEntry:', newEntry);
   // Destructure the newEntry object to get the individual properties
-  const {user_id, entry_date, mood, weight, sleep_hours, notes} = newEntry;
+  const {user_id, entry_date, text, energy_level, sleep_hours, sentimentScore} = newEntry;
   //console.log(newEntry)
 
-  // Construct a SQL query to insert a new entry into the DiaryEntries table
-  const sql = `INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes)
+  // Construct a SQL query to insert a new entry into theentries table
+  const sql = `INSERT INTO entries (user_id, entry_date, text, energy_level, sleep_hours, sentiment_score)
   VALUES (?, ?, ?, ?, ?, ?)`;
 
   // Construct a parameters array to use with the SQL query
-  const params = [user_id, entry_date, mood, weight, sleep_hours, notes];
+  const params = [user_id, entry_date, text, energy_level, sleep_hours, sentimentScore];
 
   try {
     // Execute the SQL query with the parameters
@@ -67,11 +68,11 @@ const addEntry = async (newEntry) => {
 };
 
 const updateEntryById = async (entry) => {
-  const {entry_id, entry_date, mood, weight, sleep_hours, notes} = entry;
+  const {entry_id, entry_date, text, energy_level, sleep_hours, sentiment_score} = entry;
   try {
     const sql =
-      'UPDATE DiaryEntries SET entry_date=?, mood=?, weight=?, sleep_hours=?, notes=? WHERE entry_id=?';
-    const params = [entry_date, mood, weight, sleep_hours, notes, entry_id];
+      'UPDATE entries SET entry_date=?, text=?, energy_level=?, sleep_hours=?, sentiment_score=? WHERE entry_id=?';
+    const params = [entry_date, text, energy_level, sleep_hours, sentiment_score, entry_id];
     const [result] = await promisePool.query(sql, params);
     // console.log(result);
     if (result.affectedRows === 0) {
@@ -88,7 +89,7 @@ const updateEntryById = async (entry) => {
 
 const deleteEntryById = async (id) => {
   try {
-    const sql = 'DELETE FROM DiaryEntries WHERE entry_id=?';
+    const sql = 'DELETE FROM entries WHERE entry_id=?';
     const params = [id];
     const [result] = await promisePool.query(sql, params);
     // console.log(result);
@@ -106,7 +107,7 @@ export {
   listAllEntries,
   listAllEntriesByUserId,
   findEntryById,
-  addEntry,
+  insertEntry,
   updateEntryById,
   deleteEntryById,
 };

@@ -3,7 +3,7 @@ import promisePool from '../utils/database.mjs';
 
 const listAllUsers = async () => {
   try {
-    const sql = 'SELECT user_id, username, user_level FROM Users';
+    const sql = 'SELECT user_id, username, user_level FROM users';
     const [rows] = await promisePool.query(sql);
     //console.log(rows);
     return rows;
@@ -15,7 +15,7 @@ const listAllUsers = async () => {
 
 const selectUserById = async (id) => {
   try {
-    const sql = 'SELECT * FROM Users WHERE user_id=?';
+    const sql = 'SELECT * FROM users WHERE user_id=?';
     const params = [id];
     const [rows] = await promisePool.query(sql, params);
     // console.log(rows);
@@ -40,7 +40,7 @@ const insertUser = async (user) => {
     }
 
     const sql =
-      'INSERT INTO Users (username, password, email, user_level) VALUES (?, ?, ?, ?)';
+      'INSERT INTO users (username, password, email, user_level) VALUES (?, ?, ?, ?)';
     const params = [user.username, user.password, user.email, 2]; // Set user_level to 2 by default
     const [result] = await promisePool.query(sql, params);
     // console.log(result);
@@ -55,9 +55,9 @@ const insertUser = async (user) => {
 const updateUserById = async (user) => {
   try {
     const sql =
-      'UPDATE Users SET username=?, password=?, email=? WHERE user_id=?';
+      'UPDATE users SET username=?, password=?, email=? WHERE user_id=?';
     const params = [user.username, user.password, user.email, user.user_id];
-    const [result] = await promisePool.query(sql, params);
+    await promisePool.query(sql, params);
     // console.log(result);
     return {message: 'user data updated', user_id: user.user_id};
   } catch (error) {
@@ -70,7 +70,7 @@ const updateUserById = async (user) => {
 
 const deleteUserById = async (id) => {
   try {
-    const sql = 'DELETE FROM Users WHERE user_id=?';
+    const sql = 'DELETE FROM users WHERE user_id=?';
     const params = [id];
     const [result] = await promisePool.query(sql, params);
     // console.log(result);
@@ -85,10 +85,10 @@ const deleteUserById = async (id) => {
   }
 };
 
-// Used for login
+// used for login
 const selectUserByUsername = async (username) => {
   try {
-    const sql = 'SELECT * FROM Users WHERE username=?';
+    const sql = 'SELECT * FROM users WHERE username=?';
     const params = [username];
     const [rows] = await promisePool.query(sql, params);
     // console.log(rows);

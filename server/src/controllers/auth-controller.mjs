@@ -9,6 +9,7 @@ const postLogin = async (req, res, next) => {
   try {
     const {username, password} = req.body;
     const user = await selectUserByUsername(username); // here all users info is selected from db
+    console.log(user)
 
     if (user.error) {
       const error = new Error(user.message || 'An error occurred');

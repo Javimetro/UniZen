@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="../src/styles/style.css"> <!-- Link to CSS file -->
+    <link rel="stylesheet" href="/styles/style.css"> <!-- Link to CSS file -->
     <link rel="icon" href="/public/assets/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -12,7 +12,7 @@
     <label for="username">Username:</label><br>
     <input type="text" id="username" name="username" required><br>
     <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password" maxlength="8" required><br>
+    <input type="password" id="password" name="password" minlength="8" required><br>
     <span id="passwordInfoBox" style="display: none;">At least 8 characters long</span><br>
     <label for="email">Email:</label><br>
     <input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>

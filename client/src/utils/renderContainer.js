@@ -1,9 +1,12 @@
 import * as diaryService from '../services/diaryService.js';
+import { drawChart } from '../components/tipComponent.js';
+
 
 //creates cards for displaying the data from user's old
 const createDiaryCards = async function(parentId) { // parentId as parametrer, so function can be reused
   try {
     const diaryData = await diaryService.getEntries();
+    console.log('render')
 
     const section = document.createElement('section');
     section.classList.add('card-area');
@@ -16,19 +19,16 @@ const createDiaryCards = async function(parentId) { // parentId as parametrer, s
       diaryContainer.classList.add('card-diary');
       const title = document.createElement('h4');
       title.textContent = `Diary card ${index + 1}`;
-      const description = document.createElement('p');
-      description.textContent = entry.notes;
-      const mood = document.createElement('p');
-      mood.textContent = `Mood: ${entry.mood}`;
-      const weight = document.createElement('p');
-      weight.textContent = `Weight: ${entry.weight}`;
+      const entryText = document.createElement('p');
+      entryText.textContent = `Mood: ${entry.text}`;
+      const energy_level = document.createElement('p');
+      energy_level.textContent = `Energy level: ${entry.energy_level}`;
       const sleep = document.createElement('p');
       sleep.textContent = `Sleep hours: ${entry.sleep_hours}`;
 
       diaryContainer.appendChild(title);
-      diaryContainer.appendChild(description);
-      diaryContainer.appendChild(mood);
-      diaryContainer.appendChild(weight);
+      diaryContainer.appendChild(entryText);
+      diaryContainer.appendChild(energy_level);
       diaryContainer.appendChild(sleep);
 
       card.appendChild(diaryContainer);
@@ -62,30 +62,26 @@ const createEntryForm = function(parentId) {
   entryDate.setAttribute('type', 'date');
   entryDate.setAttribute('name', 'entry_date');
 
-  var mood = document.createElement('input');
-  mood.setAttribute('type', 'text');
-  mood.setAttribute('name', 'mood');
-  mood.setAttribute('placeholder', 'Mood');
+  var entryText = document.createElement('input');
+  entryText.setAttribute('type', 'text');
+  entryText.setAttribute('name', 'text');
+  entryText.setAttribute('placeholder', 'How do you feel today?');
 
-  var weight = document.createElement('input');
-  weight.setAttribute('type', 'number');
-  weight.setAttribute('name', 'weight');
-  weight.setAttribute('placeholder', 'Weight');
+  var energy_level = document.createElement('input');
+  energy_level.setAttribute('type', 'number');
+  energy_level.setAttribute('name', 'energy_level');
+  energy_level.setAttribute('placeholder', 'Energy level');
 
   var sleepHours = document.createElement('input');
   sleepHours.setAttribute('type', 'number');
   sleepHours.setAttribute('name', 'sleep_hours');
   sleepHours.setAttribute('placeholder', 'Sleep Hours');
 
-  var notes = document.createElement('textarea');
-  notes.setAttribute('name', 'notes');
-
   // Add form fields to form
   form.appendChild(entryDate);
-  form.appendChild(mood);
-  form.appendChild(weight);
+  form.appendChild(entryText);
+  form.appendChild(energy_level);
   form.appendChild(sleepHours);
-  form.appendChild(notes);
 
   // Add a submit button to the form
   var submitButton = document.createElement('button');
@@ -96,22 +92,54 @@ const createEntryForm = function(parentId) {
   // Add an event listener to the form
   form.addEventListener('submit', async function(event) {
     event.preventDefault(); // Prevent the form from being submitted in the traditional way
-
+    form.style.display = 'none'; // Clear the content div
     // Gather the data from the form fields
+
+    var h2 = document.querySelector('h2');
+    h2.textContent = 'Regarding to your last entry:';
+
     var entryData = {
       entry_date: entryDate.value,
-      mood: mood.value,
-      weight: Number(weight.value),
+      text: entryText.value,
+      energy_level: Number(energy_level.value),
       sleep_hours: Number(sleepHours.value),
-      notes: notes.value
     };
+
 
     // Call the postEntry function to send the data to the server
     try {
       var newEntry = await diaryService.postEntry(entryData);
       console.log('New entry created:', newEntry);
+
     } catch (error) {
       console.error('Failed to create new entry:', error);
+    }
+
+    // Calls getTip function to get a tip right after entry is posted
+    try {
+
+      var tip = await diaryService.getTip();
+      console.log('Received tip:', tip);
+
+      var tipDiv = document.createElement('div');
+
+      var sentimentGauge = document.createElement('div');
+      sentimentGauge.id = 'gauge_div';
+      tipDiv.appendChild(sentimentGauge);
+
+
+      // Create a new element to display the tip
+      var tipElement = document.createElement('p');
+      tipElement.textContent = 'Tip: ' + tip.content;
+
+
+      tipDiv.appendChild(tipElement);
+
+      // Append the tip element to the content div
+      contentDiv.appendChild(tipDiv);
+      drawChart(tip.category);
+    } catch (error) {
+      console.error('Failed to fetch tip:', error);
     }
   });
 
@@ -129,8 +157,11 @@ const createEntryForm = function(parentId) {
 //cleans the div and add new data
 const renderFunction = function(subFunction) {
   var contentDiv = document.getElementById('content');
-  contentDiv.innerHTML = ''; // Clear the content div
+  contentDiv.innerHTML = '';
+
   subFunction(); // Call the passed function
 }
+
+
 
 export { createDiaryCards, createEntryForm, renderFunction }

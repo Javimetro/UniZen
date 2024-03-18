@@ -1,8 +1,9 @@
 // Main JS file
 import express from 'express';
+import session from 'express-session';
 import path from 'path';
 import {fileURLToPath} from 'url';
-import itemRouter from './routes/item-router.mjs';
+import tipRouter from './routes/tip-router.mjs';
 import userRouter from './routes/user-router.mjs';
 import entryRouter from './routes/entry-router.mjs';
 import cors from 'cors';
@@ -16,10 +17,31 @@ import {errorHandler, notFoundHandler} from './middlewares/error-handler.mjs';
 // middleware, joka lisää CORS-otsakkeen jokaiseen lähtevään vastaukseen.
 // Eli kerrotaan selaimelle, että tämä palvelin sallii AJAX-pyynnöt
 // myös muista kuin samasta alkuperästä (url-osoitteesta, palvelimelta) ladatuilta sivuilta.
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: (origin, callback) => callback(null, true),
+}));
+
+app.use(session({
+  secret: 'SESSION_SECRET',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false, // set to true if site is served over HTTPS
+    httpOnly: true,
+    sameSite: 'lax' // The sameSite setting controls when cookie is sent. If it's set to 'lax', cookie is only sent when navigating within the same site. set to 'none' if your client is on a different domain. THIS WAS THE KEY!! BEFORE THIS THE ID SESSION WAS CHANGIN ALL TIME. many hours debugging this... $#&x!!!!!!
+  }
+}));
+
+app.use((req, res, next) => {
+  console.log('Session ID MID:', req.sessionID);
+  console.log('Sentiment Score MID:', req.session.sentimentScore);
+  next();
+});
 
 // logger middleware
 app.use(logger);
+
 
 // middleware, joka parsii pyynnössä olevan JSON-datan ja lisää sen request-objektiin (req.body)
 app.use(express.json());
@@ -35,9 +57,8 @@ const __dirname = path.dirname(__filename);
 app.use('/sivusto', express.static(path.join(__dirname, '../public')));
 
 
-
-// Test RESOURCE /items endpoints (just mock data for testing, not connected to any database)
-app.use('/items', itemRouter);
+// Test RESOURCE /tips endpoints (just mock data for testing, not connected to any database)
+app.use('/api/tips', tipRouter);
 
 // bind base url (/api/entries resource) for all entry routes to entryRouter
 app.use('/api/entries', entryRouter);
@@ -61,6 +82,7 @@ app.get('/error', (req, res, next) => {
 app.use(notFoundHandler);
 // Error handler for sending response all error cases
 app.use(errorHandler);
+
 
 // Start the server
 app.listen(port, hostname, () => {

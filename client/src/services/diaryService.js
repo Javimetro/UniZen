@@ -49,10 +49,29 @@ const postEntry = async function(entryData) {
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(entryData)
+    body: JSON.stringify(entryData),
+    credentials: 'include' // include credentials
   })
   if (!response.ok) {
+    console.error('Response status:', response.status);
+    console.error('Response text:', await response.text());
     throw new Error('Failed to post entry');
+  }
+  return response.json();
+};
+
+const getTip = async function() {
+  const token = localStorage.getItem('token');
+  const response = await fetch('http://localhost:3000/api/tips', {
+    headers: {
+      'Authorization': 'Bearer ' + token
+    },
+    credentials: 'include' // include credentials
+  });
+  if (!response.ok) {
+    console.error('Response status:', response.status);
+    console.error('Response text:', await response.text());
+    throw new Error('Failed to fetch tip');
   }
   return response.json();
 };
@@ -89,4 +108,15 @@ const putEntry = async function(id, entryData) {
   return response.json();
 };
 
-export { getEntries, getEntryById, getAvgHoursSleptByUserId, postEntry, deleteEntry, putEntry };
+function validateSessionAndNavigate() {
+  if (window.location.href.includes('menu.html')) {
+    window.onunload = function() {};
+  }
+
+  if (!localStorage.getItem('token')) {
+    window.location.href = "login.html";
+  }
+}
+
+
+export { getEntries, getEntryById, getTip, getAvgHoursSleptByUserId, postEntry, deleteEntry, putEntry, validateSessionAndNavigate };
