@@ -1,6 +1,6 @@
 // menu.js
 import { createDiaryCards, createEntryForm, renderFunction } from '/src/utils/renderContainer.js';
-import { validateSessionAndNavigate, getTip } from './services/diaryService'
+import { validateSessionAndNavigate } from './services/diaryService'
 
 //check at the beginning to redirect the user to the login page if she is not logged in
 validateSessionAndNavigate();
@@ -11,10 +11,14 @@ window.onload = function() {
   document.body.appendChild(contentDiv);
 };
 
+google.charts.load('current', {'packages':['gauge']});
+
+google.charts.setOnLoadCallback(function() {
 //cleans the div and actualice it with the entryform
-document.getElementById('newEntry').addEventListener('click', function() {
-  renderFunction(function() {
-    createEntryForm('content');
+  document.getElementById('newEntry').addEventListener('click', function() {
+    renderFunction(function() {
+      createEntryForm('content');
+    });
   });
 });
 
@@ -36,13 +40,3 @@ document.getElementById("logout").addEventListener("click", function() {
   window.location.href = "login.html";
 });
 
-
-document.getElementById("getTip").addEventListener("click", async function(){
-  try {
-    const tip = await getTip();
-    console.log(tip);
-    // Do something with the tip
-  } catch (error) {
-    console.error('Failed to fetch tip:', error);
-  }
-})

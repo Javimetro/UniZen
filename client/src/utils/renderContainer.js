@@ -1,4 +1,6 @@
 import * as diaryService from '../services/diaryService.js';
+import { drawChart } from '../components/tipComponent.js';
+
 
 //creates cards for displaying the data from user's old
 const createDiaryCards = async function(parentId) { // parentId as parametrer, so function can be reused
@@ -90,8 +92,12 @@ const createEntryForm = function(parentId) {
   // Add an event listener to the form
   form.addEventListener('submit', async function(event) {
     event.preventDefault(); // Prevent the form from being submitted in the traditional way
-
+    form.style.display = 'none'; // Clear the content div
     // Gather the data from the form fields
+
+    var h2 = document.querySelector('h2');
+    h2.textContent = 'Regarding to your last entry:';
+
     var entryData = {
       entry_date: entryDate.value,
       text: entryText.value,
@@ -104,21 +110,34 @@ const createEntryForm = function(parentId) {
     try {
       var newEntry = await diaryService.postEntry(entryData);
       console.log('New entry created:', newEntry);
+
     } catch (error) {
       console.error('Failed to create new entry:', error);
     }
 
-    // Call the getTip function to get a tip
+    // Calls getTip function to get a tip right after entry is posted
     try {
+
       var tip = await diaryService.getTip();
       console.log('Received tip:', tip);
+
+      var tipDiv = document.createElement('div');
+
+      var sentimentGauge = document.createElement('div');
+      sentimentGauge.id = 'gauge_div';
+      tipDiv.appendChild(sentimentGauge);
+
 
       // Create a new element to display the tip
       var tipElement = document.createElement('p');
       tipElement.textContent = 'Tip: ' + tip.content;
 
+
+      tipDiv.appendChild(tipElement);
+
       // Append the tip element to the content div
-      contentDiv.appendChild(tipElement);
+      contentDiv.appendChild(tipDiv);
+      drawChart(tip.category);
     } catch (error) {
       console.error('Failed to fetch tip:', error);
     }
@@ -138,7 +157,8 @@ const createEntryForm = function(parentId) {
 //cleans the div and add new data
 const renderFunction = function(subFunction) {
   var contentDiv = document.getElementById('content');
-  contentDiv.innerHTML = ''; // Clear the content div
+  contentDiv.innerHTML = '';
+
   subFunction(); // Call the passed function
 }
 
