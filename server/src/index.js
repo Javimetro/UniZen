@@ -23,13 +23,13 @@ app.use(cors({
 }));
 
 app.use(session({
-  secret: 'SESSION_SECRET', // replace with your own secret
+  secret: 'SESSION_SECRET',
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: false, // set to true if your site is served over HTTPS
+    secure: false, // set to true if site is served over HTTPS
     httpOnly: true,
-    sameSite: 'lax' // set to 'none' if your client is on a different domain THIS WAS THE KEY!! BEFORE THIS THE ID SESSION WAS CHANGIN ALL TIME.
+    sameSite: 'lax' // The sameSite setting controls when cookie is sent. If it's set to 'lax', cookie is only sent when navigating within the same site. set to 'none' if your client is on a different domain. THIS WAS THE KEY!! BEFORE THIS THE ID SESSION WAS CHANGIN ALL TIME. many hours debugging this... $#&x!!!!!!
   }
 }));
 

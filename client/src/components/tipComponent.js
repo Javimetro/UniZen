@@ -8,7 +8,7 @@ export function drawChart(score = 0) {
         // Setup the data table with initial score
         const data = google.visualization.arrayToDataTable([
             ['Label', 'Value'],
-            ['Mental State', score],
+            ['Sentiment Score', score],
         ]);
 
         // Set options for the gauge
