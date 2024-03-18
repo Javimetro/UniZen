@@ -40,7 +40,7 @@ const postEntry = async (req, res) => {
   };
 
   // check that all needed fields are included in request
-  if (newEntry.user_id && entry_date && text && energy_level && sleep_hours && sentimentScore) {
+  if (newEntry.user_id && entry_date && text && energy_level && sleep_hours && sentimentScore !== null && sentimentScore !== undefined) { // // Check that sentimentScore is not null or undefined. This is necessary because 0 is a valid value for sentimentScore in my database, but is "falsy" in JavaScript.
     const result = await insertEntry(newEntry);
     if (result.error) {
       return res.status(result.error).json(result);
@@ -50,6 +50,7 @@ const postEntry = async (req, res) => {
     return res.status(400).json({error: 400, message: 'bad request'});
   }
 };
+
 const putEntry = async (req, res) => {
   const entry_id = req.params.id;
   const {user_id, entry_date, text, energy_level,sleep_hours,sentimentScore} = req.body;

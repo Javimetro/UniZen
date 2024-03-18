@@ -2,10 +2,10 @@ import {getRandomTipBySentimentScore} from '../models/tip-model.mjs';
 
 const getTipByScore = async (req, res, next) => {
   try {
-    console.log('Before accessing req.session:', req.session); // Log the entire session before accessing sentimentScore
+    console.log('Controller. Before accessing req.session:', req.session); // Log the entire session before accessing sentimentScore
     const sentimentScore = req.session.sentimentScore;
-    console.log(req.session)
-    console.log('Sentiment Score:', sentimentScore); // Log the sentimentScore after accessing it
+    //console.log(req.session)
+    console.log('Sentiment Score in controller:', sentimentScore); // Log the sentimentScore after accessing it
     const tip = await getRandomTipBySentimentScore(sentimentScore);
     if (!tip) {
       return res.status(404).json({ message: 'Tip not found' });
