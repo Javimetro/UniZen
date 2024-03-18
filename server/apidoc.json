@@ -1,0 +1,31 @@
+{
+    "name": "Lepo",
+    "version": "1.0.0",
+    "description": "API documentation for my web application",
+    "title": "Lepo Documentation",
+    "url": "lepo.northeurope.cloudapp.azure.com",
+    "sampleUrl": "lepo.northeurope.cloudapp.azure.com",
+    "template": {
+        "withGenerator": false
+    },
+    "markdown": true,
+    "order": ["Authentication", "Endpoints"],
+    "header": {
+        "title": "Welcome to Lepo",
+        "content": "<p>This is the header content of the API documentation.</p>"
+    },
+    "footer": {
+        "title": "Contact Information",
+        "content": "<p>For any questions or support, please contact us at jorganes@tutanota.com.</p>"
+    },
+    "sections": [
+        {
+            "title": "Authentication",
+            "content": "<p>Information about authentication and access control.</p>"
+        },
+        {
+            "title": "Endpoints",
+            "content": "<p>Documentation for each API endpoint.</p>"
+        }
+    ]
+}

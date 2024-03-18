@@ -25,22 +25,81 @@ const userValidationRules = [
 ];
 
 // /user endpoint
-userRouter
-  // eslint-disable-next-line indent
-  .route('/')
-  // list users
-  .get(authenticateToken, getUsers)
-  // update user (userValidationRules added as parametrer)
-  .put(authenticateToken, userValidationRules, putUser)
-  // user registration (userValidationRules added as parametrer)
-  .post(userValidationRules, postUser);
+/**
+ * @api {get} /user Get all users
+ * @apiName GetUsers
+ * @apiGroup User
+ * @apiPermission authenticated
+ *
+ * @apiSuccess {Object[]} users List of users.
+ * @apiSuccess {String} users.username User's username.
+ * @apiSuccess {String} users.email User's email.
+ *
+ * @apiError (Unauthorized 401) Unauthorized User authentication failed.
+ */
+userRouter.get('/', authenticateToken, getUsers);
 
-// /user/:id endpoint
-userRouter
-  .route('/:id')
-  // get info of a user
-  .get(authenticateToken, getUserById)
-  // delete user based on id
-  .delete(authenticateToken, deleteUser);
+/**
+ * @api {put} /user Update a user
+ * @apiName UpdateUser
+ * @apiGroup User
+ * @apiPermission authenticated
+ *
+ * @apiParam {String} id User's ID.
+ * @apiParam {String} username User's username.
+ * @apiParam {String} email User's email.
+ *
+ * @apiSuccess {String} message Success message.
+ *
+ * @apiError (Unauthorized 401) Unauthorized User authentication failed.
+ * @apiError (BadRequest 400) BadRequest Invalid request body.
+ */
+userRouter.put('/:id', authenticateToken, userValidationRules, putUser);
+
+/**
+ * @api {post} /user Register a new user
+ * @apiName RegisterUser
+ * @apiGroup User
+ *
+ * @apiParam {String} username User's username.
+ * @apiParam {String} email User's email.
+ * @apiParam {String} password User's password.
+ *
+ * @apiSuccess {String} message Success message.
+ *
+ * @apiError (BadRequest 400) BadRequest Invalid request body.
+ */
+userRouter.post('/', userValidationRules, postUser);
+
+/**
+ * @api {get} /user/:id Get a user by ID
+ * @apiName GetUserById
+ * @apiGroup User
+ * @apiPermission authenticated
+ *
+ * @apiParam {String} id User's ID.
+ *
+ * @apiSuccess {String} username User's username.
+ * @apiSuccess {String} email User's email.
+ *
+ * @apiError (Unauthorized 401) Unauthorized User authentication failed.
+ * @apiError (NotFound 404) NotFound User not found.
+ */
+userRouter.get('/:id', authenticateToken, getUserById);
+
+/**
+ * @api {delete} /user/:id Delete a user by ID
+ * @apiName DeleteUser
+ * @apiGroup User
+ * @apiPermission authenticated
+ *
+ * @apiParam {String} id User's ID.
+ *
+ * @apiSuccess {String} message Success message.
+ *
+ * @apiError (Unauthorized 401) Unauthorized User authentication failed.
+ * @apiError (NotFound 404) NotFound User not found.
+ */
+userRouter.delete('/:id', authenticateToken, deleteUser);
 
 export default userRouter;

@@ -6,6 +6,11 @@ Route Configuration: In your user-router.mjs file, you can use the authenticatio
 In the example provided by your teacher, the authenticateToken middleware is applied to the PUT request route for updating user information (/:id). This means that authentication is required before a user can update their information.
 */
 
+/**
+ * Router for handling authentication related routes.
+ *
+ * @type {express.Router}
+ */
 const authRouter = express.Router();
 
 // user login
