@@ -104,9 +104,23 @@ const createEntryForm = function(parentId) {
     try {
       var newEntry = await diaryService.postEntry(entryData);
       console.log('New entry created:', newEntry);
-
     } catch (error) {
       console.error('Failed to create new entry:', error);
+    }
+
+    // Call the getTip function to get a tip
+    try {
+      var tip = await diaryService.getTip();
+      console.log('Received tip:', tip);
+
+      // Create a new element to display the tip
+      var tipElement = document.createElement('p');
+      tipElement.textContent = 'Tip: ' + tip.content;
+
+      // Append the tip element to the content div
+      contentDiv.appendChild(tipElement);
+    } catch (error) {
+      console.error('Failed to fetch tip:', error);
     }
   });
 
@@ -127,5 +141,7 @@ const renderFunction = function(subFunction) {
   contentDiv.innerHTML = ''; // Clear the content div
   subFunction(); // Call the passed function
 }
+
+
 
 export { createDiaryCards, createEntryForm, renderFunction }
