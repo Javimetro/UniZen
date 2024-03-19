@@ -6,13 +6,12 @@ import '/public/styles/style.css';
 console.log('vamos')
 //login redirect
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('login').addEventListener('click', function() {
-    console.log(login)
+  document.getElementById('login-button').addEventListener('click', function() {
 
     window.location.href = '/login.html';
   });
 //register redirect
-  document.getElementById('register').addEventListener('click', function() {
+  document.getElementById('register-button').addEventListener('click', function() {
     window.location.href = '/register.html';
   });
 });

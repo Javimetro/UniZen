@@ -5,13 +5,32 @@
   box-sizing: border-box;
 }
 
+#icon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#introduction {
+  font-size: 25px;
+}
+
+#indexContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
 #login-form {
   font-size: 25px; /* This will make the text in the form bigger */
   width: 80%; /* This will make the form take up 50% of the width of its parent */
   margin: auto; /* This will center the form */
 }
 
-#username, #password {
+#username, #password, #email {
   font-size: 20px; /* This will make the text in the input boxes bigger */
   padding: 10px; /* This will add some space around the text in the input boxes */
 }
@@ -20,10 +39,14 @@
   margin-bottom: 50px;
 }
 
-#login-button{
+#login-button, #submitCredentialsButton, #back-to-menu, #register-button{
   width: 150px;
   height: 50px;
   font-weight: bold;
+}
+
+#submitCredentialsButton{
+  margin-bottom: 20px;
 }
 
 body {
