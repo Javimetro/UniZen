@@ -61,21 +61,29 @@ const createEntryForm = function(parentId) {
   var entryDate = document.createElement('input');
   entryDate.setAttribute('type', 'date');
   entryDate.setAttribute('name', 'entry_date');
+  entryDate.required = true;
 
   var entryText = document.createElement('input');
   entryText.setAttribute('type', 'text');
   entryText.setAttribute('name', 'text');
   entryText.setAttribute('placeholder', 'How do you feel today?');
+  entryText.required = true;
 
   var energy_level = document.createElement('input');
   energy_level.setAttribute('type', 'number');
   energy_level.setAttribute('name', 'energy_level');
-  energy_level.setAttribute('placeholder', 'Energy level');
+  energy_level.setAttribute('placeholder', 'Energy level from 1 to 10');
+  energy_level.setAttribute('min', '1');
+  energy_level.setAttribute('max', '10');
+  energy_level.required = true;
 
   var sleepHours = document.createElement('input');
   sleepHours.setAttribute('type', 'number');
   sleepHours.setAttribute('name', 'sleep_hours');
   sleepHours.setAttribute('placeholder', 'Sleep Hours');
+  sleepHours.setAttribute('min','0');
+  sleepHours.setAttribute('max','24');
+  sleepHours.required = true;
 
   // Add form fields to form
   form.appendChild(entryDate);
