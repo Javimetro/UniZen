@@ -1,4 +1,6 @@
+//server
 node_modules
 .vscode
 db/create-db-user.sql
 .env
+apidoc
