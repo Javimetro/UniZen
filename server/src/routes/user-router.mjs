@@ -24,82 +24,83 @@ const userValidationRules = [
     .withMessage('Password must be at least 8 characters long'),
 ];
 
-// /user endpoint
-/**
- * @api {get} /user Get all users
- * @apiName GetUsers
- * @apiGroup User
- * @apiPermission authenticated
- *
- * @apiSuccess {Object[]} users List of users.
- * @apiSuccess {String} users.username User's username.
- * @apiSuccess {String} users.email User's email.
- *
- * @apiError (Unauthorized 401) Unauthorized User authentication failed.
- */
 userRouter.get('/', authenticateToken, getUsers);
 
 /**
- * @api {put} /user Update a user
- * @apiName UpdateUser
+ * @api {put} /api/users/ Update user credentials
  * @apiGroup User
- * @apiPermission authenticated
+ * @apiPermission token
+ * @apiHeader {String} Authorization Bearer token.
  *
- * @apiParam {String} id User's ID.
- * @apiParam {String} username User's username.
- * @apiParam {String} email User's email.
+ * @apiParam {String} username User's new name. It must not be empty.
+ * @apiParam {String} email User's new email. It must be a valid email address.
+ * @apiParam {String} password User's new password. It must be at least 8 characters long.
+ *
+ * @apiParamExample {json} Request-Example:
+ * {
+ *    "username": "newExampleUser",
+ *    "email": "newExample@example.com",
+ *    "password": "newExamplePassword"
+ * }
  *
  * @apiSuccess {String} message Success message.
+ * @apiSuccess {Object} user Updated user's data.
+ * @apiSuccessExample {json} Success-Response:
+ * {
+    "message": "user data updated",
+    "user_id": 4
+ *}
  *
- * @apiError (Unauthorized 401) Unauthorized User authentication failed.
- * @apiError (BadRequest 400) BadRequest Invalid request body.
+ * @apiErrorExample {json} Error-Response:
+ * HTTP/1.1 400 Bad Request
+ * {
+ *    "message": "Invalid data"
+ * }
  */
 userRouter.put('/:id', authenticateToken, userValidationRules, putUser);
 
 /**
- * @api {post} /user Register a new user
+ * @api {post} /api/users Register a new user
  * @apiName RegisterUser
  * @apiGroup User
- *
- * @apiParam {String} username User's username.
- * @apiParam {String} email User's email.
- * @apiParam {String} password User's password.
- *
- * @apiSuccess {String} message Success message.
- *
- * @apiError (BadRequest 400) BadRequest Invalid request body.
+ * @apiParam {String} username User's name. It must not be empty.
+ * @apiParam {String} email User's email. It must be a valid email address.
+ * @apiParam {String} password User's password. It must be at least 8 characters long.
+ * @apiParamExample {json} Request-Example:
+ *  {
+    "username": "exampleUser",
+    "password": "examplePassword",
+    "email": "example@example.com"
+*}
+ * @apiSuccessExample {json} Success-Example response:
+ * {
+    "message": "User created successfully"
+*}
+ * @apiErrorExample Error-response if password is too short
+ * {
+    "error": {
+        "message": "Bad request",
+        "status": 400,
+        "errors": [
+            {
+                "type": "field",
+                "value": "e",
+                "msg": "Password must be at least 8 characters long",
+                "path": "password",
+                "location": "body"
+            }
+        ]
+    }
+}
+.
+
  */
 userRouter.post('/', userValidationRules, postUser);
 
-/**
- * @api {get} /user/:id Get a user by ID
- * @apiName GetUserById
- * @apiGroup User
- * @apiPermission authenticated
- *
- * @apiParam {String} id User's ID.
- *
- * @apiSuccess {String} username User's username.
- * @apiSuccess {String} email User's email.
- *
- * @apiError (Unauthorized 401) Unauthorized User authentication failed.
- * @apiError (NotFound 404) NotFound User not found.
- */
+
 userRouter.get('/:id', authenticateToken, getUserById);
 
-/**
- * @api {delete} /user/:id Delete a user by ID
- * @apiName DeleteUser
- * @apiGroup User
- * @apiPermission authenticated
- *
- * @apiParam {String} id User's ID.
- *
- * @apiSuccess {String} message Success message.
- *
- * @apiError (Unauthorized 401) Unauthorized User authentication failed.
- * @apiError (NotFound 404) NotFound User not found.
- */
+
 userRouter.delete('/:id', authenticateToken, deleteUser);
 
 export default userRouter;

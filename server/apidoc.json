@@ -11,8 +11,8 @@
     "markdown": true,
     "order": ["Authentication", "Endpoints"],
     "header": {
-        "title": "Welcome to Lepo",
-        "content": "<p>This is the header content of the API documentation.</p>"
+        "title": "Lepo API documentation",
+        "content": "<p>Lepo's API provides a set of endpoints for managing users and their data. It includes endpoints for registering and authenticating users, as well as endpoints for creating, updating, retrieving user data. The API uses token-based authentication and all requests must include a valid token in the Authorization header. The API returns data in JSON format and follows the REST architectural style. Endpoints related with admin rights and user's categories, like for example deleteUser endpoint, are not yet fully implemented in the app and that is the reason why those are not added to documentation</p>"
     },
     "footer": {
         "title": "Contact Information",
@@ -22,10 +22,9 @@
         {
             "title": "Authentication",
             "content": "<p>Information about authentication and access control.</p>"
-        },
-        {
-            "title": "Endpoints",
-            "content": "<p>Documentation for each API endpoint.</p>"
         }
-    ]
+    ],
+    "parsers": {
+        "*.mjs": "js"
+    }
 }
