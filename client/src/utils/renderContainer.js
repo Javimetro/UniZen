@@ -9,7 +9,7 @@ const createDiaryCards = async function(parentId) { // parentId as parametrer, s
     console.log('render')
 
     const section = document.createElement('section');
-    section.classList.add('card-area');
+    section.classList.add('card-area', 'card-container');
 
     diaryData.forEach((entry, index) => {
       const card = document.createElement('div');
@@ -18,7 +18,8 @@ const createDiaryCards = async function(parentId) { // parentId as parametrer, s
       const diaryContainer = document.createElement('div');
       diaryContainer.classList.add('card-diary');
       const title = document.createElement('h4');
-      title.textContent = `Diary card ${index + 1}`;
+      const date = new Date(entry.entry_date);
+      title.textContent = date.toISOString().split('T')[0]; // This will give only the date part
       const entryText = document.createElement('p');
       entryText.textContent = `Mood: ${entry.text}`;
       const energy_level = document.createElement('p');
@@ -55,46 +56,74 @@ const createEntryForm = function(parentId) {
   var h2 = document.createElement('h2');
   h2.textContent = 'New Entry';
   var form = document.createElement('form');
+  form.classList.add('stacked-form');
 
   // Create form fields
 
   var entryDate = document.createElement('input');
+  entryDate.setAttribute('id', 'entryDate');
   entryDate.setAttribute('type', 'date');
   entryDate.setAttribute('name', 'entry_date');
   entryDate.required = true;
 
-  var entryText = document.createElement('input');
-  entryText.setAttribute('type', 'text');
+  var entryText = document.createElement('textarea');
+  entryText.setAttribute('id', 'entryText');
   entryText.setAttribute('name', 'text');
   entryText.setAttribute('placeholder', 'How do you feel today?');
   entryText.required = true;
 
   var energy_level = document.createElement('input');
-  energy_level.setAttribute('type', 'number');
+  energy_level.setAttribute('id', 'energy_level');
+  energy_level.setAttribute('type', 'range');
   energy_level.setAttribute('name', 'energy_level');
   energy_level.setAttribute('placeholder', 'Energy level from 1 to 10');
   energy_level.setAttribute('min', '1');
   energy_level.setAttribute('max', '10');
+  energy_level.setAttribute('value', '5');
   energy_level.required = true;
 
-  var sleepHours = document.createElement('input');
-  sleepHours.setAttribute('type', 'number');
+  var energyLevelLabel = document.createElement('label');
+  energyLevelLabel.setAttribute('for', 'energy_level');
+  energyLevelLabel.textContent = 'Energy level from 1 to 10:';
+
+  var energyLevelValue = document.createElement('span');
+  energyLevelValue.setAttribute('id', 'energy_level_value');
+  energyLevelValue.textContent = energy_level.value;
+
+  energy_level.addEventListener('input', function() {
+    energyLevelValue.textContent = this.value;
+  });
+
+  var sleepHours = document.createElement('select');
+  sleepHours.setAttribute('id', 'sleep_hours');
   sleepHours.setAttribute('name', 'sleep_hours');
-  sleepHours.setAttribute('placeholder', 'Sleep Hours');
-  sleepHours.setAttribute('min','0');
-  sleepHours.setAttribute('max','24');
-  sleepHours.required = true;
+
+  // Create options for each hour
+  for (var i = 0; i <= 24; i++) {
+    var option = document.createElement('option');
+    option.setAttribute('value', i);
+    option.textContent = i;
+    sleepHours.appendChild(option);
+  }
+
+  var sleepHoursLabel = document.createElement('label');
+  sleepHoursLabel.setAttribute('for', 'sleep_hours');
+  sleepHoursLabel.textContent = 'Sleep hours (0-24):';
 
   // Add form fields to form
   form.appendChild(entryDate);
   form.appendChild(entryText);
+  form.appendChild(energyLevelLabel);
+  form.appendChild(energyLevelValue);
   form.appendChild(energy_level);
+  form.appendChild(sleepHoursLabel);
   form.appendChild(sleepHours);
 
   // Add a submit button to the form
   var submitButton = document.createElement('button');
   submitButton.setAttribute('type', 'submit');
   submitButton.textContent = 'Submit';
+  submitButton.setAttribute('id','submitFormButton')
   form.appendChild(submitButton);
 
   // Add an event listener to the form
@@ -130,6 +159,7 @@ const createEntryForm = function(parentId) {
       console.log('Received tip:', tip);
 
       var tipDiv = document.createElement('div');
+      tipDiv.setAttribute('class', 'tip-box');
 
       var sentimentGauge = document.createElement('div');
       sentimentGauge.id = 'gauge_div';
@@ -137,8 +167,10 @@ const createEntryForm = function(parentId) {
 
 
       // Create a new element to display the tip
+
       var tipElement = document.createElement('p');
-      tipElement.textContent = 'Tip: ' + tip.content;
+      tipElement.setAttribute('id','tipText')
+      tipElement.textContent =  tip.content;
 
 
       tipDiv.appendChild(tipElement);
