@@ -27,7 +27,7 @@ const userValidationRules = [
 userRouter.get('/', authenticateToken, getUsers);
 
 /**
- * @api {put} /api/users/ Update user credentials
+ * @api {put} /api/users/:id Update user credentials
  * @apiGroup User
  * @apiPermission token
  * @apiHeader {String} Authorization Bearer token.
