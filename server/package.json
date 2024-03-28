@@ -1,0 +1,32 @@
+{
+  "name": "lepo-app",
+  "version": "1.0.0",
+  "description": "back end for the yksilöprojektin app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js",
+    "start": "nodemon src/index.js",
+    "apidoc": "apidoc -i src/ -o apidoc/"
+  },
+  "author": "javimetro",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-google": "^0.14.0",
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "apidoc": "^1.2.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.9.1",
+    "natural": "^6.12.0"
+  }
+}
