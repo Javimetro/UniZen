@@ -62,7 +62,7 @@ npm install
 
 ## Database Schema
 
-![UniZen database diagram](documents\database-diagram\UniZen database design.jpg)
+![UniZen database diagram](documents/database-diagram/UniZen database design.jpg)
 
 
 ## Project Features
