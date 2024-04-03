@@ -8,15 +8,9 @@ import {
   putEntry,
   deleteEntry,
 } from '../controllers/entries-controller.mjs';
-import { addSentimentScoreToEntry } from '../middlewares/addSentimentScore.mjs'
 
 const entryRouter = express.Router();
 
-/**
- * Array of entry validations.
- *
- * @type {Array<ValidationChain>}
- */
 const entryValidations = [
   body('entry_date').notEmpty().isDate(),
   body('text').optional().isLength({ max: 2000 }),
@@ -98,7 +92,7 @@ entryRouter.route('/')
  *
  * @apiName PostEntry
  */
- .post(authenticateToken, entryValidations, addSentimentScoreToEntry, postEntry);
+ .post(authenticateToken, entryValidations, postEntry);
 
 entryRouter.route('/:id')
 .get(authenticateToken, getEntryById)

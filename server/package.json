@@ -1,7 +1,7 @@
 {
-  "name": "lepo-app",
+  "name": "UniZen-app",
   "version": "1.0.0",
-  "description": "back end for the yksilöprojektin app",
+  "description": "back end for the UniZen app",
   "main": "index.js",
   "type": "module",
   "scripts": {

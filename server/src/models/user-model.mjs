@@ -5,13 +5,34 @@ const listAllUsers = async () => {
   try {
     const sql = 'SELECT user_id, username, user_level FROM users';
     const [rows] = await promisePool.query(sql);
-    //console.log(rows);
+    console.log('Query result:', rows);
     return rows;
   } catch (error) {
     console.error('listAllUsers', error);
     return {error: 500, message: 'db error'};
   }
+
 };
+/* Test for checking database connection. It works!
+const test = async () => {
+  try{
+    const sql = 'SELECT tip_text FROM tips';
+    const [rows] = await promisePool.query(sql);
+    console.log('Query result:', rows);
+    return rows;
+  } catch (error) {
+    console.error('listAllUsers', error);
+    return {error: 500, message: 'db error'};
+  }
+}
+
+const runFunction = async () => {
+  const result = await test();
+  console.log(result);
+};
+
+runFunction();
+*/
 
 const selectUserById = async (id) => {
   try {
