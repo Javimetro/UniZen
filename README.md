@@ -60,8 +60,10 @@ After cloning the repository, navigate to the server directory and run the follo
 npm install
 ```
 
+
 ## Database Schema
 
+![UniZen database diagram](documents/database-diagram/UniZen_database_design.jpg)
 
 
 ## Project Features
