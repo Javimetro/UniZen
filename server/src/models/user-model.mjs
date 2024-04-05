@@ -1,6 +1,27 @@
 import promisePool from '../utils/database.mjs';
 
 
+const selectUserByEmail = async (email) => {
+  try {
+    const sql = 'SELECT * FROM users WHERE email=?';
+    const params = [email];
+    const [rows] = await promisePool.query(sql, params);
+    // console.log(rows);
+    // if nothing is found with the user id, result array is empty []
+    if (rows.length === 0) {
+      return {error: 404, message: 'user not found'};
+    }
+    // Remove password property from result
+    delete rows[0].password;
+    return rows[0];
+  } catch (error) {
+    console.error('selectUserByEmail', error);
+    return {error: 500, message: 'db error'};
+  }
+};
+
+
+
 const listAllUsers = async () => {
   try {
     const sql = 'SELECT user_id, username, user_level FROM users';
@@ -131,4 +152,5 @@ export {
   updateUserById,
   deleteUserById,
   selectUserByUsername,
+  selectUserByEmail
 };

@@ -4,7 +4,7 @@ import {
     listAllEntries,
     listAllEntriesByUserId,
     updateEntryById,
-  } from '../models/entry-model.mjs';
+  } from '../models/calendar-model.mjs';
 
 
 const getEntries = async (req, res) => {
