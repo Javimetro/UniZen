@@ -136,10 +136,8 @@ const syncWithLocalUser = async (kubiosUser) => {
   if (result.error) {
     // Create user
     const newUser = {
-      username: kubiosUser.email,
-      email: kubiosUser.email,
-      // Random password, quick workaround for the required field
-      password: v4(),
+      username: kubiosUser.given_name,
+      email: kubiosUser.email
     };
     const newUserResult = await insertUser(newUser);
     userId = newUserResult.user_id;
@@ -159,7 +157,7 @@ const syncWithLocalUser = async (kubiosUser) => {
 * @return {object} user if username & password match
 */
 const postLogin = async (req, res, next) => {
-  const {username, password} = req.body;
+  const {username, password} = req.body;4
   // console.log('login', req.body);
   try {
     // Try to login with Kubios
