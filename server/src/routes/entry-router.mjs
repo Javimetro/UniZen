@@ -7,7 +7,7 @@ import {
   getEntryById,
   putEntry,
   deleteEntry,
-} from '../controllers/entries-controller.mjs';
+} from '../controllers/calendar-controller.mjs';
 
 const entryRouter = express.Router();
 
