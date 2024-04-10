@@ -36,7 +36,7 @@ app.use('/sivusto', express.static(path.join(__dirname, '../public')));
 app.use('/api/entries', entryRouter);
 // Users resource (/api/users)
 app.use('/api/users', userRouter);
-// Kubios API resource (/api/kubios)
+// Kubios API resource (/api/measurements)
 app.use('/api/measurements', measurementsRouter);
 // User authentication
 app.use('/api/auth', authRouter);
