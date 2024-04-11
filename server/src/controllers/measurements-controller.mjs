@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import fetch from 'node-fetch';
+import { insertMeasurements } from '../models/measurement-model.mjs'
 // import {customError} from '../middlewares/error-handler.mjs';
 
 // Kubios API base URL should be set in .env
@@ -12,6 +13,8 @@ const baseUrl = process.env.KUBIOS_API_URI;
 * @param {Response} res
 * @param {NextFunction} next
 */
+
+//todo, add localuser id to db
 const getUserData = async (req, res, next) => {
     try {
         const {kubiosIdToken} = req.user;
@@ -30,6 +33,10 @@ const getUserData = async (req, res, next) => {
             },
         );
         const results = await response.json();
+
+        // Insert the measurements into the database
+        await insertMeasurements(results, req.user.id);
+
         return res.json(results);
     } catch (error) {
         // Pass the error to the error handling middleware
