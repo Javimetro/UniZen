@@ -2,8 +2,7 @@
 import express from 'express';
 import path from 'path';
 import {fileURLToPath} from 'url';
-import userRouter from './routes/user-router.mjs';
-import entryRouter from './routes/entry-router.mjs';
+import measurementsRouter from './routes/measurements-router.mjs';
 import cors from 'cors';
 import logger from './middlewares/logger.mjs';
 import authRouter from './routes/auth-router.mjs';
@@ -31,10 +30,8 @@ app.use(express.static('public'));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/sivusto', express.static(path.join(__dirname, '../public')));
-// bind base url (/api/entries resource) for all entry routes to entryRouter
-app.use('/api/entries', entryRouter);
-// Users resource (/api/users)
-app.use('/api/users', userRouter);
+// Kubios API resource (/api/kubios)
+app.use('/api/measurements', measurementsRouter);
 // User authentication
 app.use('/api/auth', authRouter);
 // Default 404 not found

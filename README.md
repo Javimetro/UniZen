@@ -82,8 +82,3 @@ npm install
 If you want to report bugs or give me your feedback, feel free to contact us at javierj@metropolia.fi, vili..., mukke..., salamon...
 
 ## Future Development
-
-
-
-## Data Flow
-
