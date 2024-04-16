@@ -5,17 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account</title>
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="topnav">
+  </head>
+  <body>
+    <div class="topnav">
+      <a href="diary.html">Diaries</a>
+      <a href="account.html">Account</a>
+      <img class="logonav" src="img/unizen_logo.png" alt="Logo">
+      <a href="contact.html">About</a>
+      <a href="#" id="logoutBtn">Logout</a>
+    </div>
 
-    <a href="diary.html">Diaries</a>
-    <a href="account.html">Account</a>
-    <img class="logonav" src="img/unizen_logo.png" alt="Logo">
-    <a href="contact.html">About</a>
-    <a href="#" id="logoutBtn">Logout</a>
-  </div>
+    <form id="loginForm">
+      <label for="username">Username:</label><br>
+      <input type="text" id="username" name="username"><br>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password"><br>
+      <input type="submit" value="Login">
+    </form>
 
-  <script type="module" src="account.js"></script>
-</body>
+    <div id="userData"></div>
+
+    <script type="module" src="account.js"></script>
+  </body>
 </html>

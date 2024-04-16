@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.11.2 on win32)" generated="2024-04-11T10:35:51.335550" rpa="false" schemaversion="5">
+<suite id="s1" name="Asd" source="C:\Users\vili_\Desktop\Unizen\UniZen\test\asd.robot">
+<kw name="Authenticate as Admin" owner="restful_booker_keywords" type="SETUP">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-04-11T10:35:51.439393" level="INFO">${body} = {'username': 'vili.hakamies@metropolia.fi', 'password': 'Metrokubios123!'}</msg>
+<var>${body}</var>
+<arg>username=vili.hakamies@metropolia.fi</arg>
+<arg>password=Metrokubios123!</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-04-11T10:35:51.439393" elapsed="0.000000"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-04-11T10:35:53.489524" level="INFO">POST Request : url=http://localhost:3000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '74', 'Content-Type': 'application/json'} 
+ body=b'{"username": "vili.hakamies@metropolia.fi", "password": "Metrokubios123!"}' 
+ </msg>
+<msg time="2024-04-11T10:35:53.489524" level="INFO">POST Response : url=http://localhost:3000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '54', 'ETag': 'W/"36-tHOmvbUSL8k7QyQx0Lsdw3iA+vM"', 'Date': 'Thu, 11 Apr 2024 07:35:53 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"error":401,"message":"invalid username or password"} 
+ </msg>
+<msg time="2024-04-11T10:35:53.489524" level="FAIL">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/auth/login</msg>
+<var>${response}</var>
+<arg>url=http://localhost:3000/api/auth/login</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request.</doc>
+<status status="FAIL" start="2024-04-11T10:35:51.439393" elapsed="2.050131">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/auth/login</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${response.json()}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2024-04-11T10:35:53.489524" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${token}</var>
+<arg>${response.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2024-04-11T10:35:53.489524" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${token}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2024-04-11T10:35:53.489524" elapsed="0.000000"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" start="2024-04-11T10:35:53.489524" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2024-04-11T10:35:51.439393" elapsed="2.050131">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/auth/login</status>
+</kw>
+<test id="s1-t1" name="Get entries from the system" line="8">
+<status status="FAIL" start="2024-04-11T10:35:53.489524" elapsed="0.000000">Parent suite setup failed:
+HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/auth/login</status>
+</test>
+<status status="FAIL" start="2024-04-11T10:35:51.335550" elapsed="2.158958">Suite setup failed:
+HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/auth/login</status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Asd">Asd</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
