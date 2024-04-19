@@ -166,6 +166,9 @@ const postLogin = async (req, res, next) => {
     const localUserId = await syncWithLocalUser(kubiosUser);
     // Include kubiosIdToken in the auth token used in this app
     // NOTE: What is the expiration time of the Kubios token?
+
+    console.log(process.env.JWT_SECRET)
+
     const token = jwt.sign(
       {userId: localUserId, kubiosIdToken},
       process.env.JWT_SECRET,

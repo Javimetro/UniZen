@@ -61,9 +61,26 @@ const insertUser = async (user) => {
   }
 };
 
+const selectAllUsers = async () => {
+  try {
+    const sql = 'SELECT * FROM users';
+    const [rows] = await promisePool.query(sql);
+    // Remove password property from each user object
+    const users = rows.map(user => {
+      delete user.password;
+      return user;
+    });
+    return users;
+  } catch (error) {
+    console.error('selectAllUsers', error);
+    return {error: 500, message: 'db error'};
+  }
+};
+
 
 export {
   selectUserById,
   insertUser,
-  selectUserByEmail
+  selectUserByEmail,
+  selectAllUsers,
 };

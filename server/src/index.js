@@ -6,6 +6,7 @@ import measurementsRouter from './routes/measurements-router.mjs';
 import cors from 'cors';
 import logger from './middlewares/logger.mjs';
 import authRouter from './routes/auth-router.mjs';
+import calendarRouter from './routes/calendar-router.mjs';
 const hostname = '127.0.0.1';
 const port = 3000;
 const app = express();
@@ -34,6 +35,8 @@ app.use('/sivusto', express.static(path.join(__dirname, '../public')));
 app.use('/api/measurements', measurementsRouter);
 // User authentication
 app.use('/api/auth', authRouter);
+
+app.use('/api/calendar', calendarRouter);
 // Default 404 not found
 app.use(notFoundHandler);
 // Error handler for sending response all error cases

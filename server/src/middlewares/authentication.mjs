@@ -9,7 +9,6 @@ const authenticateToken = (req, res, next) => {
   // console.log('authenticateToken', req.headers);
   const authHeader = req.headers['authorization']; //It first extracts the Authorization header from the incoming request
   const token = authHeader && authHeader.split(' ')[1]; //The Authorization header typically follows the format Bearer <token>. The function splits the header value by space (authHeader.split(' ')[1]) to extract the token part.
-  console.log('token', token);
   if (!token) {
     return res.sendStatus(401);
   }
