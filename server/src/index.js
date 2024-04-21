@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import {fileURLToPath} from 'url';
 import measurementsRouter from './routes/measurements-router.mjs';
+import tipRouter from './routes/tip-router.mjs';
 import cors from 'cors';
 import logger from './middlewares/logger.mjs';
 import authRouter from './routes/auth-router.mjs';
@@ -34,6 +35,8 @@ app.use('/sivusto', express.static(path.join(__dirname, '../public')));
 app.use('/api/measurements', measurementsRouter);
 // User authentication
 app.use('/api/auth', authRouter);
+// User tip
+app.use('/api/tip', tipRouter);
 // Default 404 not found
 app.use(notFoundHandler);
 // Error handler for sending response all error cases
