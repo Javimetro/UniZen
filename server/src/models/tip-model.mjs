@@ -1,13 +1,15 @@
 import promisePool from '../utils/database.mjs';
 
-const colorMap = {
+
+
+async function getRandomTipByColorCode(color_code) {
+
+    const colorMap = {
     '#ff0000': 'red',
     '#FFFF00': 'yellow',
     '#008000': 'green',
-    // add more color codes as needed
-};
+    };
 
-async function getRandomTipByColorCode(color_code) {
     const color = colorMap[color_code];
     if (!color) {
         throw new Error(`Invalid color code: ${color_code}`);
