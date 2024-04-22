@@ -1,38 +1,11 @@
-// account.js
 document.addEventListener('DOMContentLoaded', (event) => {
-  document.getElementById('loginForm').addEventListener('submit', function(event) {
-      event.preventDefault();
+  const token = localStorage.getItem('token');
 
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-
-      fetch('http://localhost:3000/api/auth/login', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ username, password })
-      })
-      .then(response => response.json())
-      .then(data => {
-          localStorage.setItem('token', data.token);
-          // Now you can use this token for subsequent requests
-          fetchUserData(data.token);
-      })
-      .catch((error) => {
-          console.error('Error:', error);
-      });
-  });
-
-  document.getElementById('fetchUserDataBtn').addEventListener('click', function() {
-      const token = localStorage.getItem('token');
-
-      if (!token) {
-          console.error('No token found');
-      } else {
-          fetchUserData(token);
-      }
-  });
+  if (!token) {
+      console.error('No token found');
+  } else {
+      fetchUserData(token);
+  }
 });
 
 function fetchUserData(token) {
@@ -58,7 +31,7 @@ function fetchUserData(token) {
       table.className = 'user-data-table';
 
       // Create rows for each user property
-      const properties = ['birthdate', 'email', 'family_name', 'gender', 'given_name', 'height', 'hr_max', 'hr_rest', 'weight'];
+      const properties = ['birthdate', 'email', 'family_name', 'given_name', 'gender', 'height', 'weight', 'hr_max', 'hr_rest'];
       properties.forEach((property, index) => {
           const row = document.createElement('tr');
 
@@ -78,7 +51,7 @@ function fetchUserData(token) {
           row.appendChild(td);
 
           table.appendChild(row);
-      });
+      })
 
       // Append table to userDataDiv
       userDataDiv.appendChild(table);
@@ -87,3 +60,20 @@ function fetchUserData(token) {
       console.error('Error:', error);
   });
 }
+
+const logoutBtn = document.getElementById("logoutBtn");
+
+logoutBtn.addEventListener("click", async (evt) => {
+  evt.preventDefault();
+
+  Swal.fire({
+      icon: 'success',
+      title: 'Logged out successfully',
+      showConfirmButton: false,
+      timer: 1500
+  }).then(() => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      window.location.href = 'index.html';
+  });
+});

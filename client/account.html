@@ -11,20 +11,16 @@
       <a href="diary.html">Diaries</a>
       <a href="account.html">Account</a>
       <img class="logonav" src="img/unizen_logo.png" alt="Logo">
-      <a href="contact.html">About</a>
+      <a href="about.html">About</a>
       <a href="#" id="logoutBtn">Logout</a>
     </div>
 
-    <form id="loginForm">
-      <label for="username">Username:</label><br>
-      <input type="text" id="username" name="username"><br>
-      <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password"><br>
-      <input type="submit" value="Login">
-    </form>
-
-    <div id="userData"></div>
+    <div class="userDatacontainer">
+      <div id="userData"></div>
+      <p>If you want to change your details, please refer to the Kubios HRV app.</p>
+    </div>
 
     <script type="module" src="account.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   </body>
 </html>
