@@ -36,7 +36,7 @@ app.use('/api/measurements', measurementsRouter);
 // User authentication
 app.use('/api/auth', authRouter);
 // User tip
-app.use('/api/tip', tipRouter);
+app.use('/api', tipRouter);
 // Default 404 not found
 app.use(notFoundHandler);
 // Error handler for sending response all error cases
