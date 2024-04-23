@@ -1,13 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diary</title>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="topnav">
+        <a href="diaries.html">Diaries</a>
+        <a href="account.html">Account</a>
+        <img class="logonav" src="img/unizen_logo.png" alt="Logo">
+        <a href="contact.html">About</a>
+        <a href="#" id="logoutBtn">Logout</a>
+    </div>
 
-  <script type="module" src="diary.js"></script>
+    <div class="container">
+        <h1>Calendar</h1>
+        <div class="calendar">
+            <div class="header">
+                <button id="prevMonth">&lt;</button>
+                <h2 id="monthYear"></h2>
+                <button id="nextMonth">&gt;</button>
+            </div>
+            <div class="weekdays">
+                <div class="weekday">Sun</div>
+                <div class="weekday">Mon</div>
+                <div class="weekday">Tue</div>
+                <div class="weekday">Wed</div>
+                <div class="weekday">Thu</div>
+                <div class="weekday">Fri</div>
+                <div class="weekday">Sat</div>
+            </div>
+            <div class="days"></div>
+        </div>
+    </div>
+    <div id="tipContainer">
+      <div id="healthStats">
+          <h3>Health Statistics:</h3>
+          <div><strong>Average BPM:</strong> <span id="bpmValue">65 bpm</span></div>
+          <div><strong>Highest BPM:</strong> <span id="highestBPM">68 bpm</span></div>
+          <div><strong>Lowest BPM:</strong> <span id="lowestBPM">63 bpm</span></div>
+          <div><strong>Average HRV:</strong> <span id="hrvValue">50 ms</span></div>
+          <div><strong>Highest HRV:</strong> <span id="highestHRV">50 ms</span></div>
+          <div><strong>Lowest HRV:</strong> <span id="lowestHRV">50 ms</span></div>
+      </div>
+      <img id="healthChart" src="img/hrv-kuva.jpeg" alt="Health Chart" width="200" height="100">
+      <h4>Terveysvinkki:</h4>
+      <p id="tipText"></p>
+  </div>
+
+
+    <script src="diary.js"></script>
 </body>
 </html>
-

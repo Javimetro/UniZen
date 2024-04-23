@@ -1,0 +1,24 @@
+{
+    "tips": [
+      {
+        "color": "Red",
+        "tip_text": "You might be feeling overwhelmed. Consider taking a break and focusing on relaxation."
+      },
+      {
+        "color": "Red",
+        "tip_text": "High stress detected. Deep breathing or a short walk could help you reset."
+      },
+      {
+        "color": "Red",
+        "tip_text": "Sometimes it pays to think more about yourself and take a break. Call a friend and enjoy their company."
+      },
+      {
+        "color": "Yellow",
+        "tip_text": "You are doing okay, but there's room for improvement. Try some light exercise or mindfulness."
+      },
+      {
+        "color": "Green",
+        "tip_text": "Great job on maintaining balance! Keep up with your healthy habits."
+      }
+    ]
+  }
