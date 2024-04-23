@@ -36,6 +36,7 @@ const getUserData = async (req, res, next) => {
             },
         );
         const results = await response.json();
+        console.log(results);
 
         // Insert the measurements into the database using the local user ID
         await insertMeasurements(results, userId);
