@@ -14,3 +14,4 @@ logoutBtn.addEventListener("click", async (evt) => {
       window.location.href = 'index.html';
   });
 });
+

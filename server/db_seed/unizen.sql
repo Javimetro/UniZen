@@ -33,7 +33,7 @@ CREATE TABLE users (
  CREATE TABLE calendar (
     summary_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
-    Date DATE NOT NULL,
+    date DATE NOT NULL,
     avg_readiness DECIMAL(10, 2),
     color_code VARCHAR(10),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
