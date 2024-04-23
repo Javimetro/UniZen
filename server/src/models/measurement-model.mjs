@@ -1,8 +1,44 @@
 import promisePool from '../utils/database.mjs';
 
 async function insertMeasurements(kubiosData, userId) {
+<<<<<<< HEAD
     // Iterate over each item in the results array
     for (const item of kubiosData.results) {
+=======
+  // Temporary object to store the sum of readiness and count of measurements for each day
+  const readinessByDay = {};
+
+  // Iterate over each item in the results array
+  for (const item of kubiosData.results) {
+    const date = new Date(item.measured_timestamp);
+    // Calculate the date without the time part
+    const dateKey = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+    // If the key already exists in the object, update the sum of readiness and count
+    if (readinessByDay[dateKey]) {
+      readinessByDay[dateKey].sum += item.result.readiness;
+      readinessByDay[dateKey].count += 1;
+    } else {
+      // If the key doesn't exist, add a new entry to the object
+      readinessByDay[dateKey] = {
+        sum: item.result.readiness,
+        count: 1
+      };
+    }
+  }
+
+  // Calculate the average readiness for each day
+  for (const dateKey in readinessByDay) {
+    readinessByDay[dateKey].average = readinessByDay[dateKey].sum / readinessByDay[dateKey].count;
+  }
+    // Iterate over each item in the results array
+    for (const item of kubiosData.results) {
+      const date = new Date(item.measured_timestamp);
+      const dateKey = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+      // Replace the readiness value with the average readiness for the corresponding day
+      item.result.readiness = readinessByDay[dateKey].average;
+>>>>>>> 07c19ce3100d63690cc5f43a28969ef2c7cbc16a
       const measurement = {
         user_id: userId,
         timestamp: new Date(item.measured_timestamp), // Converting the measured_timestamp to a Date object
