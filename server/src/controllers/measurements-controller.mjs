@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import fetch from 'node-fetch';
 import { insertMeasurements } from '../models/measurement-model.mjs'
+import { updateCalendar } from '../models/calendar-model.mjs'
 // import {customError} from '../middlewares/error-handler.mjs';
 
 // Kubios API base URL should be set in .env
@@ -41,6 +42,10 @@ const getUserData = async (req, res, next) => {
         // Insert the measurements into the database using the local user ID
         await insertMeasurements(results, userId);
         console.log('LOCAL USER ID:', userId);
+
+        // Update calendar data after successful login
+        await updateCalendar(userId);
+        console.log('Calendar has been updated')
 
         // Send the results back to the client
         return res.json(results);
