@@ -1,10 +1,6 @@
 import promisePool from '../utils/database.mjs';
 
 async function insertMeasurements(kubiosData, userId) {
-<<<<<<< HEAD
-    // Iterate over each item in the results array
-    for (const item of kubiosData.results) {
-=======
   // Temporary object to store the sum of readiness and count of measurements for each day
   const readinessByDay = {};
 
@@ -38,7 +34,6 @@ async function insertMeasurements(kubiosData, userId) {
 
       // Replace the readiness value with the average readiness for the corresponding day
       item.result.readiness = readinessByDay[dateKey].average;
->>>>>>> 07c19ce3100d63690cc5f43a28969ef2c7cbc16a
       const measurement = {
         user_id: userId,
         timestamp: new Date(item.measured_timestamp), // Converting the measured_timestamp to a Date object
