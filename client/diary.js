@@ -1,3 +1,5 @@
+
+
 document.addEventListener("DOMContentLoaded", function() {
   // Haetaan terveystiedot ja päivitetään kalenteri
   fetchHealthDataAndUpdateCalendar();
@@ -27,18 +29,22 @@ function updateCalendarWithHealthData(healthData) {
   const days = document.querySelectorAll('.day');
   days.forEach(day => {
       const date = day.textContent.trim(); // Päivämäärä string-muodossa
-      const healthInfoForDay = healthData[date]; // Terveystiedot päivälle
 
-      // Määritellään värikoodi terveystietojen perusteella
-      let colorCode = '';
-      if (healthInfoForDay) {
-          const avgReadiness = healthInfoForDay.avg_readiness;
-          // Määrittele värikoodi terveystiedon perusteella
-          colorCode = getColorCodeFromReadiness(avgReadiness);
+      // Check if healthData is not undefined and contains the date property
+      if (healthData && healthData.hasOwnProperty(date)) {
+          const healthInfoForDay = healthData[date]; // Terveystiedot päivälle
+
+          // Määritellään värikoodi terveystietojen perusteella
+          let colorCode = '';
+          if (healthInfoForDay) {
+              const avgReadiness = healthInfoForDay.avg_readiness;
+              // Määrittele värikoodi terveystiedon perusteella
+              colorCode = getColorCodeFromReadiness(avgReadiness);
+          }
+
+          // Päivitä päivän taustaväri
+          day.style.backgroundColor = colorCode;
       }
-
-      // Päivitä päivän taustaväri
-      day.style.backgroundColor = colorCode;
   });
 }
 
@@ -156,7 +162,7 @@ async function fetchTips() {
 }
 
 // Näytä vinkki HTML-elementissä
-function displayTip(tip) {
+function displayTip1(tip) {
   const tipText = document.getElementById("tipText");
   tipText.textContent = tip.tip_text; // Aseta vinkki tekstiin
 }
@@ -168,7 +174,7 @@ daysElement.addEventListener("click", async (event) => {
       try {
           const tips = await fetchTips(); // Hae vinkit
           const randomTip = tips[Math.floor(Math.random() * tips.length)]; // Valitse satunnainen vinkki
-          displayTip(randomTip); // Näytä vinkki
+          displayTip1(randomTip); // Näytä vinkki
           tipContainer.style.display = "block"; // Näytä tipContainer-elementti
 
           // Värjää klikattu päivä värin perusteella
@@ -221,7 +227,7 @@ function colorTip(color) {
 }
 
 // Näytetään terveysvinkki
-function displayTip(tip) {
+function displayTip2(tip) {
   const tipTextElement = document.getElementById("tipText");
   tipTextElement.textContent = tip.tip_text;
 
@@ -234,9 +240,88 @@ async function fetchAndDisplayTip() {
   try {
       const tips = await fetchTips(); // Hae terveysvinkit
       const randomTip = tips[Math.floor(Math.random() * tips.length)]; // Valitse satunnainen vinkki
-      displayTip(randomTip); // Näytä terveysvinkki
+      displayTip2(randomTip); // Näytä terveysvinkki
   } catch (error) {
       console.error('Error fetching tips:', error);
       // Käsittele virheet tarvittaessa
   }
 }
+
+// Graph function
+async function fetchReadinessData() {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    });
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    const readinessData = data.results.map(item => parseFloat(item.result.readiness).toFixed(2));
+    const dailyResults = data.results.map(item => {
+      const date = new Date(item.daily_result).toLocaleDateString();
+      return `Date: ${date}`;
+  });
+
+
+    const ctx = document.getElementById('readinessChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: dailyResults,
+          datasets: [{
+              label: 'Readiness',
+              data: readinessData,
+              fill: false,
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1
+          }]
+      },
+      options: {
+          responsive: true,
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+  } catch (error) {
+    console.error('Error fetching readiness data:', error);
+  }
+}
+
+window.onload = fetchReadinessData;
+
+
+
+
+
+
+
+
+
+
+
+
+// logout
+const logoutBtn = document.getElementById("logoutBtn");
+
+logoutBtn.addEventListener("click", async (evt) => {
+  evt.preventDefault();
+
+  Swal.fire({
+      icon: 'success',
+      title: 'Logged out successfully',
+      showConfirmButton: false,
+      timer: 1500
+  }).then(() => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      window.location.href = 'index.html';
+  });
+});
