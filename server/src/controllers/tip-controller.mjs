@@ -4,10 +4,15 @@ import { getColorCodeByUserId } from '../models/calendar-model.mjs';
 const getTip = async (req, res, next) => {
     try {
         const userId = req.params.userId;
+
+        if (!userId) {
+            return res.status(400).json({ message: 'User ID is required' });
+        }
+
         const colorCode = await getColorCodeByUserId(userId);
 
         if (!colorCode) {
-            return res.status(404).json({ message: 'No color code found for this user' });
+            return res.status(404).json({ message: `No color code found for user with ID ${userId}` });
         }
 
         const tip = await getRandomTipByColorCode(colorCode);

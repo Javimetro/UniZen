@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import {fileURLToPath} from 'url';
 import measurementsRouter from './routes/measurements-router.mjs';
+import calendarRouter from './routes/calendar-router.mjs';
 import tipRouter from './routes/tip-router.mjs';
 import cors from 'cors';
 import logger from './middlewares/logger.mjs';
@@ -31,10 +32,12 @@ app.use(express.static('public'));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/sivusto', express.static(path.join(__dirname, '../public')));
-// Kubios API resource (/api/kubios)
-app.use('/api/measurements', measurementsRouter);
 // User authentication
 app.use('/api/auth', authRouter);
+// Kubios API resource (/api/kubios)
+app.use('/api/measurements', measurementsRouter);
+// Calendar
+app.use('/api/calendar', calendarRouter);
 // User tip
 app.use('/api', tipRouter);
 // Default 404 not found
