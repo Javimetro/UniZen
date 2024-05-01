@@ -340,3 +340,28 @@ div#healthStats {
 .red {
   background-color: #ff0000; /* Replace with your custom red */
 }
+
+.parent-container {
+  display: flex;
+}
+
+.main-container, .graphcontainer {
+  flex: 1;
+  margin: 10px;
+}
+
+#healthData {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 50%;
+  box-sizing: border-box;
+
+}

@@ -21,15 +21,17 @@
     </div>
 
 
-    <div class="calendar.container">
-      <h1>Calendar</h1>
-      <div class="calendar">
-          <div class="header">
+    <div class="parent-container">
+      <div class="main-container">
+        <div class="calendar-container">
+          <h1>Calendar</h1>
+          <div class="calendar">
+            <div class="header">
               <button id="prevMonth">&lt;</button>
               <h2 id="monthYear"></h2>
               <button id="nextMonth">&gt;</button>
-          </div>
-          <div class="weekdays">
+            </div>
+            <div class="weekdays">
               <div class="weekday">Sun</div>
               <div class="weekday">Mon</div>
               <div class="weekday">Tue</div>
@@ -37,23 +39,22 @@
               <div class="weekday">Thu</div>
               <div class="weekday">Fri</div>
               <div class="weekday">Sat</div>
+            </div>
+            <div class="days"></div>
           </div>
-          <div class="days"></div>
+        </div>
+        <div id="healthData"></div>
       </div>
-  </div>
-  <div class="container">
-    <h1>Readiness</h1>
-    <div class="readiness">
-      <canvas id="readinessChart"></canvas>
-      <button id="allTimeButton">All Time</button>
-      <button id="monthlyButton">Monthly</button>
-    </div>
-  </div>
 
-  <div id="tipContainer" style="display: none;">
-    <h1>Tip of the day</h1>
-    <p id="tipText"></p>
-  </div>
+      <div class="graphcontainer">
+        <h1>Readiness</h1>
+        <div class="readiness">
+          <canvas id="readinessChart"></canvas>
+          <button id="allTimeButton">All Time</button>
+          <button id="monthlyButton">Monthly</button>
+        </div>
+      </div>
+    </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script type="module" src="diary.js"></script>

@@ -123,7 +123,7 @@ async function updateCalendarWithHealthData(year, month) {
 
       // Add event listener to print health data when day element is clicked
       dayElement.addEventListener('click', () => {
-        console.log(`Health data for ${date.toLocaleDateString()}:`, result);
+
       });
     }
   }
@@ -148,10 +148,91 @@ async function renderCalendar() {
     dayElement.classList.add("day");
     dayElement.textContent = i;
     daysElement.appendChild(dayElement);
+
+    // Add event listener to print health data when day element is clicked
+    dayElement.addEventListener('click', async () => {
+      const date = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+      const data = await fetchFullHealthDataForDate(date);
+      const healthDataElement = document.getElementById('healthData');
+
+      // Clear the previous data
+      healthDataElement.textContent = '';
+
+      if (data.length > 0) {
+        const dateElement = document.createElement('p');
+        dateElement.textContent = `Health data for ${date}:`;
+        healthDataElement.appendChild(dateElement);
+
+        const meanHrBpmElement = document.createElement('p');
+        meanHrBpmElement.textContent = `Mean HR BPM: ${data[0].result.mean_hr_bpm.toFixed(2)}`;
+        healthDataElement.appendChild(meanHrBpmElement);
+
+        const readinessElement = document.createElement('p');
+        readinessElement.textContent = `Readiness: ${data[0].result.readiness.toFixed(2)}`;
+        healthDataElement.appendChild(readinessElement);
+
+        const meanRrMsElement = document.createElement('p');
+        meanRrMsElement.textContent = `Mean RR MS: ${data[0].result.mean_rr_ms.toFixed(2)}`;
+        healthDataElement.appendChild(meanRrMsElement);
+
+        const rmssdMsElement = document.createElement('p');
+        rmssdMsElement.textContent = `RMSSD MS: ${data[0].result.rmssd_ms.toFixed(2)}`;
+        healthDataElement.appendChild(rmssdMsElement);
+
+        const sdnnMsElement = document.createElement('p');
+        sdnnMsElement.textContent = `SDNN MS: ${data[0].result.sdnn_ms.toFixed(2)}`;
+        healthDataElement.appendChild(sdnnMsElement);
+      } else {
+        const noDataElement = document.createElement('p');
+        noDataElement.textContent = `No health data for ${date}`;
+        healthDataElement.appendChild(noDataElement);
+      }
+    });
   }
 
   // Fetch health data and update calendar with colors
   await fetchHealthDataAndUpdateCalendar();
+}
+
+async function fetchHealthDataForDate(date) {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`http://localhost:3000/api/calendar/day/${date}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  if (!response.ok) {
+    console.error('Failed to fetch health data:', response.status);
+    return;
+  }
+
+  const healthData = await response.json();
+  return healthData;
+}
+
+async function fetchFullHealthDataForDate(date) {
+  const token = localStorage.getItem('token');
+  const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  if (!response.ok) {
+    console.error('Failed to fetch health data:', response.status);
+    return;
+  }
+
+  const healthData = await response.json();
+
+  // Filter the health data for the specific date
+  const dateHealthData = healthData.results.filter(item => {
+    const itemDate = new Date(item.daily_result);
+    return itemDate.toISOString().split('T')[0] === date;
+  });
+
+  return dateHealthData;
 }
 
 function prevMonth() {
@@ -172,16 +253,7 @@ function nextMonth() {
   renderCalendar();
 }
 
-async function fetchTip(color) {
-  const token = localStorage.getItem('token');
-  const response = await fetch(`http://localhost:3000/api/tip/${color}`, {
-  headers: {
-    'Authorization': `Bearer ${token}`
-  }
-});
-  const data = await response.json();
-  return data;
-}
+/* TAULUKOT */
 
 async function fetchAllTimeReadinessData() {
   try {
@@ -235,6 +307,8 @@ async function fetchAllTimeReadinessData() {
     console.error('Error fetching readiness data:', error);
   }
 }
+
+
 
 async function fetchReadinessData(month, year) {
   try {
@@ -309,3 +383,21 @@ function logout(evt) {
 }
 
 window.onload = fetchAllTimeReadinessData;
+
+async function printUserData() {
+  const token = localStorage.getItem('token');
+  const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  if (!response.ok) {
+    console.error('Failed to fetch user data:', response.status);
+    return;
+  }
+
+  const userData = await response.json();
+  console.log('User data:', userData);
+}
+printUserData();
