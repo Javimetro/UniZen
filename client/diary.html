@@ -14,7 +14,14 @@
       <a href="about.html">About</a>
       <a href="#" id="logoutBtn">Logout</a>
     </div>
-    <div class="container">
+
+    <div id="tipContainer">
+      <h2>Average Readiness Tip</h2>
+      <p id="tipText"></p>
+    </div>
+
+
+    <div class="calendar.container">
       <h1>Calendar</h1>
       <div class="calendar">
           <div class="header">
@@ -34,30 +41,23 @@
           <div class="days"></div>
       </div>
   </div>
-  <div id="tipContainer">
-    <div id="healthStats">
-        <h3>Health Statistics:</h3>
-        <div><strong>Average BPM:</strong> <span id="bpmValue">65 bpm</span></div>
-        <div><strong>Highest BPM:</strong> <span id="highestBPM">68 bpm</span></div>
-        <div><strong>Lowest BPM:</strong> <span id="lowestBPM">63 bpm</span></div>
-        <div><strong>Average HRV:</strong> <span id="hrvValue">50 ms</span></div>
-        <div><strong>Highest HRV:</strong> <span id="highestHRV">50 ms</span></div>
-        <div><strong>Lowest HRV:</strong> <span id="lowestHRV">50 ms</span></div>
+  <div class="container">
+    <h1>Readiness</h1>
+    <div class="readiness">
+      <canvas id="readinessChart"></canvas>
+      <button id="allTimeButton">All Time</button>
+      <button id="monthlyButton">Monthly</button>
     </div>
-    <img id="healthChart" src="img/hrv-kuva.jpeg" alt="Health Chart" width="200" height="100">
-    <h4>Terveysvinkki:</h4>
+  </div>
+
+  <div id="tipContainer" style="display: none;">
+    <h1>Tip of the day</h1>
     <p id="tipText"></p>
-</div>
+  </div>
 
-<div class="graphchart">
-<canvas id="readinessChart"></canvas>
-</div>
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="module" src="diary.js"></script>
-</body>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="diary.js"></script>
+  </body>
+</html>
 </html>
 

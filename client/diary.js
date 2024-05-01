@@ -1,116 +1,14 @@
-
-
-document.addEventListener("DOMContentLoaded", function() {
-  // Haetaan terveystiedot ja päivitetään kalenteri
-  fetchHealthDataAndUpdateCalendar();
-});
-
-async function fetchHealthDataAndUpdateCalendar() {
-  try {
-      // Haetaan käyttäjän terveystiedot ja niiden keskiarvot päivämäärän perusteella
-      const healthData = await fetchHealthData(); // Tämä funktio haetaan backendistä
-
-      // Päivitetään kalenteri terveystietojen perusteella
-      updateCalendarWithHealthData(healthData);
-  } catch (error) {
-      console.error('Error fetching health data:', error);
-      // Käsittele virheet tarvittaessa
-  }
-}
-
-function fetchHealthData() {
-  // Tässä voit kutsua backendin API:a terveystietojen hakemiseen
-  // Voit esimerkiksi kutsua API:a, joka palauttaa keskiarvot terveystiedoista päivämäärän mukaan
-  // Palauta saadut terveystiedot
-}
-
-function updateCalendarWithHealthData(healthData) {
-  // Käydään läpi jokainen päivä kalenterissa
-  const days = document.querySelectorAll('.day');
-  days.forEach(day => {
-      const date = day.textContent.trim(); // Päivämäärä string-muodossa
-
-      // Check if healthData is not undefined and contains the date property
-      if (healthData && healthData.hasOwnProperty(date)) {
-          const healthInfoForDay = healthData[date]; // Terveystiedot päivälle
-
-          // Määritellään värikoodi terveystietojen perusteella
-          let colorCode = '';
-          if (healthInfoForDay) {
-              const avgReadiness = healthInfoForDay.avg_readiness;
-              // Määrittele värikoodi terveystiedon perusteella
-              colorCode = getColorCodeFromReadiness(avgReadiness);
-          }
-
-          // Päivitä päivän taustaväri
-          day.style.backgroundColor = colorCode;
-      }
-  });
-}
-
-function getColorCodeFromReadiness(avgReadiness) {
-  // Määrittele värikoodi keskiarvon perusteella
-  if (avgReadiness >= 70) {
-      return 'green';
-  } else if (avgReadiness >= 40) {
-      return 'yellow';
-  } else {
-      return 'red';
-  }
-}
-
+// Variables for calendar
 const monthYearElement = document.getElementById("monthYear");
 const prevMonthButton = document.getElementById("prevMonth");
 const nextMonthButton = document.getElementById("nextMonth");
 const daysElement = document.querySelector(".days");
-
 let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
 
-function renderCalendar() {
-  const totalDays = 32 - new Date(currentYear, currentMonth, 32).getDate();
-  const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
-
-  monthYearElement.textContent = `${months[currentMonth]} ${currentYear}`;
-
-  daysElement.innerHTML = "";
-
-  for (let i = 0; i < firstDayIndex; i++) {
-      const emptyDayElement = document.createElement("div");
-      emptyDayElement.classList.add("day");
-      daysElement.appendChild(emptyDayElement);
-  }
-
-  for (let i = 1; i <= totalDays; i++) {
-      const dayElement = document.createElement("div");
-      dayElement.classList.add("day");
-      dayElement.textContent = i;
-      dayElement.addEventListener("click", () => {
-          alert(`You clicked on day ${i}`);
-      });
-      daysElement.appendChild(dayElement);
-  }
-}
-
-// Event listeners for changing month
-prevMonthButton.addEventListener("click", () => {
-  currentMonth--;
-  if (currentMonth < 0) {
-      currentMonth = 11;
-      currentYear--;
-  }
-  renderCalendar();
-});
-
-nextMonthButton.addEventListener("click", () => {
-  currentMonth++;
-  if (currentMonth > 11) {
-      currentMonth = 0;
-      currentYear++;
-  }
-  renderCalendar();
-});
+// Variables for chart
+let chart;
 
 // Months array
 const months = [
@@ -128,127 +26,164 @@ const months = [
   "December"
 ];
 
-// Initial rendering
-renderCalendar();
+// Event listeners
+document.addEventListener("DOMContentLoaded", renderCalendar);
+document.getElementById('allTimeButton').addEventListener('click', fetchAllTimeReadinessData);
+document.getElementById('monthlyButton').addEventListener('click', () => fetchReadinessData(currentMonth, currentYear));
+prevMonthButton.addEventListener("click", prevMonth);
+nextMonthButton.addEventListener("click", nextMonth);
 
-// Haetaan tipContainer-elementti
-const tipContainer = document.getElementById("tipContainer");
+// Fetch readiness data for the current month when the page loads
+window.onload = () => fetchReadinessData(currentMonth, currentYear);
 
-// Lisätään tapahtumankäsittelijä jokaiselle päivälle kalenterissa
-daysElement.addEventListener("click", async (event) => {
-  const clickedDay = event.target;
-  if (clickedDay.classList.contains("day")) {
-      try {
-          const tips = await fetchTips(); // Hae vinkit
-          const randomTip = tips[Math.floor(Math.random() * tips.length)]; // Valitse satunnainen vinkki
-          displayTip(randomTip); // Näytä vinkki
-          tipContainer.style.display = "block"; // Näytä tipContainer-elementti
-      } catch (error) {
-          console.error('Error fetching tips:', error);
-          // Käsittele virheet tarvittaessa
+// Logout button
+const logoutBtn = document.getElementById("logoutBtn");
+logoutBtn.addEventListener("click", logout);
+
+async function fetchAndCalculateAverageReadiness() {
+  const token = localStorage.getItem('token');
+  const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  const readinessData = data.results.map(item => parseFloat(item.result.readiness));
+
+  const averageReadiness = readinessData.reduce((a, b) => a + b, 0) / readinessData.length;
+
+  let color;
+  if (averageReadiness >= 66) {
+    color = 'green';
+  } else if (averageReadiness >= 33) {
+    color = 'yellow';
+  } else {
+    color = 'red';
+  }
+
+  const tip = await fetchTip(color);
+  console.log(tip);
+}
+
+async function fetchHealthDataAndUpdateCalendar() {
+  console.log('fetchHealthDataAndUpdateCalendar called');
+  try {
+    const year = currentYear;
+    const month = currentMonth + 1;
+    await updateCalendarWithHealthData(year, month);
+  } catch (error) {
+    console.error('Error fetching health data:', error);
+  }
+}
+
+async function updateCalendarWithHealthData(year, month) {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`http://localhost:3000/api/calendar/month/${year}/${String(month).padStart(2, '0')}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  if (!response.ok) {
+    console.error('Failed to fetch health data:', response.status);
+    return;
+  }
+
+  const healthData = await response.json();
+
+  if (!healthData || healthData.length === 0) {
+    console.log('No health data available for this month');
+    return;
+  }
+
+  const dayElements = document.querySelectorAll('.day');
+
+  for (const result of healthData) {
+    const date = new Date(result.Date);
+    const day = date.getDate();
+    const dayElement = dayElements[day];
+
+    if (dayElement) {
+      const readiness = parseFloat(result.avg_readiness);
+      let color;
+      if (readiness >= 66) {
+        color = 'green';
+      } else if (readiness >= 33) {
+        color = 'yellow';
+      } else {
+        color = 'red';
       }
+      dayElement.style.backgroundColor = color;
+
+      // Add event listener to print health data when day element is clicked
+      dayElement.addEventListener('click', () => {
+        console.log(`Health data for ${date.toLocaleDateString()}:`, result);
+      });
+    }
+  }
+}
+
+async function renderCalendar() {
+  const totalDays = 32 - new Date(currentYear, currentMonth, 32).getDate();
+  const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
+
+  monthYearElement.textContent = `${months[currentMonth]} ${currentYear}`;
+
+  daysElement.innerHTML = "";
+
+  for (let i = 0; i < firstDayIndex; i++) {
+    const emptyDayElement = document.createElement("div");
+    emptyDayElement.classList.add("day");
+    daysElement.appendChild(emptyDayElement);
+  }
+
+  for (let i = 1; i <= totalDays; i++) {
+    const dayElement = document.createElement("div");
+    dayElement.classList.add("day");
+    dayElement.textContent = i;
+    daysElement.appendChild(dayElement);
+  }
+
+  // Fetch health data and update calendar with colors
+  await fetchHealthDataAndUpdateCalendar();
+}
+
+function prevMonth() {
+  currentMonth--;
+  if (currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  }
+  renderCalendar();
+}
+
+function nextMonth() {
+  currentMonth++;
+  if (currentMonth > 11) {
+    currentMonth = 0;
+    currentYear++;
+  }
+  renderCalendar();
+}
+
+async function fetchTip(color) {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`http://localhost:3000/api/tip/${color}`, {
+  headers: {
+    'Authorization': `Bearer ${token}`
   }
 });
-
-// Funktio terveysvinkkien hakemiseen JSON-tiedostosta
-async function fetchTips() {
-  try {
-      const response = await fetch('tips.json'); // Olettaen, että JSON-tiedosto on nimeltään health_tips.json
-      const data = await response.json();
-      return data.tips;
-  } catch (error) {
-      throw new Error('Error fetching tips:', error);
-  }
+  const data = await response.json();
+  return data;
 }
 
-// Näytä vinkki HTML-elementissä
-function displayTip1(tip) {
-  const tipText = document.getElementById("tipText");
-  tipText.textContent = tip.tip_text; // Aseta vinkki tekstiin
-}
-
-// Lisätään tapahtumankäsittelijä jokaiselle päivälle kalenterissa
-daysElement.addEventListener("click", async (event) => {
-  const clickedDay = event.target;
-  if (clickedDay.classList.contains("day")) {
-      try {
-          const tips = await fetchTips(); // Hae vinkit
-          const randomTip = tips[Math.floor(Math.random() * tips.length)]; // Valitse satunnainen vinkki
-          displayTip1(randomTip); // Näytä vinkki
-          tipContainer.style.display = "block"; // Näytä tipContainer-elementti
-
-          // Värjää klikattu päivä värin perusteella
-          const colorCode = randomTip.color.toLowerCase(); // Muuta väri koodi pieniksi kirjaimiksi
-          clickedDay.style.backgroundColor = colorCode; // Aseta taustaväri
-      } catch (error) {
-          console.error('Error fetching tips:', error);
-          // Käsittele virheet tarvittaessa
-      }
-  }
-});
-
-// Koodi joka hakee ja näyttää vinkin jää ennalleen
-
-// Lisätään terveysdata tipContaineriin
-function displayHealthData(healthData) {
-  const bpmValueElement = document.getElementById("bpmValue");
-  const highestBPMElement = document.getElementById("highestBPM");
-  const lowestBPMElement = document.getElementById("lowestBPM");
-  const hrvValueElement = document.getElementById("hrvValue");
-  const highestHRVElement = document.getElementById("highestHRV");
-  const lowestHRVElement = document.getElementById("lowestHRV");
-
-  // Aseta terveysdata näytölle
-  bpmValueElement.textContent = healthData.averageBPM + " bpm";
-  highestBPMElement.textContent = healthData.highestBPM + " bpm";
-  lowestBPMElement.textContent = healthData.lowestBPM + " bpm";
-  hrvValueElement.textContent = healthData.averageHRV + " ms";
-  highestHRVElement.textContent = healthData.highestHRV + " ms";
-  lowestHRVElement.textContent = healthData.lowestHRV + " ms";
-}
-
-// Kutsu displayHealthData-funktiota kun terveysdata saadaan ja päivitetään
-async function fetchHealthDataAndUpdateContainer() {
-  try {
-      const healthData = await fetchHealthData(); // Hae terveysdata
-      displayHealthData(healthData); // Näytä terveysdata
-  } catch (error) {
-      console.error('Error fetching health data:', error);
-      // Käsittele virheet tarvittaessa
-  }
-}
-
-// Koodi joka hakee ja näyttää vinkin jää ennalleen
-
-// Lisätään värjäys terveysvinkille värikoodin perusteella
-function colorTip(color) {
-  const tipContainer = document.getElementById("tipContainer");
-  tipContainer.style.backgroundColor = color;
-}
-
-// Näytetään terveysvinkki
-function displayTip2(tip) {
-  const tipTextElement = document.getElementById("tipText");
-  tipTextElement.textContent = tip.tip_text;
-
-  // Värjää terveysvinkki
-  colorTip(tip.color.toLowerCase());
-}
-
-// Kutsu displayTip-funktiota kun terveysvinkki saadaan
-async function fetchAndDisplayTip() {
-  try {
-      const tips = await fetchTips(); // Hae terveysvinkit
-      const randomTip = tips[Math.floor(Math.random() * tips.length)]; // Valitse satunnainen vinkki
-      displayTip2(randomTip); // Näytä terveysvinkki
-  } catch (error) {
-      console.error('Error fetching tips:', error);
-      // Käsittele virheet tarvittaessa
-  }
-}
-
-// Graph function
-async function fetchReadinessData() {
+async function fetchAllTimeReadinessData() {
   try {
     const token = localStorage.getItem('token');
     const response = await fetch('http://localhost:3000/api/measurements/user-data', {
@@ -265,11 +200,17 @@ async function fetchReadinessData() {
     const dailyResults = data.results.map(item => {
       const date = new Date(item.daily_result).toLocaleDateString();
       return `Date: ${date}`;
-  });
-
+    });
 
     const ctx = document.getElementById('readinessChart').getContext('2d');
-    new Chart(ctx, {
+
+    // If a chart already exists, destroy it
+    if (chart) {
+      chart.destroy();
+    }
+
+    // Create a new chart
+    chart = new Chart(ctx, {
       type: 'line',
       data: {
           labels: dailyResults,
@@ -289,29 +230,70 @@ async function fetchReadinessData() {
               }
           }
       }
-  });
+    });
   } catch (error) {
     console.error('Error fetching readiness data:', error);
   }
 }
 
-window.onload = fetchReadinessData;
+async function fetchReadinessData(month, year) {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    });
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    const filteredData = data.results.filter(item => {
+      const itemDate = new Date(item.daily_result);
+      return itemDate.getMonth() === month && itemDate.getFullYear() === year;
+    });
+    const readinessData = filteredData.map(item => parseFloat(item.result.readiness).toFixed(2));
+    const dailyResults = filteredData.map(item => {
+      const date = new Date(item.daily_result).toLocaleDateString();
+      return `Date: ${date}`;
+    });
 
+    const ctx = document.getElementById('readinessChart').getContext('2d');
 
+    // If a chart already exists, destroy it
+    if (chart) {
+      chart.destroy();
+    }
 
+    // Create a new chart
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: dailyResults,
+          datasets: [{
+              label: 'Readiness',
+              data: readinessData,
+              fill: false,
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1
+          }]
+      },
+      options: {
+          responsive: true,
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching readiness data:', error);
+  }
+}
 
-
-
-
-
-
-
-
-
-// logout
-const logoutBtn = document.getElementById("logoutBtn");
-
-logoutBtn.addEventListener("click", async (evt) => {
+function logout(evt) {
   evt.preventDefault();
 
   Swal.fire({
@@ -324,4 +306,6 @@ logoutBtn.addEventListener("click", async (evt) => {
       localStorage.removeItem('username');
       window.location.href = 'index.html';
   });
-});
+}
+
+window.onload = fetchAllTimeReadinessData;

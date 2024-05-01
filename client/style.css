@@ -328,3 +328,15 @@ div#healthStats {
   width: 400px;
   height: 300px;
 }
+
+.green {
+  background-color: #00ff00; /* Replace with your custom green */
+}
+
+.yellow {
+  background-color: #ffff00; /* Replace with your custom yellow */
+}
+
+.red {
+  background-color: #ff0000; /* Replace with your custom red */
+}
