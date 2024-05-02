@@ -3,7 +3,7 @@ import { getColorCodeByUserId } from '../models/calendar-model.mjs';
 
 const getTip = async (req, res, next) => {
     try {
-        const userId = req.params.userId;
+        const userId = req.user.userId; // Gets user id from
 
         if (!userId) {
             return res.status(400).json({ message: 'User ID is required' });

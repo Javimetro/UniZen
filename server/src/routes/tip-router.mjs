@@ -5,6 +5,6 @@ import { getTip } from '../controllers/tip-controller.mjs';
 const tipRouter = express.Router();
 
 tipRouter
-  .get('/tip/:userId', authenticateToken, getTip)
+  .get('/tip', authenticateToken, getTip)
 
 export default tipRouter;

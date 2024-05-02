@@ -1,10 +1,6 @@
 
 node_modules
 .vscode
-<<<<<<< HEAD
-db_seed/create-db-user.sql
-=======
->>>>>>> 07c19ce3100d63690cc5f43a28969ef2c7cbc16a
 .env
 apidoc
-src/models/calendar-model.mjs
+
