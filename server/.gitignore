@@ -3,4 +3,4 @@ node_modules
 .vscode
 .env
 apidoc
-
+/server/db_seed/create_db_user.sql
