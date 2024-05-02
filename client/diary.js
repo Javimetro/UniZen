@@ -26,17 +26,14 @@ const months = [
   "December"
 ];
 
-// Event listeners
 document.addEventListener("DOMContentLoaded", renderCalendar);
 document.getElementById('allTimeButton').addEventListener('click', fetchAllTimeReadinessData);
 document.getElementById('monthlyButton').addEventListener('click', () => fetchReadinessData(currentMonth, currentYear));
 prevMonthButton.addEventListener("click", prevMonth);
 nextMonthButton.addEventListener("click", nextMonth);
 
-// Fetch readiness data for the current month when the page loads
 window.onload = () => fetchReadinessData(currentMonth, currentYear);
 
-// Logout button
 const logoutBtn = document.getElementById("logoutBtn");
 logoutBtn.addEventListener("click", logout);
 
@@ -129,6 +126,7 @@ async function updateCalendarWithHealthData(year, month) {
   }
 }
 
+/* PRINTTAUS KALENTERIN ALLE */
 async function renderCalendar() {
   const totalDays = 32 - new Date(currentYear, currentMonth, 32).getDate();
   const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
@@ -226,7 +224,6 @@ async function fetchFullHealthDataForDate(date) {
 
   const healthData = await response.json();
 
-  // Filter the health data for the specific date
   const dateHealthData = healthData.results.filter(item => {
     const itemDate = new Date(item.daily_result);
     return itemDate.toISOString().split('T')[0] === date;

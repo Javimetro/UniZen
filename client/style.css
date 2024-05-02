@@ -363,5 +363,19 @@ div#healthStats {
   width: 50%;
   height: 50%;
   box-sizing: border-box;
+}
 
+footer {
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 20px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  margin-top: 15rem;
+}
+
+footer p {
+  color: #6c757d;
+  font-size: 14px;
 }
