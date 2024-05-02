@@ -190,6 +190,10 @@ async function renderCalendar() {
 
   // Fetch health data and update calendar with colors
   await fetchHealthDataAndUpdateCalendar();
+  const healthDataElement = document.getElementById('healthData');
+  healthDataElement.textContent = "Please click a date for specific info";
+
+
 }
 
 async function fetchHealthDataForDate(date) {
