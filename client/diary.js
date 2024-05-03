@@ -69,7 +69,6 @@ async function fetchAndCalculateAverageReadiness() {
 }
 
 async function fetchHealthDataAndUpdateCalendar() {
-  console.log('fetchHealthDataAndUpdateCalendar called');
   try {
     const year = currentYear;
     const month = currentMonth + 1;
@@ -99,12 +98,13 @@ async function updateCalendarWithHealthData(year, month) {
     return;
   }
 
+  const firstDayIndex = new Date(year, month - 1, 1).getDay();
   const dayElements = document.querySelectorAll('.day');
 
   for (const result of healthData) {
     const date = new Date(result.Date);
     const day = date.getDate();
-    const dayElement = dayElements[day];
+    const dayElement = dayElements[day + firstDayIndex - 1];
 
     if (dayElement) {
       const readiness = parseFloat(result.avg_readiness);
@@ -157,28 +157,28 @@ async function renderCalendar() {
       healthDataElement.textContent = '';
 
       if (data.length > 0) {
-        const dateElement = document.createElement('p');
+        const dateElement = document.createElement('strong');
         dateElement.textContent = `Health data for ${date}:`;
         healthDataElement.appendChild(dateElement);
 
         const meanHrBpmElement = document.createElement('p');
-        meanHrBpmElement.textContent = `Mean HR BPM: ${data[0].result.mean_hr_bpm.toFixed(2)}`;
+        meanHrBpmElement.textContent = `Mean HR BPM: ${Math.round(data[0].result.mean_hr_bpm)} BPM`;
         healthDataElement.appendChild(meanHrBpmElement);
 
         const readinessElement = document.createElement('p');
-        readinessElement.textContent = `Readiness: ${data[0].result.readiness.toFixed(2)}`;
+        readinessElement.textContent = `Readiness: ${Math.round(data[0].result.readiness)} %`;
         healthDataElement.appendChild(readinessElement);
 
         const meanRrMsElement = document.createElement('p');
-        meanRrMsElement.textContent = `Mean RR MS: ${data[0].result.mean_rr_ms.toFixed(2)}`;
+        meanRrMsElement.textContent = `Mean RR MS: ${Math.round(data[0].result.mean_rr_ms)} MS`;
         healthDataElement.appendChild(meanRrMsElement);
 
         const rmssdMsElement = document.createElement('p');
-        rmssdMsElement.textContent = `RMSSD MS: ${data[0].result.rmssd_ms.toFixed(2)}`;
+        rmssdMsElement.textContent = `RMSSD MS: ${Math.round(data[0].result.rmssd_ms)} MS`;
         healthDataElement.appendChild(rmssdMsElement);
 
         const sdnnMsElement = document.createElement('p');
-        sdnnMsElement.textContent = `SDNN MS: ${data[0].result.sdnn_ms.toFixed(2)}`;
+        sdnnMsElement.textContent = `SDNN MS: ${Math.round(data[0].result.sdnn_ms)} MS`;
         healthDataElement.appendChild(sdnnMsElement);
       } else {
         const noDataElement = document.createElement('p');
@@ -399,6 +399,22 @@ async function printUserData() {
   }
 
   const userData = await response.json();
-  console.log('User data:', userData);
 }
 printUserData();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", logout);
+  } else {
+    console.error('Logout button not found');
+  }
+});
+
+document.getElementById('todayButton').addEventListener('click', () => {
+  currentDate = new Date();
+  currentMonth = currentDate.getMonth();
+  currentYear = currentDate.getFullYear();
+  renderCalendar();
+});

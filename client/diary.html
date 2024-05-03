@@ -20,7 +20,6 @@
       <p id="tipText"></p>
     </div>
 
-
     <div class="parent-container">
       <div class="main-container">
         <div class="calendar-container">
@@ -31,6 +30,7 @@
               <h2 id="monthYear"></h2>
               <button id="nextMonth">&gt;</button>
             </div>
+            <button id="todayButton">Today</button>
             <div class="weekdays">
               <div class="weekday">Sun</div>
               <div class="weekday">Mon</div>
@@ -41,6 +41,21 @@
               <div class="weekday">Sat</div>
             </div>
             <div class="days"></div>
+          </div>
+
+          <div id="legend">
+            <div class="legend-item">
+              <div class="color-box" style="background-color: green;"></div>
+              <span>Readiness is 66% or more</span>
+            </div>
+            <div class="legend-item">
+              <div class="color-box" style="background-color: yellow;"></div>
+              <span>Readiness is between 33% and 65%</span>
+            </div>
+            <div class="legend-item">
+              <div class="color-box" style="background-color: red;"></div>
+              <span>Readiness is less than 33%</span>
+            </div>
           </div>
         </div>
         <div id="healthData"></div>
@@ -60,8 +75,7 @@
       <p>Unizen &copy; 2024</p> </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script type="module" src="diary.js"></script>
   </body>
 </html>
-</html>
-

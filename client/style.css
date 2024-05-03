@@ -330,15 +330,15 @@ div#healthStats {
 }
 
 .green {
-  background-color: #00ff00; /* Replace with your custom green */
+  background-color: #00ff00;
 }
 
 .yellow {
-  background-color: #ffff00; /* Replace with your custom yellow */
+  background-color: #ffff00;
 }
 
 .red {
-  background-color: #ff0000; /* Replace with your custom red */
+  background-color: #ff0000;
 }
 
 .parent-container {
@@ -363,6 +363,8 @@ div#healthStats {
   width: 50%;
   height: 50%;
   box-sizing: border-box;
+  margin-bottom: 10rem;
+  margin-top: 2rem;
 }
 
 footer {
@@ -372,10 +374,42 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  margin-top: 15rem;
+  margin-top: 20rem;
 }
 
 footer p {
   color: #6c757d;
   font-size: 14px;
+}
+
+#legend {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.color-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+#todayButton {
+  background-color: #3498DB;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin: 4px auto;
+  cursor: pointer;
+  margin-bottom: 1rem;
 }
