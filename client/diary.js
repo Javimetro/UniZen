@@ -174,7 +174,7 @@ async function updateCalendarWithHealthData(year, month) {
   }
 }
 
-// PRINTS THE CALENDAR
+// RENDERS THE CALENDAR
 async function renderCalendar() {
   const totalDays = 32 - new Date(currentYear, currentMonth, 32).getDate();
   const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
