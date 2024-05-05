@@ -106,6 +106,12 @@ input::placeholder {
   color: #5073b0;
 }
 
+.topnav a.active {
+  background-color: #85C1E9;
+  color: white;
+  border-radius: 5px;
+}
+
 #logoutBtn {
   background-color: rgb(143, 26, 26);
   color: white;
@@ -365,6 +371,7 @@ div#healthStats {
   box-sizing: border-box;
   margin-bottom: 10rem;
   margin-top: 2rem;
+  position: relative;
 }
 
 footer {
@@ -412,4 +419,8 @@ footer p {
   margin: 4px auto;
   cursor: pointer;
   margin-bottom: 1rem;
+}
+
+.emoji {
+  font-size: 5em;
 }

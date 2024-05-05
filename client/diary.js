@@ -118,7 +118,6 @@ async function updateCalendarWithHealthData(year, month) {
       }
       dayElement.style.backgroundColor = color;
 
-      // Add event listener to print health data when day element is clicked
       dayElement.addEventListener('click', () => {
 
       });
@@ -147,13 +146,11 @@ async function renderCalendar() {
     dayElement.textContent = i;
     daysElement.appendChild(dayElement);
 
-    // Add event listener to print health data when day element is clicked
     dayElement.addEventListener('click', async () => {
       const date = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
       const data = await fetchFullHealthDataForDate(date);
       const healthDataElement = document.getElementById('healthData');
 
-      // Clear the previous data
       healthDataElement.textContent = '';
 
       if (data.length > 0) {
@@ -188,7 +185,6 @@ async function renderCalendar() {
     });
   }
 
-  // Fetch health data and update calendar with colors
   await fetchHealthDataAndUpdateCalendar();
   const healthDataElement = document.getElementById('healthData');
   healthDataElement.textContent = "Please click a date for specific info";
@@ -277,12 +273,10 @@ async function fetchAllTimeReadinessData() {
 
     const ctx = document.getElementById('readinessChart').getContext('2d');
 
-    // If a chart already exists, destroy it
     if (chart) {
       chart.destroy();
     }
 
-    // Create a new chart
     chart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -336,12 +330,10 @@ async function fetchReadinessData(month, year) {
 
     const ctx = document.getElementById('readinessChart').getContext('2d');
 
-    // If a chart already exists, destroy it
     if (chart) {
       chart.destroy();
     }
 
-    // Create a new chart
     chart = new Chart(ctx, {
       type: 'line',
       data: {
