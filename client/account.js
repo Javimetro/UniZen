@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }
 });
 
+// FETCHES USER DATA AND DISPLAYS IT IN A TABLE
 function fetchUserData(token) {
   fetch('http://localhost:3000/api/measurements/user-info', {
       method: 'GET',
@@ -26,16 +27,13 @@ function fetchUserData(token) {
       const user = data.user;
       const userDataDiv = document.getElementById('userData');
 
-      // Create table
       const table = document.createElement('table');
       table.className = 'user-data-table';
 
-      // Create rows for each user property
       const properties = ['birthdate', 'email', 'family_name', 'given_name', 'gender', 'height', 'weight', 'hr_max', 'hr_rest'];
       properties.forEach((property, index) => {
           const row = document.createElement('tr');
 
-          // Add class for alternating row colors
           if (index % 2 === 0) {
               row.className = 'even-row';
           } else {
@@ -53,7 +51,6 @@ function fetchUserData(token) {
           table.appendChild(row);
       })
 
-      // Append table to userDataDiv
       userDataDiv.appendChild(table);
   })
   .catch((error) => {

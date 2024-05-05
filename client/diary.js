@@ -1,4 +1,4 @@
-// Variables for calendar
+
 const monthYearElement = document.getElementById("monthYear");
 const prevMonthButton = document.getElementById("prevMonth");
 const nextMonthButton = document.getElementById("nextMonth");
@@ -7,10 +7,8 @@ let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
 
-// Variables for chart
 let chart;
 
-// Months array
 const months = [
   "January",
   "February",
@@ -42,6 +40,7 @@ window.onload = () => {
 const logoutBtn = document.getElementById("logoutBtn");
 logoutBtn.addEventListener("click", logout);
 
+// FETCHES TIP BASED ON READINESS COLOR
 async function fetchLastReadinessAndGiveTip() {
   const token = localStorage.getItem('token');
   const response = await fetch('http://localhost:3000/api/measurements/user-data', {
@@ -85,6 +84,7 @@ async function fetchLastReadinessAndGiveTip() {
   document.getElementById('tipText').textContent = tip;
 }
 
+// CALCULATES AVG READINESS, NOT NEEDED, FUTURE IMPLEMENTATION MAYBE
 async function fetchAndCalculateAverageReadiness() {
   const token = localStorage.getItem('token');
   const response = await fetch('http://localhost:3000/api/measurements/user-data', {
@@ -126,6 +126,7 @@ async function fetchHealthDataAndUpdateCalendar() {
   }
 }
 
+// ADDS HEALTH DATA TO THE CALENDAR WITH COLORS
 async function updateCalendarWithHealthData(year, month) {
   const token = localStorage.getItem('token');
   const response = await fetch(`http://localhost:3000/api/calendar/month/${year}/${String(month).padStart(2, '0')}`, {
@@ -166,7 +167,6 @@ async function updateCalendarWithHealthData(year, month) {
       }
       dayElement.style.backgroundColor = color;
 
-      // Add event listener to print health data when day element is clicked
       dayElement.addEventListener('click', () => {
 
       });
@@ -174,7 +174,7 @@ async function updateCalendarWithHealthData(year, month) {
   }
 }
 
-/* PRINTTAUS KALENTERIN ALLE */
+// PRINTS THE CALENDAR
 async function renderCalendar() {
   const totalDays = 32 - new Date(currentYear, currentMonth, 32).getDate();
   const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
@@ -195,22 +195,19 @@ async function renderCalendar() {
     dayElement.textContent = i;
     daysElement.appendChild(dayElement);
 
-    // Add event listener to print health data when day element is clicked
+    // PRINTS HEALTH DATA AND INFO FOR THE DAY UNDER THE CALENDAR
     dayElement.addEventListener('click', async () => {
       const date = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
       const data = await fetchFullHealthDataForDate(date);
       const healthDataElement = document.getElementById('healthData');
 
-      // Clear the previous data
       healthDataElement.textContent = '';
 
-      // Create an info button
       const infoButton = document.createElement('button');
       infoButton.textContent = 'i';
       infoButton.id = 'infoButton';
       healthDataElement.appendChild(infoButton);
 
-      // Add event listener to the info button
       document.getElementById('infoButton').addEventListener('click', () => {
         const explanation = `
         <p>Mean HR BPM: The average heart rate in beats per minute.</p>
@@ -219,7 +216,7 @@ async function renderCalendar() {
         <p>RMSSD MS: The root mean square of successive differences in RR intervals in milliseconds.</p>
         <p>SDNN MS: The standard deviation of NN intervals in milliseconds.</p>
       `;
-        // Display the explanation in a SweetAlert2 popup
+
         Swal.fire({
           title: 'Measurement Explanation',
           html: explanation,
@@ -260,7 +257,6 @@ async function renderCalendar() {
     });
   }
 
-  // Fetch health data and update calendar with colors
   await fetchHealthDataAndUpdateCalendar();
   const healthDataElement = document.getElementById('healthData');
   healthDataElement.textContent = "Please click a date for specific info";
@@ -284,6 +280,7 @@ async function fetchHealthDataForDate(date) {
   const healthData = await response.json();
   return healthData;
 }
+
 
 async function fetchFullHealthDataForDate(date) {
   const token = localStorage.getItem('token');
@@ -327,7 +324,7 @@ function nextMonth() {
 }
 
 /* TAULUKOT */
-
+// FETCHES USER DATA ALL TIME
 async function fetchAllTimeReadinessData() {
   try {
     const token = localStorage.getItem('token');
@@ -349,12 +346,10 @@ async function fetchAllTimeReadinessData() {
 
     const ctx = document.getElementById('readinessChart').getContext('2d');
 
-    // If a chart already exists, destroy it
     if (chart) {
       chart.destroy();
     }
 
-    // Create a new chart
     chart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -382,7 +377,7 @@ async function fetchAllTimeReadinessData() {
 }
 
 
-
+// FETCH READINESS DATA MONTHLY
 async function fetchReadinessData(month, year) {
   try {
     const token = localStorage.getItem('token');
@@ -408,12 +403,10 @@ async function fetchReadinessData(month, year) {
 
     const ctx = document.getElementById('readinessChart').getContext('2d');
 
-    // If a chart already exists, destroy it
     if (chart) {
       chart.destroy();
     }
 
-    // Create a new chart
     chart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -440,6 +433,7 @@ async function fetchReadinessData(month, year) {
   }
 }
 
+// LOGOUT FUNCTION
 function logout(evt) {
   evt.preventDefault();
 
@@ -482,6 +476,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// CALENDAR'S BACK TO THIS MONTH BUTTON
 document.getElementById('todayButton').addEventListener('click', () => {
   currentDate = new Date();
   currentMonth = currentDate.getMonth();
@@ -489,7 +484,7 @@ document.getElementById('todayButton').addEventListener('click', () => {
   renderCalendar();
 });
 
-// Create an info button
+// INFO BUTTON FOR HEALTH DATA
 const infoButton = document.createElement('button');
 infoButton.textContent = 'i';
 infoButton.id = 'infoButton';
@@ -497,12 +492,10 @@ infoButton.style.position = 'absolute';
 infoButton.style.top = '10px';
 infoButton.style.right = '10px';
 
-// Append the button to the healthData div
 const healthDataDiv = document.getElementById('healthData');
-healthDataDiv.style.position = 'relative'; // make sure the div is positioned
+healthDataDiv.style.position = 'relative';
 healthDataDiv.appendChild(infoButton);
 
-// Add event listener to the info button
 document.getElementById('infoButton').addEventListener('click', () => {
   const explanation = `
     Mean HR BPM: The average heart rate in beats per minute.
