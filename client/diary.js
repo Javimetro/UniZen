@@ -181,7 +181,7 @@ async function renderCalendar() {
 
   monthYearElement.textContent = `${months[currentMonth]} ${currentYear}`;
 
-  daysElement.innerHTML = "";
+  daysElement.textContent = "";
 
   for (let i = 0; i < firstDayIndex; i++) {
     const emptyDayElement = document.createElement("div");
