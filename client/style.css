@@ -307,18 +307,6 @@ button:hover {
   margin: 50px auto;
 }
 
-#tipContainer {
-  display: none;
-  position: fixed;
-  top: 50%;
-  right: 10%;
-  transform: translateY(-50%);
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
 img#healthChart {
   height: 200px;
   width: 300px;
@@ -423,4 +411,24 @@ footer p {
 
 .emoji {
   font-size: 5em;
+}
+
+#tipContainer {
+  width: 100%;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+}
+
+#tipContainer h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#tipContainer #tipText {
+  font-size: 18px;
+  color: #666;
 }
