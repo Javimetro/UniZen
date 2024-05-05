@@ -195,7 +195,7 @@ async function renderCalendar() {
     dayElement.textContent = i;
     daysElement.appendChild(dayElement);
 
-    // PRINTS HEALTH DATA AND INFO FOR THE DAY UNDER THE CALENDAR
+    // PRINTS HEALTH DATA, EMOJI AND INFO FOR THE DAY UNDER THE CALENDAR
     dayElement.addEventListener('click', async () => {
       const date = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
       const data = await fetchFullHealthDataForDate(date);
@@ -249,11 +249,35 @@ async function renderCalendar() {
         const sdnnMsElement = document.createElement('p');
         sdnnMsElement.textContent = `SDNN MS: ${Math.round(data[0].result.sdnn_ms)} MS`;
         healthDataElement.appendChild(sdnnMsElement);
+
+        const readinessEmojiElement = document.createElement('p');
+        let readinessEmoji = '';
+        const readiness = Math.round(data[0].result.readiness);
+        if (readiness < 33) {
+          readinessEmoji = '😞';
+        } else if (readiness >= 33 && readiness < 66) {
+          readinessEmoji = '🙂';
+        } else {
+          readinessEmoji = '😃';
+        }
+        readinessEmojiElement.className = 'emoji';
+        readinessEmojiElement.textContent = `${readinessEmoji}`;
+        healthDataElement.appendChild(readinessEmojiElement);
       } else {
         const noDataElement = document.createElement('p');
         noDataElement.textContent = `No health data for ${date}`;
         healthDataElement.appendChild(noDataElement);
       }
+
+      let color;
+      if (readiness >= 66) {
+        color = 'green';
+      } else if (readiness >= 33) {
+        color = 'yellow';
+      } else {
+        color = 'red';
+      }
+      dayElement.style.backgroundColor = color;
     });
   }
 
