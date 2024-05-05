@@ -204,6 +204,30 @@ async function renderCalendar() {
       // Clear the previous data
       healthDataElement.textContent = '';
 
+      // Create an info button
+      const infoButton = document.createElement('button');
+      infoButton.textContent = 'i';
+      infoButton.id = 'infoButton';
+      healthDataElement.appendChild(infoButton);
+
+      // Add event listener to the info button
+      document.getElementById('infoButton').addEventListener('click', () => {
+        const explanation = `
+        <p>Mean HR BPM: The average heart rate in beats per minute.</p>
+        <p>Readiness: A percentage indicating the readiness of the body for physical activity.</p>
+        <p>Mean RR MS: The average of RR intervals in milliseconds.</p>
+        <p>RMSSD MS: The root mean square of successive differences in RR intervals in milliseconds.</p>
+        <p>SDNN MS: The standard deviation of NN intervals in milliseconds.</p>
+      `;
+        // Display the explanation in a SweetAlert2 popup
+        Swal.fire({
+          title: 'Measurement Explanation',
+          html: explanation,
+          icon: 'info',
+          confirmButtonText: 'Close'
+        });
+      });
+
       if (data.length > 0) {
         const dateElement = document.createElement('strong');
         dateElement.textContent = `Health data for ${date}:`;
@@ -463,4 +487,29 @@ document.getElementById('todayButton').addEventListener('click', () => {
   currentMonth = currentDate.getMonth();
   currentYear = currentDate.getFullYear();
   renderCalendar();
+});
+
+// Create an info button
+const infoButton = document.createElement('button');
+infoButton.textContent = 'i';
+infoButton.id = 'infoButton';
+infoButton.style.position = 'absolute';
+infoButton.style.top = '10px';
+infoButton.style.right = '10px';
+
+// Append the button to the healthData div
+const healthDataDiv = document.getElementById('healthData');
+healthDataDiv.style.position = 'relative'; // make sure the div is positioned
+healthDataDiv.appendChild(infoButton);
+
+// Add event listener to the info button
+document.getElementById('infoButton').addEventListener('click', () => {
+  const explanation = `
+    Mean HR BPM: The average heart rate in beats per minute.
+    Readiness: A percentage indicating the readiness of the body for physical activity.
+    Mean RR MS: The average of RR intervals in milliseconds.
+    RMSSD MS: The root mean square of successive differences in RR intervals in milliseconds.
+    SDNN MS: The standard deviation of NN intervals in milliseconds.
+  `;
+  alert(explanation);
 });
