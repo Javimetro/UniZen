@@ -1,0 +1,1 @@
+import"./style-geIAKcW7.js";const t=document.getElementById("logoutBtn");t.addEventListener("click",async e=>{e.preventDefault(),Swal.fire({icon:"success",title:"Logged out successfully",showConfirmButton:!1,timer:1500}).then(()=>{localStorage.removeItem("token"),localStorage.removeItem("username"),window.location.href="index.html"})});
