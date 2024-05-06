@@ -1,7 +1,8 @@
+
 *** Settings ***
 Library    RequestsLibrary
 Library    Collections
-Library    SeleniumLibrary
+Library    Browser
 Resource   login.resource
 
 *** Keywords ***
@@ -16,13 +17,14 @@ Post Credentials to Kubios
     ${status}    ${response}=    Run Keyword And Ignore Error    POST On Session    my_session    /api/auth/login    json=${data}    headers=${headers}
     Run Keyword If    '${status}' == 'FAIL'    Fail    ${response}
     Should Contain    ${response.json()["message"]}    Logged in successfully with Kubios
-    Open Browser    http://127.0.0.1:5501/client/index.html    browser=Chrome
-    Input Text    id=username    vili.hakamies@metropolia.fi
-    Input Text    id=password    Metrokubios123!
-    Click Button    xpath=//input[@value='Login']
-    Open Browser    http://127.0.0.1:5501/client/diary.html   browser=Chrome
-    Sleep    3s
-    Click Element    xpath://a[@href='account.html']
-    Sleep    3s
-    Click Link    id=logoutBtn
+    New Browser    chromium    headless=False
+    New Page    http://localhost:5173/client/index.html
+    Type Text    id=username    vili.hakamies@metropolia.fi
+    Type Text    id=password    Metrokubios123!
+    Click    xpath=//input[@value='Login']
+    New Page    http://localhost:5173/client/diary.html
+    Wait For Elements State    xpath://a[@href='account.html']    visible
+    Click    xpath://a[@href='account.html']
+    Wait For Elements State    id=logoutBtn    visible
+    Click    id=logoutBtn
 
