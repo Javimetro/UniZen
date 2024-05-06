@@ -164,7 +164,7 @@ async function updateCalendarWithHealthData(year, month) {
       } else {
         color = 'red';
       }
-      dayElement.style.backgroundColor = color;
+      dayElement.classList.add(color);
 
       dayElement.addEventListener('click', () => {
 
