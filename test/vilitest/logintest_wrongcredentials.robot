@@ -1,7 +1,7 @@
 *** Settings ***
 Library    RequestsLibrary
 Library    Collections
-Resource   login.resource
+Resource   login_wrong.resource
 
 *** Variables ***
 ${LOGIN_URL}     http://localhost:3000

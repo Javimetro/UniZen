@@ -1,68 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.11.2 on win32)" generated="2024-05-06T10:30:10.873818" rpa="false" schemaversion="5">
-<suite id="s1" name="Account-Test" source="C:\Users\vili_\Desktop\Unizen\UniZen\test\account-test.robot">
-<test id="s1-t1" name="Post Credentials to Kubios" line="13">
+<robot generator="Robot 7.0 (Python 3.11.2 on win32)" generated="2024-05-06T11:14:06.964734" rpa="false" schemaversion="5">
+<suite id="s1" name="Logintest Wrongcredentials" source="C:\Users\vili_\Desktop\Unizen\UniZen\test\vilitest\logintest_wrongcredentials.robot">
+<test id="s1-t1" name="Post Credentials to Kubios" line="10">
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2024-05-06T10:30:11.757285" level="INFO">Creating Session using : alias=my_session, url=http://localhost:3000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg time="2024-05-06T11:14:07.066302" level="INFO">Creating Session using : alias=my_session, url=http://localhost:3000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
 <arg>my_session</arg>
 <arg>${LOGIN_URL}</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2024-05-06T10:30:11.757285" elapsed="0.000000"/>
+<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="0.000000"/>
 </kw>
-<kw name="Create Login Data" owner="login">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2024-05-06T10:30:11.757285" level="INFO">&amp;{data} = { username=vili.hakamies@metropolia.fi | password=Metrokubios123! }</msg>
+<msg time="2024-05-06T11:14:07.066302" level="INFO">&amp;{data} = { username=wrongemail@metropolia.fi | password=wrongpassword }</msg>
 <var>&amp;{data}</var>
 <arg>username=${username}</arg>
 <arg>password=${password}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2024-05-06T10:30:11.757285" elapsed="0.000000"/>
+<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="0.000000"/>
 </kw>
-<return>
-<value>${data}</value>
-<status status="PASS" start="2024-05-06T10:30:11.757285" elapsed="0.000000"/>
-</return>
-<msg time="2024-05-06T10:30:11.757285" level="INFO">${data} = {'username': 'vili.hakamies@metropolia.fi', 'password': 'Metrokubios123!'}</msg>
-<var>${data}</var>
-<status status="PASS" start="2024-05-06T10:30:11.757285" elapsed="0.000000"/>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-05-06T11:14:07.066302" level="INFO">{'username': 'wrongemail@metropolia.fi', 'password': 'wrongpassword'}</msg>
+<arg>${data}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="0.000000"/>
 </kw>
-<kw name="Create Headers" owner="login">
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2024-05-06T10:30:11.757285" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<msg time="2024-05-06T11:14:07.066302" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
 <var>${headers}</var>
 <arg>Content-Type=application/json</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2024-05-06T10:30:11.757285" elapsed="0.000000"/>
+<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="0.000000"/>
 </kw>
-<return>
-<value>${headers}</value>
-<status status="PASS" start="2024-05-06T10:30:11.757285" elapsed="0.000000"/>
-</return>
-<msg time="2024-05-06T10:30:11.757285" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
-<var>${headers}</var>
-<status status="PASS" start="2024-05-06T10:30:11.757285" elapsed="0.000000"/>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-05-06T11:14:07.066302" level="INFO">{'Content-Type': 'application/json'}</msg>
+<arg>${headers}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="0.000000"/>
 </kw>
 <kw name="Run Keyword And Ignore Error" owner="BuiltIn">
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2024-05-06T10:30:14.616232" level="INFO">POST Request : url=http://localhost:3000/api/auth/login 
+<msg time="2024-05-06T11:14:09.381497" level="INFO">POST Request : url=http://localhost:3000/api/auth/login 
  path_url=/api/auth/login 
- headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '74'} 
- body=b'{"username": "vili.hakamies@metropolia.fi", "password": "Metrokubios123!"}' 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '69'} 
+ body=b'{"username": "wrongemail@metropolia.fi", "password": "wrongpassword"}' 
  </msg>
-<msg time="2024-05-06T10:30:14.616232" level="INFO">POST Response : url=http://localhost:3000/api/auth/login 
- status=200, reason=OK 
- headers={'X-Powered-By': 'Express', 'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1904', 'ETag': 'W/"770-FSvLkKIXvFQmRKyhAMb6Acz5qtc"', 'Date': 'Mon, 06 May 2024 07:30:14 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
- body={"message":"Logged in successfully with Kubios","user":{"birthdate":"1994-08-29","email":"vili.hakamies@metropolia.fi","family_name":"Häkämies","gender":"male","given_name":"Vili","height":1.83,"hr_max":190,"hr_rest":65,"sub":"386aa299-1a2d-48a8-82bf-377f8c878548","weight":94},"user_id":1,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImt1Ymlvc0lkVG9rZW4iOiJleUpyYVdRaU9pSlFWRVJSVUdaTGJqVTJiWEI1UlU5cGNIVnhPR1JGVURCUGVYbEpNV2gxV2xRd01WSlZla2RYVVN0UlBTSXNJbUZzWnlJNklsSlRNalUySW4wLmV5SmhkRjlvWVhOb0lqb2lSalZ6Y2psTmJsUlhka2c1VUVoT2ExQjFhbFp3UVNJc0luTjFZaUk2SWpNNE5tRmhNams1TFRGaE1tUXRORGhoT0MwNE1tSm1MVE0zTjJZNFl6ZzNPRFUwT0NJc0ltVnRZV2xzWDNabGNtbG1hV1ZrSWpwMGNuVmxMQ0pwYzNNaU9pSm9kSFJ3Y3pwY0wxd3ZZMjluYm1sMGJ5MXBaSEF1WlhVdGQyVnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMWNMMlYxTFhkbGMzUXRNVjkxVVcxQlp6UTFlSGtpTENKamIyZHVhWFJ2T25WelpYSnVZVzFsSWpvaU16ZzJZV0V5T1RrdE1XRXlaQzAwT0dFNExUZ3lZbVl0TXpjM1pqaGpPRGM0TlRRNElpd2laMmwyWlc1ZmJtRnRaU0k2SWxacGJHa2lMQ0poZFdRaU9pSTNORFUzTVhCa2FIVmpOM1oyWVdzMGRHdzBOWFYwY3poMU9DSXNJbVYyWlc1MFgybGtJam9pTXpoa09USTRaVE10TXpkbE15MDBOV0poTFdKaVlUTXROR1JqT0dKaVltTXhaR0prSWl3aWRHOXJaVzVmZFhObElqb2lhV1FpTENKaGRYUm9YM1JwYldVaU9qRTNNVFE1T0RBMk1UUXNJbVY0Y0NJNk1UY3hORGs0TkRJeE5Dd2lhV0YwSWpveE56RTBPVGd3TmpFMExDSm1ZVzFwYkhsZmJtRnRaU0k2SWtqRHBHdkRwRzFwWlhNaUxDSmxiV0ZwYkNJNkluWnBiR2t1YUdGcllXMXBaWE5BYldWMGNtOXdiMnhwWVM1bWFTSjkuTE1KRW9OR3JSdUF4X1RWRVNQVTFuTVdiZDJianpDZmNFNV95N2hLSmVZMWtOZzNyZmFNdmE1cEFIWlhLTzFQMUlhODM5Tm91SEl0YUUwOGNFTG12NzNKRDBoY0VEUnBzb3ZneDNZUm1GSDZOU1IydnNjdmVnZW1PRzdmQ2ZHNmVPVTFudkd6dHFPUUMyOXVybTZSUHpzVGgyMExVM3ozekFQNzZZay14SWlaSk1YaURZSUJuQ1lxbWtwQlpQUkE0TmdBbE9JOG13RmlUVWE1ZVBkYlRXSU55VVJrUFFIcWJyQTZ4MHlKSGJDRjl1MHdtcl9nRG5OUkV0NXNWM250OTVPdTEzdXNhZE02STRxa1VKQzA0MkRJZjE1dV9rN2NuQ0RjVTdFODZqLW45bF9Za2txeHFtVmRMMzl4UG1aNmF4YTgzeGtlMFNHWGZjaEl3QU9PczNBIiwiaWF0IjoxNzE0OTgwNjE0LCJleHAiOjE3MTQ5ODQyMTR9.xMaaN8-uj9DrF5XG58d5B0ydROJdXomQ9v_KyVlc1RY"} 
+<msg time="2024-05-06T11:14:09.381497" level="INFO">POST Response : url=http://localhost:3000/api/auth/login 
+ status=500, reason=Internal Server Error 
+ headers={'X-Powered-By': 'Express', 'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '103', 'ETag': 'W/"67-eDtc2D0Sgr1n1SqVnB1g579yKtk"', 'Date': 'Mon, 06 May 2024 08:14:09 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"error":{"message":"Cannot read properties of undefined (reading 'status')","status":500,"errors":""}} 
  </msg>
+<msg time="2024-05-06T11:14:09.381497" level="FAIL">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</msg>
 <arg>my_session</arg>
 <arg>/api/auth/login</arg>
 <arg>json=${data}</arg>
 <arg>headers=${headers}</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2024-05-06T10:30:11.757285" elapsed="2.858947"/>
+<status status="FAIL" start="2024-05-06T11:14:07.066302" elapsed="2.351780">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</status>
 </kw>
-<msg time="2024-05-06T10:30:14.616232" level="INFO">${status} = PASS</msg>
-<msg time="2024-05-06T10:30:14.616232" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<msg time="2024-05-06T11:14:09.418082" level="INFO">${status} = FAIL</msg>
+<msg time="2024-05-06T11:14:09.418082" level="INFO">${response} = HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</msg>
 <var>${status}</var>
 <var>${response}</var>
 <arg>POST On Session</arg>
@@ -71,110 +66,30 @@
 <arg>json=${data}</arg>
 <arg>headers=${headers}</arg>
 <doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
-<status status="PASS" start="2024-05-06T10:30:11.757285" elapsed="2.858947"/>
+<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="2.351780"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Fail" owner="BuiltIn">
+<msg time="2024-05-06T11:14:09.418082" level="FAIL">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</msg>
+<arg>${response}</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="FAIL" start="2024-05-06T11:14:09.418082" elapsed="0.000000">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</status>
+</kw>
 <arg>'${status}' == 'FAIL'</arg>
 <arg>Fail</arg>
 <arg>${response}</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2024-05-06T10:30:14.616232" elapsed="0.000000"/>
+<status status="FAIL" start="2024-05-06T11:14:09.418082" elapsed="0.000000">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</status>
 </kw>
 <kw name="Should Contain" owner="BuiltIn">
 <arg>${response.json()["message"]}</arg>
 <arg>Logged in successfully with Kubios</arg>
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
-<status status="PASS" start="2024-05-06T10:30:14.616232" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-05-06T11:14:09.418082" elapsed="0.000000"/>
 </kw>
-<kw name="New Browser" owner="Browser">
-<msg time="2024-05-06T10:30:14.616232" level="INFO">{"browser": "chromium", "headless": false, "chromiumSandbox": false, "devtools": false, "handleSIGHUP": true, "handleSIGINT": true, "handleSIGTERM": true, "slowMo": 0.0, "timeout": 30000.0, "tracesDir": "C:\\Users\\vili_\\Desktop\\Unizen\\UniZen\\test\\browser\\traces\\8390b8cf-ee96-4ab0-ac07-1789ef180355"}</msg>
-<msg time="2024-05-06T10:30:14.964521" level="INFO">Successfully created browser with options: {"browser":"chromium","headless":false,"chromiumSandbox":false,"devtools":false,"handleSIGHUP":true,"handleSIGINT":true,"handleSIGTERM":true,"slowMo":0,"timeout":30000,"tracesDir":"C:\\Users\\vili_\\Desktop\\Unizen\\UniZen\\test\\browser\\traces\\8390b8cf-ee96-4ab0-ac07-1789ef180355"}</msg>
-<arg>chromium</arg>
-<arg>headless=False</arg>
-<tag>BrowserControl</tag>
-<tag>Setter</tag>
-<doc>Create a new playwright Browser with specified options.</doc>
-<status status="PASS" start="2024-05-06T10:30:14.616232" elapsed="0.348863"/>
-</kw>
-<kw name="New Page" owner="Browser">
-<msg time="2024-05-06T10:30:15.664963" level="INFO">Successfully initialized new page object and opened url: http://localhost:5173/client/index.html</msg>
-<msg time="2024-05-06T10:30:15.664963" level="INFO">No context was open. New context was automatically opened when this page is created.</msg>
-<arg>http://localhost:5173/client/index.html</arg>
-<tag>BrowserControl</tag>
-<tag>Setter</tag>
-<doc>Open a new Page.</doc>
-<status status="PASS" start="2024-05-06T10:30:14.967776" elapsed="0.697187"/>
-</kw>
-<kw name="Type Text" owner="Browser">
-<msg time="2024-05-06T10:30:15.664963" level="INFO">Types the text 'vili.hakamies@metropolia.fi' in the given field.</msg>
-<arg>id=username</arg>
-<arg>vili.hakamies@metropolia.fi</arg>
-<tag>PageContent</tag>
-<tag>Setter</tag>
-<doc>Types the given ``txt`` into the text field found by ``selector``.</doc>
-<status status="PASS" start="2024-05-06T10:30:15.664963" elapsed="0.118164"/>
-</kw>
-<kw name="Type Text" owner="Browser">
-<msg time="2024-05-06T10:30:15.784573" level="INFO">Types the text 'Metrokubios123!' in the given field.</msg>
-<arg>id=password</arg>
-<arg>Metrokubios123!</arg>
-<tag>PageContent</tag>
-<tag>Setter</tag>
-<doc>Types the given ``txt`` into the text field found by ``selector``.</doc>
-<status status="PASS" start="2024-05-06T10:30:15.784521" elapsed="0.048521"/>
-</kw>
-<kw name="Click" owner="Browser">
-<arg>xpath=//input[@value='Login']</arg>
-<tag>PageContent</tag>
-<tag>Setter</tag>
-<doc>Simulates mouse click on the element found by ``selector``.</doc>
-<status status="PASS" start="2024-05-06T10:30:15.833042" elapsed="0.090283"/>
-</kw>
-<kw name="New Page" owner="Browser">
-<msg time="2024-05-06T10:30:16.034582" level="INFO">Successfully initialized new page object and opened url: http://localhost:5173/client/diary.html</msg>
-<arg>http://localhost:5173/client/diary.html</arg>
-<tag>BrowserControl</tag>
-<tag>Setter</tag>
-<doc>Open a new Page.</doc>
-<status status="PASS" start="2024-05-06T10:30:15.925427" elapsed="0.109155"/>
-</kw>
-<kw name="Wait For Elements State" owner="Browser">
-<msg time="2024-05-06T10:30:26.088824" level="INFO">Keyword 'Take Screenshot  fail-screenshot-{index}' could not be run on failure:
-Error: Tried to take screenshot, but no page was open.</msg>
-<msg time="2024-05-06T10:30:26.088824" level="INFO">See also file:///C:/Users/vili_/Desktop/Unizen/UniZen/test/playwright-log.txt for additional details.</msg>
-<msg time="2024-05-06T10:30:26.088824" level="FAIL">Error: Could not find active page</msg>
-<arg>xpath://a[@href='account.html']</arg>
-<arg>visible</arg>
-<tag>PageContent</tag>
-<tag>Wait</tag>
-<doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
-<status status="FAIL" start="2024-05-06T10:30:16.034582" elapsed="10.061822">Error: Could not find active page</status>
-</kw>
-<kw name="Click" owner="Browser">
-<arg>xpath://a[@href='account.html']</arg>
-<tag>PageContent</tag>
-<tag>Setter</tag>
-<doc>Simulates mouse click on the element found by ``selector``.</doc>
-<status status="NOT RUN" start="2024-05-06T10:30:26.096404" elapsed="0.000000"/>
-</kw>
-<kw name="Wait For Elements State" owner="Browser">
-<arg>id=logoutBtn</arg>
-<arg>visible</arg>
-<tag>PageContent</tag>
-<tag>Wait</tag>
-<doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
-<status status="NOT RUN" start="2024-05-06T10:30:26.096404" elapsed="0.000000"/>
-</kw>
-<kw name="Click" owner="Browser">
-<arg>id=logoutBtn</arg>
-<tag>PageContent</tag>
-<tag>Setter</tag>
-<doc>Simulates mouse click on the element found by ``selector``.</doc>
-<status status="NOT RUN" start="2024-05-06T10:30:26.096404" elapsed="0.000000"/>
-</kw>
-<status status="FAIL" start="2024-05-06T10:30:11.754277" elapsed="14.342127">Error: Could not find active page</status>
+<status status="FAIL" start="2024-05-06T11:14:07.066302" elapsed="2.351780">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</status>
 </test>
-<status status="FAIL" start="2024-05-06T10:30:10.880596" elapsed="15.294449"/>
+<status status="FAIL" start="2024-05-06T11:14:06.971824" elapsed="2.446258"/>
 </suite>
 <statistics>
 <total>
@@ -183,11 +98,9 @@ Error: Tried to take screenshot, but no page was open.</msg>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" skip="0" id="s1" name="Account-Test">Account-Test</stat>
+<stat pass="0" fail="1" skip="0" id="s1" name="Logintest Wrongcredentials">Logintest Wrongcredentials</stat>
 </suite>
 </statistics>
 <errors>
-<msg time="2024-05-06T10:30:11.193761" level="WARN">Error in file 'C:\Users\vili_\Desktop\Unizen\UniZen\test\login.resource' on line 9: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
-<msg time="2024-05-06T10:30:11.193761" level="WARN">Error in file 'C:\Users\vili_\Desktop\Unizen\UniZen\test\login.resource' on line 13: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
 </errors>
 </robot>
