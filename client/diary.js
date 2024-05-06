@@ -164,6 +164,11 @@ async function updateCalendarWithHealthData(year, month) {
       } else {
         color = 'red';
       }
+
+      // Remove old color classes
+      dayElement.classList.remove('green', 'yellow', 'red');
+
+      // Add new color class
       dayElement.classList.add(color);
 
       dayElement.addEventListener('click', () => {
