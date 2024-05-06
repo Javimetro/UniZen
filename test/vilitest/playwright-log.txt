@@ -1,40 +1,39 @@
-{"level":30,"time":"2024-05-06T07:57:30.158Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Listening on 60246"}
-(node:9996) DeprecationWarning: Calling start() is no longer necessary. It can be safely omitted.
+{"level":30,"time":"2024-05-06T11:33:06.016Z","pid":19212,"hostname":"LAPTOP-HDC5KUCE","msg":"Listening on 64749"}
+(node:19212) DeprecationWarning: Calling start() is no longer necessary. It can be safely omitted.
 (Use `node --trace-deprecation ...` to show where the warning was created)
-{"level":30,"time":"2024-05-06T07:57:30.363Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:30.364Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:30.367Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:30.367Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:30.371Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method newPage"}
-{"level":30,"time":"2024-05-06T07:57:30.372Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"currentBrowser: undefined"}
-{"level":30,"time":"2024-05-06T07:57:31.589Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Changed active context"}
-{"level":30,"time":"2024-05-06T07:57:31.738Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Video path: undefined"}
-{"level":30,"time":"2024-05-06T07:57:31.738Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Changed active page"}
-{"level":30,"time":"2024-05-06T07:57:34.542Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method newPage"}
-{"level":30,"time":"2024-05-06T07:57:34.560Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:34.567Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:34.570Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:34.571Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:34.573Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Changed active context"}
-{"level":30,"time":"2024-05-06T07:57:34.573Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Changing current active page: page=ff303916-125f-4245-acdd-0fa687364c2c"}
-{"level":30,"time":"2024-05-06T07:57:34.573Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Changed active page"}
-{"level":30,"time":"2024-05-06T07:57:34.577Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:34.579Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:34.580Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method switchBrowser"}
-{"level":30,"time":"2024-05-06T07:57:34.581Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method switchBrowser"}
-{"level":30,"time":"2024-05-06T07:57:34.582Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method switchBrowser"}
-{"level":30,"time":"2024-05-06T07:57:34.583Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method switchBrowser"}
-{"level":30,"time":"2024-05-06T07:57:34.585Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Changing current active page: page=ff303916-125f-4245-acdd-0fa687364c2c"}
-{"level":30,"time":"2024-05-06T07:57:34.585Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Changed active page"}
-{"level":30,"time":"2024-05-06T07:57:34.587Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:34.589Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:34.591Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Changed active context"}
-{"level":30,"time":"2024-05-06T07:57:34.591Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Changing current active page: page=ff303916-125f-4245-acdd-0fa687364c2c"}
-{"level":30,"time":"2024-05-06T07:57:34.591Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Changed active page"}
-{"level":30,"time":"2024-05-06T07:57:34.595Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method closeContext"}
-{"level":30,"time":"2024-05-06T07:57:34.603Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Removed page=e0d20e1a-48e7-4505-bac2-2627db93f9e1 from context=1d7994ec-34c3-4d0b-81d6-4551f66929b6 page stack"}
-{"level":30,"time":"2024-05-06T07:57:34.605Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method closeContext"}
-{"level":30,"time":"2024-05-06T07:57:34.611Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:34.611Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method getBrowserCatalog"}
-{"level":30,"time":"2024-05-06T07:57:34.652Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method closeAllBrowsers"}
-{"level":30,"time":"2024-05-06T07:57:34.695Z","pid":9996,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method closeAllBrowsers"}
+{"level":30,"time":"2024-05-06T11:33:06.207Z","pid":19212,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2024-05-06T11:33:06.208Z","pid":19212,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2024-05-06T11:33:06.211Z","pid":19212,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2024-05-06T11:33:06.211Z","pid":19212,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method getBrowserCatalog"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10068:15)
+    at PlaywrightServer.getActiveBrowser (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10693:59)
+    at PlaywrightServer.setTimeout (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10943:57)
+    at Object.onReceiveHalfClose (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:1084:25)
+    at BaseServerInterceptingCall.maybePushNextMessage (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-interceptors.js:516:31)
+    at BaseServerInterceptingCall.handleEndEvent (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-interceptors.js:554:14)
+    at ServerHttp2Stream.<anonymous> (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-interceptors.js:363:18)
+    at ServerHttp2Stream.emit (node:events:530:35)
+    at endReadableNT (node:internal/streams/readable:1696:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2024-05-06T11:33:06.266Z","pid":19212,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2024-05-06T11:33:06.266Z","pid":19212,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method getBrowserCatalog"}
+================= Original suppressed error =================
+Error: Browser has been closed.
+    at PlaywrightState.getActiveBrowser (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10068:15)
+    at PlaywrightServer.getActiveBrowser (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10693:59)
+    at PlaywrightServer.setTimeout (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\index.js:10943:57)
+    at Object.onReceiveHalfClose (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server.js:1084:25)
+    at BaseServerInterceptingCall.maybePushNextMessage (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-interceptors.js:516:31)
+    at BaseServerInterceptingCall.handleEndEvent (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-interceptors.js:554:14)
+    at ServerHttp2Stream.<anonymous> (C:\Users\vili_\AppData\Local\Programs\Python\Python311\Lib\site-packages\Browser\wrapper\node_modules\@grpc\grpc-js\build\src\server-interceptors.js:363:18)
+    at ServerHttp2Stream.emit (node:events:530:35)
+    at endReadableNT (node:internal/streams/readable:1696:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+=============================================================
+{"level":30,"time":"2024-05-06T11:33:06.292Z","pid":19212,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2024-05-06T11:33:06.292Z","pid":19212,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2024-05-06T11:33:06.329Z","pid":19212,"hostname":"LAPTOP-HDC5KUCE","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2024-05-06T11:33:06.330Z","pid":19212,"hostname":"LAPTOP-HDC5KUCE","msg":"End of node method closeAllBrowsers"}

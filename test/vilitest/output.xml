@@ -1,63 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.11.2 on win32)" generated="2024-05-06T11:14:06.964734" rpa="false" schemaversion="5">
-<suite id="s1" name="Logintest Wrongcredentials" source="C:\Users\vili_\Desktop\Unizen\UniZen\test\vilitest\logintest_wrongcredentials.robot">
-<test id="s1-t1" name="Post Credentials to Kubios" line="10">
+<robot generator="Robot 7.0 (Python 3.11.2 on win32)" generated="2024-05-06T14:33:05.360085" rpa="false" schemaversion="5">
+<suite id="s1" name="Test" source="C:\Users\vili_\Desktop\Unizen\UniZen\test\vilitest\test.robot">
+<test id="s1-t1" name="Post Credentials to Kubios" line="8">
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2024-05-06T11:14:07.066302" level="INFO">Creating Session using : alias=my_session, url=http://localhost:3000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg time="2024-05-06T14:33:06.210176" level="INFO">Creating Session using : alias=my_session, url=http://localhost:3000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
 <arg>my_session</arg>
 <arg>${LOGIN_URL}</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="0.000000"/>
+<status status="PASS" start="2024-05-06T14:33:06.210176" elapsed="0.000000"/>
 </kw>
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2024-05-06T11:14:07.066302" level="INFO">&amp;{data} = { username=wrongemail@metropolia.fi | password=wrongpassword }</msg>
-<var>&amp;{data}</var>
-<arg>username=${username}</arg>
-<arg>password=${password}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="0.000000"/>
+<kw name="Create Login Data">
+<msg time="2024-05-06T14:33:06.210176" level="FAIL">No keyword with name 'Create Login Data' found.</msg>
+<var>${data}</var>
+<status status="FAIL" start="2024-05-06T14:33:06.210176" elapsed="0.000000">No keyword with name 'Create Login Data' found.</status>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2024-05-06T11:14:07.066302" level="INFO">{'username': 'wrongemail@metropolia.fi', 'password': 'wrongpassword'}</msg>
 <arg>${data}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-05-06T14:33:06.210176" elapsed="0.000000"/>
 </kw>
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2024-05-06T11:14:07.066302" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<kw name="Create Headers">
 <var>${headers}</var>
-<arg>Content-Type=application/json</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-05-06T14:33:06.216694" elapsed="0.000000"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2024-05-06T11:14:07.066302" level="INFO">{'Content-Type': 'application/json'}</msg>
 <arg>${headers}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-05-06T14:33:06.216694" elapsed="0.000000"/>
 </kw>
 <kw name="Run Keyword And Ignore Error" owner="BuiltIn">
-<kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2024-05-06T11:14:09.381497" level="INFO">POST Request : url=http://localhost:3000/api/auth/login 
- path_url=/api/auth/login 
- headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '69'} 
- body=b'{"username": "wrongemail@metropolia.fi", "password": "wrongpassword"}' 
- </msg>
-<msg time="2024-05-06T11:14:09.381497" level="INFO">POST Response : url=http://localhost:3000/api/auth/login 
- status=500, reason=Internal Server Error 
- headers={'X-Powered-By': 'Express', 'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '103', 'ETag': 'W/"67-eDtc2D0Sgr1n1SqVnB1g579yKtk"', 'Date': 'Mon, 06 May 2024 08:14:09 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
- body={"error":{"message":"Cannot read properties of undefined (reading 'status')","status":500,"errors":""}} 
- </msg>
-<msg time="2024-05-06T11:14:09.381497" level="FAIL">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</msg>
-<arg>my_session</arg>
-<arg>/api/auth/login</arg>
-<arg>json=${data}</arg>
-<arg>headers=${headers}</arg>
-<doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="FAIL" start="2024-05-06T11:14:07.066302" elapsed="2.351780">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</status>
-</kw>
-<msg time="2024-05-06T11:14:09.418082" level="INFO">${status} = FAIL</msg>
-<msg time="2024-05-06T11:14:09.418082" level="INFO">${response} = HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</msg>
 <var>${status}</var>
 <var>${response}</var>
 <arg>POST On Session</arg>
@@ -66,30 +37,68 @@
 <arg>json=${data}</arg>
 <arg>headers=${headers}</arg>
 <doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
-<status status="PASS" start="2024-05-06T11:14:07.066302" elapsed="2.351780"/>
+<status status="NOT RUN" start="2024-05-06T14:33:06.216694" elapsed="0.000000"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
-<kw name="Fail" owner="BuiltIn">
-<msg time="2024-05-06T11:14:09.418082" level="FAIL">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</msg>
-<arg>${response}</arg>
-<doc>Fails the test with the given message and optionally alters its tags.</doc>
-<status status="FAIL" start="2024-05-06T11:14:09.418082" elapsed="0.000000">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</status>
-</kw>
 <arg>'${status}' == 'FAIL'</arg>
 <arg>Fail</arg>
 <arg>${response}</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="FAIL" start="2024-05-06T11:14:09.418082" elapsed="0.000000">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</status>
+<status status="NOT RUN" start="2024-05-06T14:33:06.216694" elapsed="0.000000"/>
 </kw>
 <kw name="Should Contain" owner="BuiltIn">
 <arg>${response.json()["message"]}</arg>
 <arg>Logged in successfully with Kubios</arg>
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
-<status status="NOT RUN" start="2024-05-06T11:14:09.418082" elapsed="0.000000"/>
+<status status="NOT RUN" start="2024-05-06T14:33:06.216694" elapsed="0.000000"/>
 </kw>
-<status status="FAIL" start="2024-05-06T11:14:07.066302" elapsed="2.351780">HTTPError: 500 Server Error: Internal Server Error for url: http://localhost:3000/api/auth/login</status>
+<kw name="New Browser" owner="Browser">
+<arg>chromium</arg>
+<arg>headless=False</arg>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+<doc>Create a new playwright Browser with specified options.</doc>
+<status status="NOT RUN" start="2024-05-06T14:33:06.216694" elapsed="0.000000"/>
+</kw>
+<kw name="New Context" owner="Browser">
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+<doc>Create a new BrowserContext with specified options.</doc>
+<status status="NOT RUN" start="2024-05-06T14:33:06.216694" elapsed="0.000000"/>
+</kw>
+<kw name="New Page" owner="Browser">
+<arg>${LOGIN_URL}</arg>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+<doc>Open a new Page.</doc>
+<status status="NOT RUN" start="2024-05-06T14:33:06.221955" elapsed="0.000000"/>
+</kw>
+<kw name="Type Text" owner="Browser">
+<arg>id=username</arg>
+<arg>${data["username"]}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Types the given ``txt`` into the text field found by ``selector``.</doc>
+<status status="NOT RUN" start="2024-05-06T14:33:06.221955" elapsed="0.000000"/>
+</kw>
+<kw name="Type Text" owner="Browser">
+<arg>id=password</arg>
+<arg>${data["password"]}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Types the given ``txt`` into the text field found by ``selector``.</doc>
+<status status="NOT RUN" start="2024-05-06T14:33:06.222482" elapsed="0.000000"/>
+</kw>
+<kw name="Click" owner="Browser">
+<arg>text=Login</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="NOT RUN" start="2024-05-06T14:33:06.222482" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2024-05-06T14:33:06.208383" elapsed="0.014099">No keyword with name 'Create Login Data' found.</status>
 </test>
-<status status="FAIL" start="2024-05-06T11:14:06.971824" elapsed="2.446258"/>
+<status status="FAIL" start="2024-05-06T14:33:05.360085" elapsed="0.906342"/>
 </suite>
 <statistics>
 <total>
@@ -98,7 +107,7 @@
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" skip="0" id="s1" name="Logintest Wrongcredentials">Logintest Wrongcredentials</stat>
+<stat pass="0" fail="1" skip="0" id="s1" name="Test">Test</stat>
 </suite>
 </statistics>
 <errors>

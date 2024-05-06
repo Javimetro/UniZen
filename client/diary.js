@@ -56,7 +56,6 @@ async function fetchLastReadinessAndGiveTip() {
 
   const data = await response.json();
   const lastReadiness = parseFloat(data.results[data.results.length - 1].result.readiness);
-  console.log('Last readiness:', lastReadiness);
 
   let tip;
   if (lastReadiness >= 66) {
