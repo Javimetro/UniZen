@@ -79,7 +79,20 @@ input[type="submit"]:hover{
 }
 
 
+
 /* diary css */
+
+.green {
+  background-color: green;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.red {
+  background-color: red;
+}
 
 /* Navigation */
 
