@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
 
-      fetch('http://localhost:3000/api/auth/login', {
+      fetch('/api/auth/login', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'

@@ -26,8 +26,8 @@ const getUserData = async (req, res, next) => {
         headers.append('User-Agent', process.env.KUBIOS_USER_AGENT);
         headers.append('Authorization', kubiosIdToken);
 
-        // Get the selected date from the request, default to January 1, 2024
-        const fromDate = req.query.date || new Date('2024-01-01T00:00:00Z').toISOString();
+        // Get the selected date from the request, default to January 1, 2020
+        const fromDate = req.query.date || new Date('2020-01-01T00:00:00Z').toISOString();
 
         const response = await fetch(
             `${baseUrl}/result/self?from=${encodeURIComponent(fromDate)}`,

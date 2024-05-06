@@ -2,6 +2,7 @@
   "dependencies": {
     "express": "^4.19.2",
     "install": "^0.13.0",
+    "mysql2": "^3.9.7",
     "vite": "^5.2.7"
   }
 }

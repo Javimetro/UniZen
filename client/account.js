@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // FETCHES USER DATA AND DISPLAYS IT IN A TABLE
 function fetchUserData(token) {
-  fetch('http://localhost:3000/api/measurements/user-info', {
+  fetch('/api/measurements/user-info', {
       method: 'GET',
       headers: {
           'Authorization': `Bearer ${token}`,

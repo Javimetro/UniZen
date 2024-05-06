@@ -43,7 +43,7 @@ logoutBtn.addEventListener("click", logout);
 // FETCHES TIP BASED ON READINESS COLOR
 async function fetchLastReadinessAndGiveTip() {
   const token = localStorage.getItem('token');
-  const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+  const response = await fetch('/api/measurements/user-data', {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
@@ -87,7 +87,7 @@ async function fetchLastReadinessAndGiveTip() {
 // CALCULATES AVG READINESS, NOT NEEDED, FUTURE IMPLEMENTATION MAYBE
 async function fetchAndCalculateAverageReadiness() {
   const token = localStorage.getItem('token');
-  const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+  const response = await fetch('/api/measurements/user-data', {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
@@ -129,7 +129,7 @@ async function fetchHealthDataAndUpdateCalendar() {
 // ADDS HEALTH DATA TO THE CALENDAR WITH COLORS
 async function updateCalendarWithHealthData(year, month) {
   const token = localStorage.getItem('token');
-  const response = await fetch(`http://localhost:3000/api/calendar/month/${year}/${String(month).padStart(2, '0')}`, {
+  const response = await fetch(`/api/calendar/month/${year}/${String(month).padStart(2, '0')}`, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -290,7 +290,7 @@ async function renderCalendar() {
 
 async function fetchHealthDataForDate(date) {
   const token = localStorage.getItem('token');
-  const response = await fetch(`http://localhost:3000/api/calendar/day/${date}`, {
+  const response = await fetch(`/api/calendar/day/${date}`, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -308,7 +308,7 @@ async function fetchHealthDataForDate(date) {
 
 async function fetchFullHealthDataForDate(date) {
   const token = localStorage.getItem('token');
-  const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+  const response = await fetch('/api/measurements/user-data', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -352,7 +352,7 @@ function nextMonth() {
 async function fetchAllTimeReadinessData() {
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+    const response = await fetch('/api/measurements/user-data', {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -405,7 +405,7 @@ async function fetchAllTimeReadinessData() {
 async function fetchReadinessData(month, year) {
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+    const response = await fetch('/api/measurements/user-data', {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -475,7 +475,7 @@ function logout(evt) {
 
 async function printUserData() {
   const token = localStorage.getItem('token');
-  const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+  const response = await fetch('/api/measurements/user-data', {
     headers: {
       'Authorization': `Bearer ${token}`
     }

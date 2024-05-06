@@ -4,13 +4,14 @@ import path from 'path'
 
 export default defineConfig({
   build: {
+    outDir: 'dist', // specify output directory
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
-        login: path.resolve(__dirname, 'login.html'),// html
-        menu: path.resolve(__dirname, 'menu.html'),
-        modifyCredentials: path.resolve(__dirname, 'modifyCredentials.html'),
-        register: path.resolve(__dirname, 'register.html'),
+        account: path.resolve(__dirname, 'account.html'),// html
+        diary: path.resolve(__dirname, 'diary.html'),
+        about: path.resolve(__dirname, 'about.html'),
+        signup: path.resolve(__dirname, 'signup.html'),
       }
     }
   }

@@ -8,8 +8,7 @@ import tipRouter from './routes/tip-router.mjs';
 import cors from 'cors';
 import logger from './middlewares/logger.mjs';
 import authRouter from './routes/auth-router.mjs';
-const hostname = '127.0.0.1';
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 import {errorHandler, notFoundHandler} from './middlewares/error-handler.mjs';
 
@@ -45,6 +44,6 @@ app.use(notFoundHandler);
 // Error handler for sending response all error cases
 app.use(errorHandler);
 // Start the server
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
