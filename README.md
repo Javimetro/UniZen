@@ -5,15 +5,15 @@
 UniZen is a health-tech app...
 
 ## Screenshots
-![index](documents/screenshots/s1.jpg)
+![index](documents/screenshots/s1.png)
 
-![calendar](documents/screenshots/s2.jpg)
+![calendar](documents/screenshots/s2.png)
 
-![account](documents/screenshots/s3.jpg)
+![account](documents/screenshots/s3.png)
 
-![about](documents/screenshots/s4.jpg)
+![about](documents/screenshots/s4.png)
 
-![register](documents/screenshots/s5.jpg)
+![register](documents/screenshots/s5.png)
 
 ## Client Setup
 
