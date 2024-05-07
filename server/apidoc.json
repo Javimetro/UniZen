@@ -1,0 +1,44 @@
+{
+    "name": "UniZen",
+    "version": "1.0.0",
+    "description": "API documentation for Metropolia's students web application",
+    "title": "UniZen Documentation",
+    "url": "https://unizen.northeurope.cloudapp.azure.com/docs",
+    "sampleUrl": "https://unizen.northeurope.cloudapp.azure.com",
+    "template": {
+        "withCompare": true,
+        "withGenerator": true
+    },
+    "markdown": true,
+    "order": ["Authentication", "Endpoints"],
+    "header": {
+        "title": "UniZen API documentation",
+        "content": "<p>UniZen's API provides a set of endpoints for managing users and their data. It includes endpoints for registering and authenticating users, as well as endpoints for creating, updating, retrieving user data. The API uses token-based authentication and all requests must include a valid token in the Authorization header. The API returns data in JSON format and follows the REST architectural style. Endpoints related with admin rights and user's categories, like for example deleteUser endpoint, are not yet fully implemented in the app and that is the reason why those are not added to documentation</p>"
+    },
+    "footer": {
+        "title": "Contact Information",
+        "content": "<p>For any questions or support, please contact us at javierj@metropolia.fi or at vili.hakamies@metropolia.fi</p>"
+    },
+    "sections": [
+        {
+            "title": "Authentication",
+            "content": "<p>Information about authentication and access control.</p>"
+        },
+        {
+            "title": "Endpoints",
+            "content": "<p>Information about the available endpoints and their usage.</p>"
+        },
+        {
+            "title": "Data Models",
+            "content": "<p>Information about the data models used in the API.</p>"
+        },
+        {
+            "title": "Error Handling",
+            "content": "<p>Information about how errors are handled in the API.</p>"
+        }
+    ],
+    "parsers": {
+        "*.mjs": "js"
+    }
+
+}

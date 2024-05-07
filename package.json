@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "apidoc": "^1.2.0",
     "express": "^4.19.2",
     "install": "^0.13.0",
     "mysql2": "^3.9.7",
