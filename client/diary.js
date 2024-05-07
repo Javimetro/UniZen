@@ -40,10 +40,12 @@ window.onload = () => {
 const logoutBtn = document.getElementById("logoutBtn");
 logoutBtn.addEventListener("click", logout);
 
-// FETCHES TIP BASED ON READINESS COLOR
+//TIP TIP TIP
 async function fetchLastReadinessAndGiveTip() {
   const token = localStorage.getItem('token');
-  const response = await fetch('http://localhost:3000/api/measurements/user-data', {
+
+  // Fetch the tip
+  const response = await fetch('http://localhost:3000/api/tip', {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
@@ -55,75 +57,11 @@ async function fetchLastReadinessAndGiveTip() {
   }
 
   const data = await response.json();
-  const lastReadiness = parseFloat(data.results[data.results.length - 1].result.readiness);
+  const tip = data.tip_text;
 
-  let tip;
-  if (lastReadiness >= 66) {
-    const highReadinessTips = [
-      'Congratulations on maintaining exceptional readiness levels! Your consistent effort and dedication are truly commendable. Remember to sustain this momentum and continue prioritizing self-care. Regular exercise, balanced nutrition, and sufficient rest are vital components of your success journey. Keep up the outstanding work!',
-      'Your readiness metrics indicate outstanding performance, reflecting your commitment to peak physical and mental preparedness. Embrace the day with confidence and vigor, knowing that your resilience and determination equip you to tackle any challenge. Stay focused on your goals, maintain a positive mindset, and seize every opportunity for growth.',
-      'Exemplary readiness levels demonstrate your unwavering commitment to personal excellence. Your disciplined approach to training and recovery sets a benchmark for success. As you embark on your daily endeavors, leverage your high readiness to maximize productivity and achieve optimal outcomes. Remember to listen to your body\'s cues and adapt your routine accordingly.'
-    ];
-    tip = highReadinessTips[Math.floor(Math.random() * highReadinessTips.length)];
-  } else if (lastReadiness >= 33) {
-    const mediumReadinessTips = [
-      'While your readiness metrics suggest satisfactory performance, it\'s crucial to prioritize holistic well-being. Balancing intensity with adequate rest is essential for sustaining long-term progress. Incorporate active recovery techniques, such as stretching or yoga, into your routine to enhance flexibility and reduce the risk of injury. Remember, consistency and moderation are key to optimizing your readiness levels.',
-      'Maintaining moderate readiness levels signifies a solid foundation for progress and growth. Take this opportunity to reassess your training regimen and identify areas for improvement. Implement strategies to optimize recovery, such as mindfulness practices or relaxation techniques, to mitigate stress and enhance overall resilience. Remember to celebrate small victories along your journey towards peak performance.',
-      'Your readiness metrics indicate a balanced approach to training and recovery. While there\'s room for improvement, your consistent efforts contribute to incremental progress. Focus on refining your skills and techniques, leveraging each training session as an opportunity for growth. Prioritize quality rest and nutrition to support your body\'s adaptive processes. With dedication and perseverance, you\'ll continue to elevate your readiness levels.'
-    ];
-    tip = mediumReadinessTips[Math.floor(Math.random() * mediumReadinessTips.length)];
-  } else {
-    const lowReadinessTips = [
-      'Low readiness levels serve as a valuable indicator of the need for rest and rejuvenation. Recognize the importance of listening to your body\'s signals and honoring its need for recovery. Prioritize ample sleep, hydration, and nutrition to facilitate optimal healing and regeneration. Consider incorporating low-impact activities, such as walking or gentle stretching, to promote circulation and alleviate muscular tension.',
-      'Acknowledging low readiness levels is an essential step towards preventing burnout and injury. Embrace this opportunity to recalibrate your training approach and implement a phased recovery plan. Focus on activities that promote relaxation and stress reduction, such as meditation or deep breathing exercises. Remember, self-care is a fundamental aspect of sustainable performance and overall well-being.',
-      'Low readiness levels signal a temporary setback in your training journey, but they also present an opportunity for reflection and growth. Take this time to assess your current routine and identify factors contributing to fatigue or overexertion. Consider consulting with a coach or healthcare professional to develop a personalized recovery strategy. Remember, progress is not linear, and setbacks are natural occurrences in the pursuit of excellence.'
-    ];
-    tip = lowReadinessTips[Math.floor(Math.random() * lowReadinessTips.length)];
-  }
   document.getElementById('tipText').textContent = tip;
 }
 
-// CALCULATES AVG READINESS, NOT NEEDED, FUTURE IMPLEMENTATION MAYBE
-async function fetchAndCalculateAverageReadiness() {
-  const token = localStorage.getItem('token');
-  const response = await fetch('http://localhost:3000/api/measurements/user-data', {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  const data = await response.json();
-  const readinessData = data.results.map(item => parseFloat(item.result.readiness));
-
-  const averageReadiness = readinessData.reduce((a, b) => a + b, 0) / readinessData.length;
-
-  let color;
-  if (averageReadiness >= 66) {
-    color = 'green';
-  } else if (averageReadiness >= 33) {
-    color = 'yellow';
-  } else {
-    color = 'red';
-  }
-
-  const tip = await fetchTip(color);
-  console.log(tip);
-}
-
-async function fetchHealthDataAndUpdateCalendar() {
-  try {
-    const year = currentYear;
-    const month = currentMonth + 1;
-    await updateCalendarWithHealthData(year, month);
-  } catch (error) {
-    console.error('Error fetching health data:', error);
-  }
-}
 
 // ADDS HEALTH DATA TO THE CALENDAR WITH COLORS
 async function updateCalendarWithHealthData(year, month) {
@@ -178,6 +116,15 @@ async function updateCalendarWithHealthData(year, month) {
   }
 }
 
+async function fetchHealthDataAndUpdateCalendar() {
+  try {
+    const year = currentYear;
+    const month = currentMonth + 1;
+    await updateCalendarWithHealthData(year, month);
+  } catch (error) {
+    console.error('Error fetching health data:', error);
+  }
+}
 // RENDERS THE CALENDAR
 async function renderCalendar() {
   const totalDays = 32 - new Date(currentYear, currentMonth, 32).getDate();
@@ -198,6 +145,7 @@ async function renderCalendar() {
     dayElement.classList.add("day");
     dayElement.textContent = i;
     daysElement.appendChild(dayElement);
+
 
     // PRINTS HEALTH DATA, EMOJI AND INFO FOR THE DAY UNDER THE CALENDAR
     dayElement.addEventListener('click', async () => {
@@ -272,16 +220,6 @@ async function renderCalendar() {
         noDataElement.textContent = `No health data for ${date}`;
         healthDataElement.appendChild(noDataElement);
       }
-
-      let color;
-      if (readiness >= 66) {
-        color = 'green';
-      } else if (readiness >= 33) {
-        color = 'yellow';
-      } else {
-        color = 'red';
-      }
-      dayElement.style.backgroundColor = color;
     });
   }
 
