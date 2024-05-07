@@ -32,6 +32,8 @@ app.use(express.static('public'));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/sivusto', express.static(path.join(__dirname, '../public')));
+// docs
+app.use('/docs', express.static(path.join(__dirname, '../apidoc')));
 // User authentication
 app.use('/api/auth', authRouter);
 // Kubios API resource (/api/kubios)

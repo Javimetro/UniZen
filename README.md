@@ -103,6 +103,10 @@ Wireframe was designed using Figma. You can check it [here](https://www.figma.co
 
 - Info Buttons: Interactive 'Info' buttons are available next to key metrics, providing users with detailed explanations about what each value means and its relevance to their health. This feature helps demystify HRV data, making it more accessible and understandable for all users.
 
+- Actualiced documentation generated using apidoc
+
+- Project deployed on the cloud using Azure servers
+
 ## Bugs / Things to improve
 
 - Sometimes afer clicking on back button from the register page, the website falls.
@@ -135,4 +139,4 @@ The sources of information used in this project have been the educational materi
 
 
 ### Contact
-If you want to report bugs or give me your feedback, feel free to contact us at javierj@metropolia.fi, vili..., mukke..., salamon...
+If you want to report bugs or give me your feedback, feel free to contact us at javierj@metropolia.fi, vilihakamies@metropolia.fi
