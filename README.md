@@ -139,4 +139,4 @@ The sources of information used in this project have been the educational materi
 
 
 ### Contact
-If you want to report bugs or give me your feedback, feel free to contact us at javierj@metropolia.fi, vilihakamies@metropolia.fi
+If you want to report bugs or give us your feedback, feel free to contact us at javierj@metropolia.fi, vilihakamies@metropolia.fi
