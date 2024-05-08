@@ -88,11 +88,28 @@ async function updateCalendarWithHealthData(year, month) {
   const dayElements = document.querySelectorAll('.day');
 
   for (const result of healthData) {
-    const date = new Date(result.Date);
+    if (!result.date) {
+      console.error(`Missing date in result: ${JSON.stringify(result)}`);
+      continue;
+    }
+
+    const date = new Date(result.date);
+
+    if (isNaN(date.getTime())) {
+      console.error(`Invalid date: ${result.date}`);
+      continue;
+    }
+
     const day = date.getDate();
     const dayElement = dayElements[day + firstDayIndex - 1];
+    console.log(dayElement);
+    console.log(dayElements); // Check the contents of the dayElements array
+    console.log(firstDayIndex); // Check the value of firstDayIndex
+    console.log(day); // Check the value of day
+    console.log(day + firstDayIndex - 1); // Check the computed index
 
     if (dayElement) {
+      console.log('there is day');
       const readiness = parseFloat(result.avg_readiness);
       let color;
       if (readiness >= 66) {
